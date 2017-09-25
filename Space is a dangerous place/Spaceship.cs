@@ -1,0 +1,161 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+
+namespace Space_is_a_dangerous_place
+{
+    class Spaceship : ICollidable
+    {
+
+        private KeyboardState Input;
+
+        private Vector2 position;
+        public Vector2 PositionForRectangle { get; set; }
+        public Size ObjectSize { get; set; }
+
+        public int Speed { get; private set; }
+        private Vector2 direction;
+
+        public Texture2D Skin { get; private set; }
+        public Texture2D BulletSkin { get; private set; }
+
+        public int ammunition = 3;
+        public int score = 0;
+
+        private List<Bullet> BulletList = new List<Bullet>();
+        private Bullet newBullet;
+
+        private float attackSpeed = 500; //ms
+        private DateTime nextAttackTime;
+
+        private System.Drawing.Rectangle borders;
+        private Microsoft.Xna.Framework.Rectangle destinationRectangle;
+
+
+        public Spaceship(Texture2D skin, Size size, Texture2D bulletSkin)
+        {
+
+            borders = CommonFunctions.borders;
+
+            Skin = skin;
+            ObjectSize = size;
+            position.X = borders.Right / 2 - ObjectSize.Width / 2;
+            position.Y = borders.Bottom - ObjectSize.Height;
+            BulletSkin = bulletSkin;
+
+            PositionForRectangle = position;
+
+            Speed = borders.Right / 130; //bei 650 breite: 5
+
+        }
+
+        private void MoveLeft()
+        {
+
+            if (position.X > borders.Left + Speed)
+                direction.X = -1;
+
+        }
+
+        private void MoveRight()
+        {
+
+            if (position.X < borders.Right - Speed - ObjectSize.Width)
+                direction.X = 1;
+
+        }
+
+        public void Shoot()
+        {
+
+            if (DateTime.Now > nextAttackTime && ammunition > 0)
+            {
+                ammunition--;
+
+                nextAttackTime = DateTime.Now.AddMilliseconds(attackSpeed);
+
+                Size BulletSize = new Size(3, 3);
+                Vector2 bulletPosition = new Vector2(position.X + ObjectSize.Width / 2 - BulletSize.Width / 2, position.Y - BulletSize.Height - 1);
+
+                newBullet = new Bullet(BulletSkin, bulletPosition, BulletSize);
+                BulletList.Add(newBullet);
+            }
+
+        }
+
+        public void CollisionsNConsequences()
+        {
+
+            ICollidable collision = CommonFunctions.CheckCollision(this, CommonFunctions.ICollidableList);
+
+            if (collision is Terrain)
+                Destroy(collision);
+
+            else if (collision is AmmoDrop)
+                collision.Destroy(this);
+
+            else if (collision is ScoreDrop)
+                collision.Destroy(this);
+
+            else if (collision is Ufo)
+                Destroy(collision);
+
+        }
+
+        public void Destroy(ICollidable collidingObject)
+        {
+
+            //todo: spaceship destroy einbauen
+
+        }
+
+        public void Update()
+        {
+
+            destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
+
+            direction = Vector2.Zero;
+
+            Input = Keyboard.GetState();
+
+            if (Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left))
+                MoveLeft();
+
+            if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
+                MoveRight();
+
+            if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
+                Shoot();
+
+            direction *= Speed;
+            position += direction;
+            PositionForRectangle = position;
+            
+            CollisionsNConsequences();
+
+            foreach (Bullet bullet in BulletList)
+                bullet.Update();
+
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+
+            spriteBatch.Draw(Skin, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+
+            foreach (Bullet bullet in BulletList)
+                bullet.Draw(spriteBatch);
+
+        }
+
+    }
+}
