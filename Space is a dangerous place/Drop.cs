@@ -39,27 +39,11 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        public void FreeMovement()
-        {
-
-            destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
-            
-            direction = Vector2.Zero;
-
-            direction.Y = 1;
-
-            direction *= speed;
-            position += direction;
-            PositionForRectangle = position;
-
-        }
-
         public virtual void Destroy(ICollidable collidingObject)
         {
 
             //todo: destroy this
-
-
+            
         }
 
         public virtual void Update()

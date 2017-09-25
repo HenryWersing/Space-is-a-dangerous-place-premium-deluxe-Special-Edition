@@ -26,9 +26,9 @@ namespace Space_is_a_dangerous_place
         private Texture2D ufoScoreDropSkin;
         private Texture2D ufoBombDropSkin;
 
-        private UfoAmmoDrop newUfoAmmoDrop;
-        private UfoScoreDrop newUfoScoreDrop;
-        private UfoBombDrop newUfoBombDrop;
+        private UfoDrop newUfoDrop;
+
+        private Random rdm;
 
         //todo: Lootbomben in die ufo collisionliste, ammodrops in ammoliste...
 
@@ -45,6 +45,25 @@ namespace Space_is_a_dangerous_place
 
         }
 
+        public void Destroy()
+        {
+
+            int randomNumber = rdm.Next(1, 10);
+
+            if (randomNumber == 1 || randomNumber == 2 || randomNumber == 3 || randomNumber == 4)
+                newUfoDrop = new UfoAmmoDrop(position, ObjectSize, ufoAmmoDropSkin, null);
+
+            if (randomNumber == 5 || randomNumber == 6 || randomNumber == 7 || randomNumber == 8)
+                newUfoDrop = new UfoScoreDrop(position, ObjectSize, ufoScoreDropSkin, null);
+
+            if (randomNumber == 9)
+                newUfoDrop = new UfoBombDrop(position, ObjectSize, ufoBombDropSkin, null);
+
+            CommonFunctions.ICollidableList.Add(newUfoDrop);
+            //todo: destroy this
+
+        }
+
         public void Update()
         {
 
@@ -57,7 +76,7 @@ namespace Space_is_a_dangerous_place
             direction *= Speed;
             position += direction;
             PositionForRectangle = position;
-
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)

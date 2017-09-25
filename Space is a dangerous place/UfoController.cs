@@ -47,6 +47,9 @@ namespace Space_is_a_dangerous_place
             foreach (Ufo ufo in CommonFunctions.ICollidableList.OfType<Ufo>().ToList())
                 ufo.Update();
 
+            foreach (UfoDrop ufoDrop in CommonFunctions.ICollidableList.OfType<UfoDrop>().ToList())
+                ufoDrop.Update();
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -54,6 +57,9 @@ namespace Space_is_a_dangerous_place
 
             foreach (Ufo ufo in CommonFunctions.ICollidableList.OfType<Ufo>().ToList())
                 ufo.Draw(spriteBatch);
+
+            foreach (UfoDrop ufoDrop in CommonFunctions.ICollidableList.OfType<UfoDrop>().ToList())
+                ufoDrop.Draw(spriteBatch);
 
         }
 

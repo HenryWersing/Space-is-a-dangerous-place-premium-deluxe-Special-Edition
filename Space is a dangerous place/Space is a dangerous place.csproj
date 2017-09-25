@@ -57,6 +57,7 @@
     <Compile Include="UfoAmmoDrop.cs" />
     <Compile Include="UfoBombDrop.cs" />
     <Compile Include="UfoController.cs" />
+    <Compile Include="UfoDrop.cs" />
     <Compile Include="UfoScoreDrop.cs" />
     <Compile Include="UIController.cs" />
   </ItemGroup>

@@ -97,17 +97,11 @@ namespace Space_is_a_dangerous_place
 
             ICollidable collision = CommonFunctions.CheckCollision(this, CommonFunctions.ICollidableList);
 
-            if (collision is Terrain)
+            if (collision is Terrain || collision is Ufo || collision is UfoBombDrop)
                 Destroy(collision);
 
-            else if (collision is AmmoDrop)
+            else if (collision is AmmoDrop || collision is ScoreDrop || collision is UfoAmmoDrop || collision is UfoScoreDrop)
                 collision.Destroy(this);
-
-            else if (collision is ScoreDrop)
-                collision.Destroy(this);
-
-            else if (collision is Ufo)
-                Destroy(collision);
 
         }
 
