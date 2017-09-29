@@ -49,7 +49,7 @@ namespace Space_is_a_dangerous_place
         {
 
             int randomNumber = rdm.Next(1, 10);
-
+            //todo: kürzer
             if (randomNumber == 1 || randomNumber == 2 || randomNumber == 3 || randomNumber == 4)
                 newUfoDrop = new UfoAmmoDrop(position, ObjectSize, ufoAmmoDropSkin, null);
 

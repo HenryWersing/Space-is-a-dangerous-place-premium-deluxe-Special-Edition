@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Space_is_a_dangerous_place
 {
-    class UfoAmmoDrop : Drop
+    class UfoAmmoDrop : UfoDrop
     {
 
         public UfoAmmoDrop(Vector2 position, Size size, Texture2D skin, Terrain parentTerrain) : base(position, size, skin, parentTerrain)
