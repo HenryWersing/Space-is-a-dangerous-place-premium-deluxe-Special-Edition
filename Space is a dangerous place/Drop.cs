@@ -26,7 +26,7 @@ namespace Space_is_a_dangerous_place
         public Microsoft.Xna.Framework.Rectangle destinationRectangle;
 
         
-        public Drop(Vector2 position, Size size, Texture2D skin, Terrain parentTerrain)
+        public Drop(Vector2 position, Size size, Texture2D skin, Terrain parentTerrain )
         {
 
             this.position = position;
@@ -48,12 +48,15 @@ namespace Space_is_a_dangerous_place
 
         public virtual void Update()
         {
+
             if (parentTerrain.broken == false)
                 position = CommonFunctions.DetermineDropPosition(parentTerrain, ObjectSize);
             else
                 position = new Vector2(position.X, CommonFunctions.DetermineDropPosition(parentTerrain, ObjectSize).Y);
 
             destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
+
+            PositionForRectangle = position;
 
         }
 

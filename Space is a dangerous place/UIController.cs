@@ -34,7 +34,7 @@ namespace Space_is_a_dangerous_place
         public void Update()
         {
             
-            //todo: ammunition und score auf das UIfeld schreiben
+
 
         }
 

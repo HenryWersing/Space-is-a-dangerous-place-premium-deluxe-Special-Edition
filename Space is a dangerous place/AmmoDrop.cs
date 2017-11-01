@@ -16,18 +16,19 @@ namespace Space_is_a_dangerous_place
         {
             
         }
-
+        
         public override void Destroy(ICollidable collidingObject)
         {
-
+            
             if (collidingObject is Spaceship)
             {
-
+                CommonFunctions.currentSpaceship.ammunition += 2;
             }
 
             if (collidingObject is Bullet)
             {
-
+                CommonFunctions.currentSpaceship.ammunition++;
+                CommonFunctions.currentSpaceship.ShootTripleShot(this);
             }
 
             base.Destroy(collidingObject);

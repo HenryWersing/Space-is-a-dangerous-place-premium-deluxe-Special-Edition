@@ -19,17 +19,20 @@ namespace Space_is_a_dangerous_place
         private int Speed { get; set; } = 3;
         private Vector2 direction;
 
+        private int generalDirection; //0 geradeaus, 1 links. 2 rechts
+
         public Texture2D Skin { get; private set; }
 
         private Microsoft.Xna.Framework.Rectangle destinationRectangle;
 
 
-        public Bullet(Texture2D skin, Vector2 position, Size size)
+        public Bullet(Texture2D skin, Vector2 position, Size size, int generalDirection)
         {
 
             Skin = skin;
             this.position = position;
             ObjectSize = size;
+            this.generalDirection = generalDirection;
 
             PositionForRectangle = position;
 
@@ -40,18 +43,30 @@ namespace Space_is_a_dangerous_place
             direction.Y -= 1;
         }
 
+        public void MoveLeft()
+        {
+            direction.Y -= 0.7f;
+            direction.X -= 0.5f;
+        }
+
+        public void MoveRight()
+        {
+            direction.Y -= 0.7f;
+            direction.X += 0.5f;
+        }
+
         public void CollisionsNConsequences()
         {
 
             ICollidable collision = CommonFunctions.CheckCollision(this, CommonFunctions.ICollidableList);
 
-            if (collision is Terrain || collision is Ufo)
+            if (collision is Terrain || collision is Ufo || collision is AmmoDrop)
             {
                 collision.Destroy(this);
                 Destroy(collision);
             }
 
-            else if (collision is AmmoDrop || collision is ScoreDrop)
+            else if (collision is ScoreDrop)
                 collision.Destroy(this);
 
         }
@@ -73,9 +88,15 @@ namespace Space_is_a_dangerous_place
 
             direction = Vector2.Zero;
 
-            MoveForward();
-
+            if(generalDirection==0)
+                MoveForward();
+            if (generalDirection == 1)
+                MoveLeft();
+            if (generalDirection == 2)
+                MoveRight();
+            
             direction *= Speed;
+
             position += direction;
             PositionForRectangle = position;
 
