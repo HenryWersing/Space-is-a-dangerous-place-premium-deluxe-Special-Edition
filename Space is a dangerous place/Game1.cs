@@ -18,6 +18,7 @@ namespace Space_is_a_dangerous_place
         Spaceship Spaceship1;
 
         TerrainController TerraContr;
+        UfoController UfoContr;
         UIController UIContr;
 
         SpriteFont font;
@@ -78,6 +79,7 @@ namespace Space_is_a_dangerous_place
             //load objects
             Spaceship1 = new Spaceship(StandartSpaceshipSkin, new System.Drawing.Size(borders.Right * 07 / 130, borders.Bottom * 14 / 130), StandartBulletSkin); //  0.7 / 13 ,  1.4 / 13
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
+            UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, font, new Size(borders.Right * 17 / 130, borders.Bottom * 136 / 1300), Spaceship1); // 85% der Ursprungsgröße
             
         }
@@ -104,6 +106,7 @@ namespace Space_is_a_dangerous_place
             //todo: ? alles zu drawen und zu updaten, wegen codemetrix
             Spaceship1.Update();
             TerraContr.Update();
+            UfoContr.Update();
             UIContr.Update();
 
             base.Update(gameTime);
@@ -124,6 +127,7 @@ namespace Space_is_a_dangerous_place
 
             Spaceship1.Draw(spriteBatch);
             TerraContr.Draw(spriteBatch);
+            UfoContr.Draw(spriteBatch);
             UIContr.Draw(spriteBatch);
 
             spriteBatch.End();

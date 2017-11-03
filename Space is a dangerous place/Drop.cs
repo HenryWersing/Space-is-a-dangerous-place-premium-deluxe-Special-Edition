@@ -17,7 +17,6 @@ namespace Space_is_a_dangerous_place
         public Size ObjectSize { get; set; }
 
         public Vector2 direction;
-        public int speed;
 
         public Texture2D Skin { get; private set; }
 
@@ -41,9 +40,9 @@ namespace Space_is_a_dangerous_place
 
         public virtual void Destroy(ICollidable collidingObject)
         {
-
-            //todo: destroy this
             
+            CommonFunctions.ICollidableList.Remove(this);
+
         }
 
         public virtual void Update()

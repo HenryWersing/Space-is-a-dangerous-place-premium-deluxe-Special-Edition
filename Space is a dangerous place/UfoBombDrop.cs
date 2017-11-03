@@ -21,14 +21,7 @@ namespace Space_is_a_dangerous_place
         {
             
             if (collidingObject is Spaceship)
-            {
-
-            }
-
-            if (collidingObject is Bullet)
-            {
-
-            }
+                collidingObject.Destroy(this);
             
             base.Destroy(collidingObject);
 

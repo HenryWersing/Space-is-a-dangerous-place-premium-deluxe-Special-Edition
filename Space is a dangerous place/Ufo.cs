@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Space_is_a_dangerous_place
 {
-    class Ufo
+    class Ufo : ICollidable
     {
 
         private Vector2 position;
@@ -18,6 +18,9 @@ namespace Space_is_a_dangerous_place
 
         public int Speed { get; set; } = 3;
         private Vector2 direction;
+
+        private bool movingRight;
+        private int randomXValue;
 
         private Microsoft.Xna.Framework.Rectangle destinationRectangle;
 
@@ -35,7 +38,7 @@ namespace Space_is_a_dangerous_place
 
         public Ufo(Vector2 position,Size size, Texture2D skin, Texture2D ufoAmmoDropSkin, Texture2D ufoScoreDropSkin, Texture2D ufoBombDropSkin)
         {
-
+            
             this.position = position;
             ObjectSize = size;
             this.skin = skin;
@@ -43,9 +46,41 @@ namespace Space_is_a_dangerous_place
             this.ufoScoreDropSkin = ufoScoreDropSkin;
             this.ufoBombDropSkin = ufoBombDropSkin;
 
+            rdm = new Random();
+
+            movingRight = true;
+            randomXValue = rdm.Next(300, 500);
+
+            destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
+
         }
 
-        public void Destroy()
+        public void Moving()
+        {
+
+            direction.Y += 0.2f;
+
+            if (movingRight)
+                direction.X += 0.4f;
+
+            if (!movingRight)
+                direction.X -= 0.4f;
+
+            if (movingRight && position.X > randomXValue)
+            {
+                randomXValue = rdm.Next(150, 300);
+                movingRight = false;
+            }
+
+            if (!movingRight && position.X < randomXValue)
+            {
+                randomXValue = rdm.Next(350, 500);
+                movingRight = true;
+            }
+
+        }
+
+        public void Destroy(ICollidable collidingObject)
         {
 
             int randomNumber = rdm.Next(1, 10);
@@ -60,7 +95,8 @@ namespace Space_is_a_dangerous_place
                 newUfoDrop = new UfoBombDrop(position, ObjectSize, ufoBombDropSkin, null);
 
             CommonFunctions.ICollidableList.Add(newUfoDrop);
-            //todo: destroy this
+
+            CommonFunctions.ICollidableList.Remove(this);
 
         }
 
@@ -71,7 +107,7 @@ namespace Space_is_a_dangerous_place
 
             direction = Vector2.Zero;
 
-            //todo: direction funktionen hier
+            Moving();
 
             direction *= Speed;
             position += direction;
@@ -85,6 +121,6 @@ namespace Space_is_a_dangerous_place
             spriteBatch.Draw(skin, destinationRectangle, Microsoft.Xna.Framework.Color.White);
 
         }
-
+        
     }
 }

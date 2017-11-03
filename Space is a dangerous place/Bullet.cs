@@ -73,8 +73,8 @@ namespace Space_is_a_dangerous_place
 
         public void Destroy(ICollidable collidingObject)
         {
-            //todo: destroy
-            position = new Vector2(-1000, 1000);
+
+            CommonFunctions.currentSpaceship.BulletList.Remove(this);
 
         }
 

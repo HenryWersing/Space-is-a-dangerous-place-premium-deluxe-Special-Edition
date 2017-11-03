@@ -59,7 +59,7 @@ namespace Space_is_a_dangerous_place
         private void MoveDownward()
         {
 
-            direction.Y = 1;
+            direction.Y = +1;
 
         }
 
@@ -86,7 +86,7 @@ namespace Space_is_a_dangerous_place
         public void Destroy(ICollidable collidingObject)
         {
 
-            if (collidingObject is Bullet && broken == false)
+            if (!broken)
             {
                 broken = true;
 
@@ -110,10 +110,8 @@ namespace Space_is_a_dangerous_place
         {
 
             if (position.Y - 50 > borders.Bottom)
-                //todo: destroy object
-
-            if (position.Y > 647) { position = new Vector2(-1000, 0); ObjectSize = new Size(0, 0); }
-
+                CommonFunctions.ICollidableList.Remove(this);
+            
             destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
 
             direction = Vector2.Zero;

@@ -16,6 +16,7 @@ namespace Space_is_a_dangerous_place
     class Spaceship : ICollidable
     {
 
+        //todo: spaceship controller, später spieleinstieg controller
         private KeyboardState Input;
 
         private Vector2 position;
@@ -33,7 +34,7 @@ namespace Space_is_a_dangerous_place
 
         private Size standartBulletSize = new Size(3, 3); //todo: auf relative größe
 
-        private List<Bullet> BulletList = new List<Bullet>();
+        public List<Bullet> BulletList = new List<Bullet>();
         private Bullet newBullet;
 
         private float attackSpeed = 500; //ms
@@ -45,7 +46,7 @@ namespace Space_is_a_dangerous_place
 
         public Spaceship(Texture2D skin, Size size, Texture2D bulletSkin)
         {
-
+         
             borders = CommonFunctions.borders;
             
             Skin = skin;
@@ -67,7 +68,7 @@ namespace Space_is_a_dangerous_place
         {
 
             if (position.X > borders.Left + Speed)
-                direction.X = -1;
+                direction.X -= 1;
 
         }
 
@@ -75,7 +76,7 @@ namespace Space_is_a_dangerous_place
         {
 
             if (position.X < borders.Right - Speed - ObjectSize.Width)
-                direction.X = 1;
+                direction.X += 1;
 
         }
 
@@ -90,7 +91,7 @@ namespace Space_is_a_dangerous_place
                 
                 Vector2 bulletPosition = new Vector2(position.X + ObjectSize.Width / 2 - standartBulletSize.Width / 2, position.Y - standartBulletSize.Height - 1);
 
-                newBullet = new Bullet(BulletSkin, bulletPosition, standartBulletSize,0);
+                newBullet = new Bullet(BulletSkin, bulletPosition, standartBulletSize, 0);
                 BulletList.Add(newBullet);
             }
 
@@ -111,6 +112,17 @@ namespace Space_is_a_dangerous_place
             BulletList.Add(newBullet);
             newBullet = new Bullet(BulletSkin, rightBulletPosition, standartBulletSize, 2);
             BulletList.Add(newBullet);
+
+        }
+
+        public void ScreenWipe()
+        {
+            
+            foreach(ICollidable collidable in CommonFunctions.ICollidableList)
+            {
+                if (collidable is Terrain)
+                    collidable.Destroy(collidable);
+            }
 
         }
 
@@ -143,6 +155,7 @@ namespace Space_is_a_dangerous_place
 
             Input = Keyboard.GetState();
 
+            //todo: langsames bewegen
             if (Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left))
                 MoveLeft();
 
@@ -157,9 +170,11 @@ namespace Space_is_a_dangerous_place
             PositionForRectangle = position;
             
             CollisionsNConsequences();
-
-            foreach (Bullet bullet in BulletList)
-                bullet.Update();
+            
+            for (int i = 0; i < BulletList.Count; i++)
+            {
+                BulletList[i].Update();
+            }
 
         }
 
@@ -170,7 +185,7 @@ namespace Space_is_a_dangerous_place
 
             foreach (Bullet bullet in BulletList)
                 bullet.Draw(spriteBatch);
-
+            
         }
 
     }

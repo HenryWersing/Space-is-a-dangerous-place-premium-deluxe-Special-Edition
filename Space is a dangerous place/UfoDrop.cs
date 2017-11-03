@@ -11,10 +11,13 @@ namespace Space_is_a_dangerous_place
 {
     class UfoDrop:Drop
     {
+        
+        public int speed;
+
 
         public UfoDrop(Vector2 position, Size size, Texture2D skin, Terrain parentTerrain) : base(position, size, skin, parentTerrain)
         {
-
+            speed = 2;
         }
 
         public void FreeMovement()
@@ -24,7 +27,7 @@ namespace Space_is_a_dangerous_place
 
             direction = Vector2.Zero;
 
-            direction.Y = 1;
+            direction.Y += 1;
 
             direction *= speed;
             position += direction;
