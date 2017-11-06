@@ -16,6 +16,8 @@ namespace Space_is_a_dangerous_place
         public Vector2 PositionForRectangle { get; set; }
         public Size ObjectSize { get; set; }
 
+        private Spaceship parentSpaceship;
+
         private int Speed { get; set; } = 3;
         private Vector2 direction;
 
@@ -26,13 +28,14 @@ namespace Space_is_a_dangerous_place
         private Microsoft.Xna.Framework.Rectangle destinationRectangle;
 
 
-        public Bullet(Texture2D skin, Vector2 position, Size size, int generalDirection)
+        public Bullet(Texture2D skin, Vector2 position, Size size, int generalDirection, Spaceship parentSpaceship)
         {
 
             Skin = skin;
             this.position = position;
             ObjectSize = size;
             this.generalDirection = generalDirection;
+            this.parentSpaceship = parentSpaceship;
 
             PositionForRectangle = position;
 
@@ -60,13 +63,13 @@ namespace Space_is_a_dangerous_place
 
             ICollidable collision = CommonFunctions.CheckCollision(this, CommonFunctions.ICollidableList);
 
-            if (collision is Terrain || collision is Ufo || collision is AmmoDrop)
+            if (collision is Terrain || collision is Ufo || collision is AmmoDrop || collision is UfoAmmoDrop || collision is UfoBombDrop)
             {
                 collision.Destroy(this);
                 Destroy(collision);
             }
 
-            else if (collision is ScoreDrop)
+            else if (collision is ScoreDrop || collision is UfoScoreDrop)
                 collision.Destroy(this);
 
         }
@@ -74,7 +77,7 @@ namespace Space_is_a_dangerous_place
         public void Destroy(ICollidable collidingObject)
         {
 
-            CommonFunctions.currentSpaceship.BulletList.Remove(this);
+            parentSpaceship.BulletList.Remove(this);
 
         }
 

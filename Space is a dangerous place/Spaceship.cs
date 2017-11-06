@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Space_is_a_dangerous_place
 {
-    class Spaceship : ICollidable
+    class Spaceship : ICollidable //erinnerung: dieses spaceship ist die spitze der ship erbstrucktur, also wenn andere arten der schiffe, erben diese von hier
     {
 
         //todo: spaceship controller, später spieleinstieg controller
@@ -43,22 +43,25 @@ namespace Space_is_a_dangerous_place
         private System.Drawing.Rectangle borders;
         private Microsoft.Xna.Framework.Rectangle destinationRectangle;
 
+        private List<Spaceship> spaceshipList;
 
-        public Spaceship(Texture2D skin, Size size, Texture2D bulletSkin)
+
+        public Spaceship(Texture2D skin, Size size,Vector2 position, Texture2D bulletSkin, List<Spaceship> spaceshipList)
         {
          
             borders = CommonFunctions.borders;
             
             Skin = skin;
             ObjectSize = size;
-            position.X = borders.Right / 2 - ObjectSize.Width / 2;
-            position.Y = borders.Bottom - ObjectSize.Height;
+            this.position = position;
             BulletSkin = bulletSkin;
 
             PositionForRectangle = position;
 
             Speed = borders.Right / 130; //bei 650 breite: 5
 
+
+            this.spaceshipList = spaceshipList;
 
             CommonFunctions.currentSpaceship = this;
 
@@ -80,6 +83,22 @@ namespace Space_is_a_dangerous_place
 
         }
 
+        private void MoveLeftSlow()
+        {
+
+            if (position.X > borders.Left + Speed)
+                direction.X -= 0.4f;
+
+        }
+
+        private void MoveRightSlow()
+        {
+
+            if (position.X > borders.Left + Speed)
+                direction.X += 0.4f;
+
+        }
+
         public void Shoot()
         {
 
@@ -91,7 +110,7 @@ namespace Space_is_a_dangerous_place
                 
                 Vector2 bulletPosition = new Vector2(position.X + ObjectSize.Width / 2 - standartBulletSize.Width / 2, position.Y - standartBulletSize.Height - 1);
 
-                newBullet = new Bullet(BulletSkin, bulletPosition, standartBulletSize, 0);
+                newBullet = new Bullet(BulletSkin, bulletPosition, standartBulletSize, 0, this);
                 BulletList.Add(newBullet);
             }
 
@@ -106,11 +125,11 @@ namespace Space_is_a_dangerous_place
             Vector2 midleBulletPosition = new Vector2(initialDrop.position.X + initialDrop.ObjectSize.Width / 2 - standartBulletSize.Width / 2, yValue);
             Vector2 rightBulletPosition = new Vector2(initialDrop.position.X + initialDrop.ObjectSize.Width - standartBulletSize.Width, yValue);
 
-            newBullet = new Bullet(BulletSkin, leftBulletPosition, standartBulletSize, 1);
+            newBullet = new Bullet(BulletSkin, leftBulletPosition, standartBulletSize, 1, this);
             BulletList.Add(newBullet);
-            newBullet = new Bullet(BulletSkin, midleBulletPosition, standartBulletSize, 0);
+            newBullet = new Bullet(BulletSkin, midleBulletPosition, standartBulletSize, 0, this);
             BulletList.Add(newBullet);
-            newBullet = new Bullet(BulletSkin, rightBulletPosition, standartBulletSize, 2);
+            newBullet = new Bullet(BulletSkin, rightBulletPosition, standartBulletSize, 2, this);
             BulletList.Add(newBullet);
 
         }
@@ -142,7 +161,8 @@ namespace Space_is_a_dangerous_place
         public void Destroy(ICollidable collidingObject)
         {
 
-            //todo: spaceship destroy einbauen
+            spaceshipList.Remove(this);
+            //todo: startgamecontroller aktivieren
 
         }
 
@@ -154,15 +174,20 @@ namespace Space_is_a_dangerous_place
             direction = Vector2.Zero;
 
             Input = Keyboard.GetState();
-
-            //todo: langsames bewegen
-            if (Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left))
+            
+            if ((Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left)) && Input.IsKeyDown(Keys.LeftShift))
                 MoveLeft();
 
-            else if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
+            else if (Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left))
+                MoveLeftSlow();
+
+            if ((Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right)) && Input.IsKeyDown(Keys.LeftShift))
                 MoveRight();
 
-            else if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
+            else if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
+                MoveRightSlow();
+            
+            if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
                 Shoot();
 
             direction *= Speed;

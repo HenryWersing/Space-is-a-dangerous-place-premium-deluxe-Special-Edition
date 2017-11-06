@@ -15,8 +15,7 @@ namespace Space_is_a_dangerous_place
 
         System.Drawing.Rectangle borders;
 
-        Spaceship Spaceship1;
-
+        SpaceshipController ShipController;
         TerrainController TerraContr;
         UfoController UfoContr;
         UIController UIContr;
@@ -74,14 +73,16 @@ namespace Space_is_a_dangerous_place
             Texture2D StandartUISkin = Content.Load<Texture2D>("UIBild_t");
 
             font = Content.Load<SpriteFont>("UIFont");
-            
+
 
             //load objects
-            Spaceship1 = new Spaceship(StandartSpaceshipSkin, new System.Drawing.Size(borders.Right * 07 / 130, borders.Bottom * 14 / 130), StandartBulletSkin); //  0.7 / 13 ,  1.4 / 13
+            ShipController = new SpaceshipController(StandartSpaceshipSkin, StandartBulletSkin);
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
-            UIContr = new UIController(StandartUISkin, font, new Size(borders.Right * 17 / 130, borders.Bottom * 136 / 1300), Spaceship1); // 85% der Ursprungsgröße
-            
+            UIContr = new UIController(StandartUISkin, font, new Size(borders.Right * 17 / 130, borders.Bottom * 136 / 1300)); // 85% der Ursprungsgröße
+
+            ShipController.SpawnShip();
+            //todo: spielstartcontroller
         }
 
         /// <summary>
@@ -104,13 +105,14 @@ namespace Space_is_a_dangerous_place
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             //todo: ? alles zu drawen und zu updaten, wegen codemetrix
-            Spaceship1.Update();
+            ShipController.Update();
             TerraContr.Update();
             UfoContr.Update();
             UIContr.Update();
 
-            base.Update(gameTime);
 
+            base.Update(gameTime);
+            
         }
 
         /// <summary>
@@ -125,7 +127,7 @@ namespace Space_is_a_dangerous_place
 
             spriteBatch.Begin();
 
-            Spaceship1.Draw(spriteBatch);
+            ShipController.Draw(spriteBatch);
             TerraContr.Draw(spriteBatch);
             UfoContr.Draw(spriteBatch);
             UIContr.Draw(spriteBatch);

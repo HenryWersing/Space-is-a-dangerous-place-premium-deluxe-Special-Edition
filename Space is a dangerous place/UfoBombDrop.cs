@@ -19,8 +19,8 @@ namespace Space_is_a_dangerous_place
 
         public override void Destroy(ICollidable collidingObject)
         {
-            
-            if (collidingObject is Spaceship)
+
+            if (collidingObject is Spaceship || collidingObject is Bullet)
                 collidingObject.Destroy(this);
             
             base.Destroy(collidingObject);

@@ -46,11 +46,13 @@
     <Compile Include="CommonFunctions.cs" />
     <Compile Include="Drop.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameStartController.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScoreDrop.cs" />
     <Compile Include="Spaceship.cs" />
+    <Compile Include="SpaceshipController.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="TerrainController.cs" />
     <Compile Include="Ufo.cs" />
