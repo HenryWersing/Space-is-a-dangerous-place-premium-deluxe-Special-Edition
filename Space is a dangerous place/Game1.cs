@@ -19,6 +19,7 @@ namespace Space_is_a_dangerous_place
         TerrainController TerraContr;
         UfoController UfoContr;
         UIController UIContr;
+        BackgroundController BgContr;
 
         SpriteFont font;
 
@@ -71,6 +72,7 @@ namespace Space_is_a_dangerous_place
             Texture2D StandartAmmoDropSkin = Content.Load<Texture2D>("munitionsbild");
             Texture2D StandartEndSreen = Content.Load<Texture2D>("endebild");
             Texture2D StandartUISkin = Content.Load<Texture2D>("UIBild_t");
+            Texture2D Background1 = Content.Load<Texture2D>("Hintergrund1");
 
             font = Content.Load<SpriteFont>("UIFont");
 
@@ -80,6 +82,7 @@ namespace Space_is_a_dangerous_place
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, font, new Size(borders.Right * 17 / 130, borders.Bottom * 136 / 1300)); // 85% der Ursprungsgröße
+            BgContr = new BackgroundController(Background1, Background1);
 
             ShipController.SpawnShip();
             //todo: spielstartcontroller
@@ -105,6 +108,7 @@ namespace Space_is_a_dangerous_place
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             //todo: ? alles zu drawen und zu updaten, wegen codemetrix
+            BgContr.Update();
             ShipController.Update();
             TerraContr.Update();
             UfoContr.Update();
@@ -122,11 +126,12 @@ namespace Space_is_a_dangerous_place
         protected override void Draw(GameTime gameTime)
         {
 
-            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Black);
             
 
             spriteBatch.Begin();
 
+            BgContr.Draw(spriteBatch);
             ShipController.Draw(spriteBatch);
             TerraContr.Draw(spriteBatch);
             UfoContr.Draw(spriteBatch);

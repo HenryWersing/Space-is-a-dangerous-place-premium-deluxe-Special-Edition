@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AmmoDrop.cs" />
+    <Compile Include="BackgroundController.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="CommonFunctions.cs" />
     <Compile Include="Drop.cs" />

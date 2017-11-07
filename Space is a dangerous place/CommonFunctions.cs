@@ -17,6 +17,8 @@ namespace Space_is_a_dangerous_place
 
         public static System.Drawing.Rectangle borders;
         public static int terrainSpeed = 2;
+
+        public static bool gameRunning = false;
         //todo: aspectRatio einbauen? und mit allen relatieven werten multioplizieren
         
 

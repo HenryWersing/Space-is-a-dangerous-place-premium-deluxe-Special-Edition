@@ -38,12 +38,14 @@ namespace Space_is_a_dangerous_place
 
         public void Update()
         {
-
-            if (rdm.Next(1, randomSpawnSeconds * 60) == 1)
+            if (CommonFunctions.gameRunning)
             {
-                newUfo = new Ufo(new Vector2(-100, 100), new Size(60, 48), ufoSkin, ufoAmmoDropSkin, ufoScoreDropSkin, ufoBombDropSkin); //todo: relative werte
+                if (rdm.Next(1, randomSpawnSeconds * 60) == 1)
+                {
+                    newUfo = new Ufo(new Vector2(-100, 100), new Size(60, 48), ufoSkin, ufoAmmoDropSkin, ufoScoreDropSkin, ufoBombDropSkin); //todo: relative werte
 
-                CommonFunctions.ICollidableList.Add(newUfo);
+                    CommonFunctions.ICollidableList.Add(newUfo);
+                }
             }
 
             foreach (Ufo ufo in CommonFunctions.ICollidableList.OfType<Ufo>().ToList())

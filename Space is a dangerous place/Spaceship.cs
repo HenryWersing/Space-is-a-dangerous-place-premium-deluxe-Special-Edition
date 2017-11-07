@@ -29,8 +29,11 @@ namespace Space_is_a_dangerous_place
         public Texture2D Skin { get; private set; }
         public Texture2D BulletSkin { get; private set; }
 
-        public int ammunition = 3;
-        public int score = 0;
+        public int startingAmmunition = 3;
+        public int startingScore = 0;
+
+        public int ammunition;
+        public int score;
 
         private Size standartBulletSize = new Size(3, 3); //todo: auf relative größe
 
@@ -59,6 +62,9 @@ namespace Space_is_a_dangerous_place
             PositionForRectangle = position;
 
             Speed = borders.Right / 130; //bei 650 breite: 5
+
+            ammunition = startingAmmunition;
+            score = startingScore;
 
 
             this.spaceshipList = spaceshipList;
@@ -161,7 +167,12 @@ namespace Space_is_a_dangerous_place
         public void Destroy(ICollidable collidingObject)
         {
 
-            spaceshipList.Remove(this);
+            //spaceshipList.Remove(this);
+            CommonFunctions.gameRunning = false;
+            CommonFunctions.ICollidableList.RemoveRange(0, CommonFunctions.ICollidableList.Count);
+            BulletList.RemoveRange(0, BulletList.Count);
+            ammunition = startingAmmunition;
+            score = startingScore;
             //todo: startgamecontroller aktivieren
 
         }

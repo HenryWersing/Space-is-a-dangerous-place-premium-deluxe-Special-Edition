@@ -26,8 +26,7 @@ namespace Space_is_a_dangerous_place
         System.Drawing.Rectangle triggerRectangleRight;
 
         Terrain newTerrain;
-
-        bool started;
+        
         bool warningLeft;
         bool warningRight;
 
@@ -156,13 +155,13 @@ namespace Space_is_a_dangerous_place
 
             Input = Keyboard.GetState();
 
-            if (!started && Input.IsKeyDown(Keys.Enter))
+            if (!CommonFunctions.gameRunning && Input.IsKeyDown(Keys.Enter))
             {
-                started = true;
                 StartRoutine();
+                CommonFunctions.gameRunning = true;
             }
 
-            if (started)
+            if (CommonFunctions.gameRunning)
             {
                 if (CheckUntriggered(triggerRectangleLeft))
                     CreateTerrain(true);
