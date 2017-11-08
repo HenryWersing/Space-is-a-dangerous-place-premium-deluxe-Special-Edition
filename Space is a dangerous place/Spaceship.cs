@@ -15,33 +15,38 @@ namespace Space_is_a_dangerous_place
 {
     class Spaceship : ICollidable //erinnerung: dieses spaceship ist die spitze der ship erbstrucktur, also wenn andere arten der schiffe, erben diese von hier
     {
-
-        //todo: spaceship controller, später spieleinstieg controller
+        
         private KeyboardState Input;
 
         private Vector2 position;
         public Vector2 PositionForRectangle { get; set; }
         public Size ObjectSize { get; set; }
 
-        public int Speed { get; private set; }
+        public float Speed { get; private set; }
         private Vector2 direction;
 
         public Texture2D Skin { get; private set; }
         public Texture2D BulletSkin { get; private set; }
 
-        public int startingAmmunition = 3;
-        public int startingScore = 0;
+        public float startingAmmunition = 3;
+        public float startingScore = 0;
 
-        public int ammunition;
-        public int score;
+        public float ammunition;
+        public float score;
 
         private Size standartBulletSize = new Size(3, 3); //todo: auf relative größe
 
         public List<Bullet> BulletList = new List<Bullet>();
         private Bullet newBullet;
 
-        private float attackSpeed = 500; //ms
+        private float attackSpeed;
         private DateTime nextAttackTime;
+
+        public float ammunitionMultiplier;
+        public float scoreMultiplier;
+        public float speedMultiplier;
+        public float attackSpeedMultiplier;
+
 
         private System.Drawing.Rectangle borders;
         private Microsoft.Xna.Framework.Rectangle destinationRectangle;
@@ -49,11 +54,16 @@ namespace Space_is_a_dangerous_place
         private List<Spaceship> spaceshipList;
 
 
-        public Spaceship(Texture2D skin, Size size,Vector2 position, Texture2D bulletSkin, List<Spaceship> spaceshipList)
+        public Spaceship(Texture2D skin, Size size, Vector2 position, Texture2D bulletSkin, List<Spaceship> spaceshipList, float ammMu, float scoMu, float speMu, float AtsMu)
         {
-         
+
+            ammunitionMultiplier = ammMu;
+            scoreMultiplier = scoMu;
+            speedMultiplier = speMu;
+            attackSpeedMultiplier = AtsMu;
+
             borders = CommonFunctions.borders;
-            
+
             Skin = skin;
             ObjectSize = size;
             this.position = position;
@@ -61,7 +71,8 @@ namespace Space_is_a_dangerous_place
 
             PositionForRectangle = position;
 
-            Speed = borders.Right / 130; //bei 650 breite: 5
+            Speed = borders.Right / 130 * speedMultiplier; //bei 650 breite: 5
+            attackSpeed = 500 * 1 / attackSpeedMultiplier; //ms
 
             ammunition = startingAmmunition;
             score = startingScore;
@@ -100,7 +111,7 @@ namespace Space_is_a_dangerous_place
         private void MoveRightSlow()
         {
 
-            if (position.X > borders.Left + Speed)
+            if (position.X < borders.Right - Speed - ObjectSize.Width)
                 direction.X += 0.4f;
 
         }
@@ -173,7 +184,6 @@ namespace Space_is_a_dangerous_place
             BulletList.RemoveRange(0, BulletList.Count);
             ammunition = startingAmmunition;
             score = startingScore;
-            //todo: startgamecontroller aktivieren
 
         }
 
@@ -200,6 +210,13 @@ namespace Space_is_a_dangerous_place
             
             if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
                 Shoot();
+
+            if (Input.IsKeyDown(Keys.Escape))
+            {
+                Destroy(this);
+                spaceshipList.Remove(this);
+                CommonFunctions.currentGameStartController.gameStarted = false;
+            }
 
             direction *= Speed;
             position += direction;

@@ -24,6 +24,9 @@ namespace Space_is_a_dangerous_place
 
         public Microsoft.Xna.Framework.Rectangle destinationRectangle;
 
+        public Random rdm;
+        public int rdmInt;
+
         
         public Drop(Vector2 position, Size size, Texture2D skin, Terrain parentTerrain )
         {

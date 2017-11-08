@@ -18,7 +18,7 @@ namespace Space_is_a_dangerous_place
 
         private Spaceship parentSpaceship;
 
-        private int Speed { get; set; } = 3;
+        private float Speed { get; set; } = 3;
         private Vector2 direction;
 
         private int generalDirection; //0 geradeaus, 1 links. 2 rechts

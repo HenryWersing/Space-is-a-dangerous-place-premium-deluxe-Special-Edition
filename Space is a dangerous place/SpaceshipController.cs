@@ -35,19 +35,32 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        public void SpawnShip()
+        public void SpawnShip(int spawnMode)
         {
 
-            newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList);
-            SpaceshipList.Add(newSpaceship);
+            switch(spawnMode)
+            {
+                case 0:
+                    newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, 1, 1, 1, 1);
+                    SpaceshipList.Add(newSpaceship);
+                    break;
+                case 1:
+                    newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, 1, 2, 0.6f, 0.4f);
+                    SpaceshipList.Add(newSpaceship);
+                    break;
+                default:
+                    break;
+            }
 
         }
 
         public void Update()
         {
 
-            foreach (Spaceship spaceship in SpaceshipList)
-                spaceship.Update();
+            for (int i = 0; i < SpaceshipList.Count; i++)
+            {
+                SpaceshipList[i].Update();
+            }
 
         }
 

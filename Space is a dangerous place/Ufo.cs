@@ -16,7 +16,7 @@ namespace Space_is_a_dangerous_place
         public Vector2 PositionForRectangle { get; set; }
         public Size ObjectSize { get; set; }
 
-        public int Speed { get; set; } = 3;
+        public float Speed { get; set; } = 3;
         private Vector2 direction;
 
         private bool movingRight;
@@ -32,9 +32,7 @@ namespace Space_is_a_dangerous_place
         private UfoDrop newUfoDrop;
 
         private Random rdm;
-
-        //todo: Lootbomben in die ufo collisionliste, ammodrops in ammoliste...
-
+        
 
         public Ufo(Vector2 position,Size size, Texture2D skin, Texture2D ufoAmmoDropSkin, Texture2D ufoScoreDropSkin, Texture2D ufoBombDropSkin)
         {
@@ -61,10 +59,10 @@ namespace Space_is_a_dangerous_place
             direction.Y += 0.2f;
 
             if (movingRight)
-                direction.X += 0.4f;
+                direction.X += 0.6f;
 
             if (!movingRight)
-                direction.X -= 0.4f;
+                direction.X -= 0.6f;
 
             if (movingRight && position.X > randomXValue)
             {

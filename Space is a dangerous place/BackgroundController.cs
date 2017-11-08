@@ -47,7 +47,7 @@ namespace Space_is_a_dangerous_place
 
         public void Update()
         {
-
+            
             direction = Vector2.Zero;
 
             MoveBackground();

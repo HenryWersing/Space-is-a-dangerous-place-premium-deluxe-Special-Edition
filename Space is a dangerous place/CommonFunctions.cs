@@ -14,6 +14,7 @@ namespace Space_is_a_dangerous_place
         public static List<ICollidable> ICollidableList = new List<ICollidable>();
 
         public static Spaceship currentSpaceship;
+        public static GameStartController currentGameStartController;
 
         public static System.Drawing.Rectangle borders;
         public static int terrainSpeed = 2;

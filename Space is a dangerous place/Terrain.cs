@@ -16,7 +16,7 @@ namespace Space_is_a_dangerous_place
         public Vector2 PositionForRectangle { get; set; }
         public Size ObjectSize { get; set; }
 
-        public int Speed { get; private set; } = 2;
+        public float Speed { get; private set; } = 2;
         private Vector2 direction;
 
         public System.Drawing.Rectangle borders;

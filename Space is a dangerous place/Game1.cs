@@ -20,6 +20,7 @@ namespace Space_is_a_dangerous_place
         UfoController UfoContr;
         UIController UIContr;
         BackgroundController BgContr;
+        GameStartController GSContr;
 
         SpriteFont font;
 
@@ -62,14 +63,14 @@ namespace Space_is_a_dangerous_place
             Texture2D StandartSpaceshipSkin = Content.Load<Texture2D>("raumschiffblid_t");
             Texture2D StandartBulletSkin = Content.Load<Texture2D>("BulletBild");
             Texture2D StandartTerrainSkin = Content.Load<Texture2D>("geländebild3");
-            Texture2D StandartTerrainBrokenLeftSkin = Content.Load<Texture2D>("geländezerstörtbildlinks");
-            Texture2D StandartTerrainBrokenRightSkin = Content.Load<Texture2D>("geländezerstörtbildrechts");
+            Texture2D StandartTerrainBrokenLeftSkin = Content.Load<Texture2D>("geländzerstörtbildlinks_t");
+            Texture2D StandartTerrainBrokenRightSkin = Content.Load<Texture2D>("geländezerstörtbildrechts_t");
             Texture2D StandartUfoSkin = Content.Load<Texture2D>("alienbild_t");
-            Texture2D StandartUfoLootAmmoSkin = Content.Load<Texture2D>("alienlootmunition");
-            Texture2D StandartUfoLootScoreSkin = Content.Load<Texture2D>("alienlootscore");
-            Texture2D StandartUfoLootBombSkin = Content.Load<Texture2D>("alienlootbombe");
-            Texture2D StandartScoreDropSkin = Content.Load<Texture2D>("scorebild");
-            Texture2D StandartAmmoDropSkin = Content.Load<Texture2D>("munitionsbild");
+            Texture2D StandartUfoLootAmmoSkin = Content.Load<Texture2D>("alienlootmunition_t");
+            Texture2D StandartUfoLootScoreSkin = Content.Load<Texture2D>("alienlootscore_t");
+            Texture2D StandartUfoLootBombSkin = Content.Load<Texture2D>("alienlootbombe_t");
+            Texture2D StandartScoreDropSkin = Content.Load<Texture2D>("scorebild_t");
+            Texture2D StandartAmmoDropSkin = Content.Load<Texture2D>("munitionsbild_t");
             Texture2D StandartEndSreen = Content.Load<Texture2D>("endebild");
             Texture2D StandartUISkin = Content.Load<Texture2D>("UIBild_t");
             Texture2D Background1 = Content.Load<Texture2D>("Hintergrund1");
@@ -83,9 +84,8 @@ namespace Space_is_a_dangerous_place
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, font, new Size(borders.Right * 17 / 130, borders.Bottom * 136 / 1300)); // 85% der Ursprungsgröße
             BgContr = new BackgroundController(Background1, Background1);
+            GSContr = new GameStartController(ShipController, font);
 
-            ShipController.SpawnShip();
-            //todo: spielstartcontroller
         }
 
         /// <summary>
@@ -104,21 +104,22 @@ namespace Space_is_a_dangerous_place
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            
             //todo: ? alles zu drawen und zu updaten, wegen codemetrix
-            BgContr.Update();
-            ShipController.Update();
-            TerraContr.Update();
-            UfoContr.Update();
-            UIContr.Update();
-
-
+            GSContr.Update();
+            if (GSContr.gameStarted)
+            {
+                BgContr.Update();
+                ShipController.Update();
+                TerraContr.Update();
+                UfoContr.Update();
+                UIContr.Update();
+            }
+            
             base.Update(gameTime);
             
         }
-
+        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -131,11 +132,15 @@ namespace Space_is_a_dangerous_place
 
             spriteBatch.Begin();
 
-            BgContr.Draw(spriteBatch);
-            ShipController.Draw(spriteBatch);
-            TerraContr.Draw(spriteBatch);
-            UfoContr.Draw(spriteBatch);
-            UIContr.Draw(spriteBatch);
+            GSContr.Draw(spriteBatch);
+            if (GSContr.gameStarted)
+            {
+                BgContr.Draw(spriteBatch);
+                ShipController.Draw(spriteBatch);
+                TerraContr.Draw(spriteBatch);
+                UfoContr.Draw(spriteBatch);
+                UIContr.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 

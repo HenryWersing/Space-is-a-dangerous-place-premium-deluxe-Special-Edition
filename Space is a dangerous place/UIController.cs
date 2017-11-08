@@ -41,7 +41,7 @@ namespace Space_is_a_dangerous_place
         {
 
             spriteBatch.Draw(skin, destinationRectangle, Microsoft.Xna.Framework.Color.White);
-            
+
             spriteBatch.DrawString(font, Convert.ToString(spaceship.ammunition), new Vector2(CommonFunctions.borders.Right * 1 / 130, CommonFunctions.borders.Bottom * 1225 / 1300), Microsoft.Xna.Framework.Color.Black);
             spriteBatch.DrawString(font, Convert.ToString(spaceship.score), new Vector2(CommonFunctions.borders.Right * 9 / 130, CommonFunctions.borders.Bottom * 1225 / 1300), Microsoft.Xna.Framework.Color.Black);
 

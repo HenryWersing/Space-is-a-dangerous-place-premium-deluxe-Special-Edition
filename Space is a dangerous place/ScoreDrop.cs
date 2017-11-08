@@ -19,12 +19,12 @@ namespace Space_is_a_dangerous_place
 
         public override void Destroy(ICollidable collidingObject)
         {
-            
+
             if (collidingObject is Spaceship)
-                CommonFunctions.currentSpaceship.score++;
+                CommonFunctions.currentSpaceship.score += 1 * CommonFunctions.currentSpaceship.scoreMultiplier;
 
             if (collidingObject is Bullet)
-                CommonFunctions.currentSpaceship.score += 3;
+                CommonFunctions.currentSpaceship.score += 3 * CommonFunctions.currentSpaceship.scoreMultiplier;
             
             base.Destroy(collidingObject);
 
