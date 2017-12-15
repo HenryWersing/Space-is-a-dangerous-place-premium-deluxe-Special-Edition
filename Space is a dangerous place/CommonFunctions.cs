@@ -11,13 +11,18 @@ namespace Space_is_a_dangerous_place
     static class CommonFunctions
     {
 
+        //todo: highscores hinzufügen
+
         public static List<ICollidable> ICollidableList = new List<ICollidable>();
+
+        public static float aspectRatioMultiplierX;
+        public static float aspectRatioMultiplierY;
 
         public static Spaceship currentSpaceship;
         public static GameStartController currentGameStartController;
 
         public static System.Drawing.Rectangle borders;
-        public static int terrainSpeed = 2;
+        public static int normalDownwardSpeed = 2;
 
         public static bool gameRunning = false;
         //todo: aspectRatio einbauen? und mit allen relatieven werten multioplizieren
@@ -25,7 +30,7 @@ namespace Space_is_a_dangerous_place
 
         public static ICollidable CheckCollision(ICollidable objectToCheck, List<ICollidable> objectsToCollide)
         {
-            
+
             ICollidable objectToReturn;
             objectToReturn = null; //bei keiner collision wird null zurückgegeben
 
@@ -37,7 +42,7 @@ namespace Space_is_a_dangerous_place
                 if (rectangle1.IntersectsWith(rectangle2))
                     objectToReturn = objectToCollide;
             }
-            
+
             return objectToReturn;
 
         }
@@ -59,9 +64,9 @@ namespace Space_is_a_dangerous_place
             Vector2 dropPosition;
 
             if (parentTerrain.position.X == borders.Left)
-                dropPosition = new Vector2(borders.Left + parentTerrain.ObjectSize.Width + borders.Right * 01 / 130, parentTerrain.position.Y + parentTerrain.ObjectSize.Height / 2 - dropSize.Height / 2); //  0.1 / 13
+                dropPosition = new Vector2(borders.Left + parentTerrain.ObjectSize.Width + 5 * aspectRatioMultiplierX, parentTerrain.position.Y + parentTerrain.ObjectSize.Height / 2 - dropSize.Height / 2); //  0.1 / 13
             else
-                dropPosition = new Vector2(parentTerrain.position.X - borders.Right * 01 / 130 - dropSize.Width, parentTerrain.position.Y + parentTerrain.ObjectSize.Height / 2 - dropSize.Height / 2); //  0.1 / 13
+                dropPosition = new Vector2(parentTerrain.position.X - 5 * aspectRatioMultiplierX - dropSize.Width, parentTerrain.position.Y + parentTerrain.ObjectSize.Height / 2 - dropSize.Height / 2); //  0.1 / 13
 
             return dropPosition;
 

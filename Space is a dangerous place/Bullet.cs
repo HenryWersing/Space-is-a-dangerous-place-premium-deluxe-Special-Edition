@@ -43,19 +43,19 @@ namespace Space_is_a_dangerous_place
 
         public void MoveForward()
         {
-            direction.Y -= 1;
+            direction.Y -= 1f * CommonFunctions.aspectRatioMultiplierY;
         }
 
         public void MoveLeft()
         {
-            direction.Y -= 0.7f;
-            direction.X -= 0.5f;
+            direction.Y -= 0.7f * CommonFunctions.aspectRatioMultiplierY;
+            direction.X -= 0.5f * CommonFunctions.aspectRatioMultiplierX;
         }
 
         public void MoveRight()
         {
-            direction.Y -= 0.7f;
-            direction.X += 0.5f;
+            direction.Y -= 0.7f * CommonFunctions.aspectRatioMultiplierY;
+            direction.X += 0.5f * CommonFunctions.aspectRatioMultiplierX;
         }
 
         public void CollisionsNConsequences()
@@ -84,20 +84,20 @@ namespace Space_is_a_dangerous_place
         public void Update()
         {
 
-            if (position.Y < -200)
+            if (position.Y < -200 * CommonFunctions.aspectRatioMultiplierY)
                 Destroy(this);
 
             destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
 
             direction = Vector2.Zero;
 
-            if(generalDirection==0)
+            if (generalDirection == 0)
                 MoveForward();
             if (generalDirection == 1)
                 MoveLeft();
             if (generalDirection == 2)
                 MoveRight();
-            
+
             direction *= Speed;
 
             position += direction;

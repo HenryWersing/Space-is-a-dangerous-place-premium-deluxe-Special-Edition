@@ -42,7 +42,7 @@ namespace Space_is_a_dangerous_place
             {
                 if (rdm.Next(1, randomSpawnSeconds * 60) == 1)
                 {
-                    newUfo = new Ufo(new Vector2(-100, 100), new Size(60, 48), ufoSkin, ufoAmmoDropSkin, ufoScoreDropSkin, ufoBombDropSkin); //todo: relative werte
+                    newUfo = new Ufo(new Vector2(-100 * CommonFunctions.aspectRatioMultiplierX, -100 * CommonFunctions.aspectRatioMultiplierY), new Size(Convert.ToInt32(60 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(48 * CommonFunctions.aspectRatioMultiplierY)), ufoSkin, ufoAmmoDropSkin, ufoScoreDropSkin, ufoBombDropSkin);
 
                     CommonFunctions.ICollidableList.Add(newUfo);
                 }

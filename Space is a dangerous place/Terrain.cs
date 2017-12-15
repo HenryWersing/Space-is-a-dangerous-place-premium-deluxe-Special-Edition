@@ -16,10 +16,8 @@ namespace Space_is_a_dangerous_place
         public Vector2 PositionForRectangle { get; set; }
         public Size ObjectSize { get; set; }
 
-        public float Speed { get; private set; } = 2;
+        public float Speed { get; private set; }
         private Vector2 direction;
-
-        public System.Drawing.Rectangle borders;
 
         public Texture2D Skin { get; private set; }
         public Texture2D SkinBrokenLeft { get; private set; }
@@ -39,8 +37,6 @@ namespace Space_is_a_dangerous_place
         public Terrain(Texture2D skin, Vector2 position, Size size, Texture2D ammoDropSkin, Texture2D scoreDropSkin, Texture2D brokenLeftSkin, Texture2D brokenRightSkin)
         {
 
-            borders = CommonFunctions.borders;
-
             Skin = skin;
             SkinBrokenLeft = brokenLeftSkin;
             SkinBrokenRight = brokenRightSkin;
@@ -51,6 +47,8 @@ namespace Space_is_a_dangerous_place
 
             PositionForRectangle = position;
 
+            Speed = CommonFunctions.normalDownwardSpeed;
+
             Random rdm = new Random();
             SpawnDrops(rdm.Next(1, 29));
 
@@ -59,16 +57,16 @@ namespace Space_is_a_dangerous_place
         private void MoveDownward()
         {
 
-            direction.Y = +1;
+            direction.Y += 1 * CommonFunctions.aspectRatioMultiplierY;
 
         }
 
         public void SpawnDrops(int randomNumber)
         {
 
-            Size dropSize = new Size(borders.Right * 05 / 130, borders.Bottom * 05 / 130); //  0.5 / 13
+            Size dropSize = new Size(Convert.ToInt32(25 * CommonFunctions.aspectRatioMultiplierX),Convert.ToInt32( 25 * CommonFunctions.aspectRatioMultiplierY));
             Vector2 dropPosition = CommonFunctions.DetermineDropPosition(this, dropSize);
-            
+
             if (randomNumber == 1 || randomNumber == 2 || randomNumber == 3)
             {
                 newAmmoDrop = new AmmoDrop(dropPosition, dropSize, AmmoDropSkin, this);
@@ -91,13 +89,13 @@ namespace Space_is_a_dangerous_place
                 broken = true;
 
                 Random rdm = new Random();
-                int brokenWidth = rdm.Next(borders.Right * 24 / 130, borders.Right * 34 / 130); //  2.4 / 13, 3.4 / 13
+                int brokenWidth = rdm.Next(Convert.ToInt32(120 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(170 * CommonFunctions.aspectRatioMultiplierX));
                 ObjectSize = new Size(brokenWidth, ObjectSize.Height);
 
-                if (position.X != borders.Left)
-                    position.X = borders.Right - ObjectSize.Width;
+                if (position.X != CommonFunctions.borders.Left)
+                    position.X = 650 * CommonFunctions.aspectRatioMultiplierX - ObjectSize.Width;
 
-                if (position.X == borders.Left)
+                if (position.X == CommonFunctions.borders.Left)
                     brokenLeft = true;
 
                 else
@@ -105,13 +103,13 @@ namespace Space_is_a_dangerous_place
             }
 
         }
-        
+
         public void Update()
         {
 
-            if (position.Y - 50 > borders.Bottom)
+            if (position.Y - 50 > CommonFunctions.borders.Bottom)
                 CommonFunctions.ICollidableList.Remove(this);
-            
+
             destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
 
             direction = Vector2.Zero;
@@ -121,9 +119,9 @@ namespace Space_is_a_dangerous_place
             direction *= Speed;
             position += direction;
             PositionForRectangle = position;
-            
+
         }
-        
+
         public void Draw(SpriteBatch spriteBatch)
         {
 

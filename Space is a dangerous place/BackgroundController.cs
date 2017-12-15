@@ -19,7 +19,6 @@ namespace Space_is_a_dangerous_place
         private Vector2 position;
         private Vector2 position2;
         private Size size;
-        private Size size2;
         private Microsoft.Xna.Framework.Rectangle destinationRectangle;
         private Microsoft.Xna.Framework.Rectangle destinationRectangle2;
 
@@ -29,11 +28,10 @@ namespace Space_is_a_dangerous_place
 
             this.background1 = background1;
             this.background2 = background2;
-
-            position = new Vector2(0, 0);
-            position2 = new Vector2(0, -1600);
-            size = new Size(700, 1600);
-            size2 = new Size(700, 1600);
+            
+            position = new Vector2(CommonFunctions.borders.Left, CommonFunctions.borders.Top);
+            position2 = new Vector2(CommonFunctions.borders.Left, 1600 * CommonFunctions.aspectRatioMultiplierY);
+            size = new Size(Convert.ToInt32(700 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(1600 * CommonFunctions.aspectRatioMultiplierY));
 
         }
 
@@ -41,7 +39,7 @@ namespace Space_is_a_dangerous_place
         {
 
             if (CommonFunctions.gameRunning)
-                direction.Y += 1;
+                direction.Y += 1f * CommonFunctions.aspectRatioMultiplierY;
 
         }
 
@@ -60,10 +58,10 @@ namespace Space_is_a_dangerous_place
                 position.Y -= size.Height * 2;
 
             if (position2.Y > CommonFunctions.borders.Bottom)
-                position2.Y -= size2.Height * 2;
+                position2.Y -= size.Height * 2;
 
             destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), size.Width, size.Height);
-            destinationRectangle2 = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position2.X), Convert.ToInt32(position2.Y), size2.Width, size2.Height);
+            destinationRectangle2 = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position2.X), Convert.ToInt32(position2.Y), size.Width, size.Height);
             
         }
 

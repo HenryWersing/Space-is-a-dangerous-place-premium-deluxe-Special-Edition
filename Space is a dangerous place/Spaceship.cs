@@ -15,7 +15,7 @@ namespace Space_is_a_dangerous_place
 {
     class Spaceship : ICollidable //erinnerung: dieses spaceship ist die spitze der ship erbstrucktur, also wenn andere arten der schiffe, erben diese von hier
     {
-        
+
         private KeyboardState Input;
 
         private Vector2 position;
@@ -34,7 +34,7 @@ namespace Space_is_a_dangerous_place
         public float ammunition;
         public float score;
 
-        private Size standartBulletSize = new Size(3, 3); //todo: auf relative größe
+        private Size standartBulletSize;
 
         public List<Bullet> BulletList = new List<Bullet>();
         private Bullet newBullet;
@@ -47,8 +47,6 @@ namespace Space_is_a_dangerous_place
         public float speedMultiplier;
         public float attackSpeedMultiplier;
 
-
-        private System.Drawing.Rectangle borders;
         private Microsoft.Xna.Framework.Rectangle destinationRectangle;
 
         private List<Spaceship> spaceshipList;
@@ -62,8 +60,6 @@ namespace Space_is_a_dangerous_place
             speedMultiplier = speMu;
             attackSpeedMultiplier = AtsMu;
 
-            borders = CommonFunctions.borders;
-
             Skin = skin;
             ObjectSize = size;
             this.position = position;
@@ -71,11 +67,13 @@ namespace Space_is_a_dangerous_place
 
             PositionForRectangle = position;
 
-            Speed = borders.Right / 130 * speedMultiplier; //bei 650 breite: 5
-            attackSpeed = 500 * 1 / attackSpeedMultiplier; //ms
+            Speed = 5;
+            attackSpeed = 500 / attackSpeedMultiplier; //ms
 
             ammunition = startingAmmunition;
             score = startingScore;
+
+            standartBulletSize = new Size(Convert.ToInt32(3 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(3 * CommonFunctions.aspectRatioMultiplierY));
 
 
             this.spaceshipList = spaceshipList;
@@ -87,32 +85,32 @@ namespace Space_is_a_dangerous_place
         private void MoveLeft()
         {
 
-            if (position.X > borders.Left + Speed)
-                direction.X -= 1;
+            if (position.X > CommonFunctions.borders.Left + Speed)
+                direction.X -= 1f * CommonFunctions.aspectRatioMultiplierX;
 
         }
 
         private void MoveRight()
         {
 
-            if (position.X < borders.Right - Speed - ObjectSize.Width)
-                direction.X += 1;
+            if (position.X < CommonFunctions.borders.Right - Speed - ObjectSize.Width)
+                direction.X += 1f * CommonFunctions.aspectRatioMultiplierX;
 
         }
 
         private void MoveLeftSlow()
         {
 
-            if (position.X > borders.Left + Speed)
-                direction.X -= 0.4f;
+            if (position.X > CommonFunctions.borders.Left + Speed)
+                direction.X -= 0.4f * CommonFunctions.aspectRatioMultiplierX;
 
         }
 
         private void MoveRightSlow()
         {
 
-            if (position.X < borders.Right - Speed - ObjectSize.Width)
-                direction.X += 0.4f;
+            if (position.X < CommonFunctions.borders.Right - Speed - ObjectSize.Width)
+                direction.X += 0.4f * CommonFunctions.aspectRatioMultiplierX;
 
         }
 
@@ -124,7 +122,7 @@ namespace Space_is_a_dangerous_place
                 ammunition--;
 
                 nextAttackTime = DateTime.Now.AddMilliseconds(attackSpeed);
-                
+
                 Vector2 bulletPosition = new Vector2(position.X + ObjectSize.Width / 2 - standartBulletSize.Width / 2, position.Y - standartBulletSize.Height - 1);
 
                 newBullet = new Bullet(BulletSkin, bulletPosition, standartBulletSize, 0, this);
@@ -153,8 +151,8 @@ namespace Space_is_a_dangerous_place
 
         public void ScreenWipe()
         {
-            
-            foreach(ICollidable collidable in CommonFunctions.ICollidableList)
+
+            foreach (ICollidable collidable in CommonFunctions.ICollidableList)
             {
                 if (collidable is Terrain)
                     collidable.Destroy(collidable);
@@ -195,7 +193,7 @@ namespace Space_is_a_dangerous_place
             direction = Vector2.Zero;
 
             Input = Keyboard.GetState();
-            
+
             if ((Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left)) && Input.IsKeyDown(Keys.LeftShift))
                 MoveLeft();
 
@@ -207,7 +205,7 @@ namespace Space_is_a_dangerous_place
 
             else if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
                 MoveRightSlow();
-            
+
             if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
                 Shoot();
 
@@ -221,9 +219,9 @@ namespace Space_is_a_dangerous_place
             direction *= Speed;
             position += direction;
             PositionForRectangle = position;
-            
+
             CollisionsNConsequences();
-            
+
             for (int i = 0; i < BulletList.Count; i++)
             {
                 BulletList[i].Update();
@@ -238,7 +236,7 @@ namespace Space_is_a_dangerous_place
 
             foreach (Bullet bullet in BulletList)
                 bullet.Draw(spriteBatch);
-            
+
         }
 
     }

@@ -30,10 +30,12 @@ namespace Space_is_a_dangerous_place
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            this.graphics.PreferredBackBufferHeight = 650;
-            this.graphics.PreferredBackBufferWidth = 650;
+            this.graphics.PreferredBackBufferHeight = 850;
+            this.graphics.PreferredBackBufferWidth = 850;
             borders = new System.Drawing.Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             CommonFunctions.borders = borders;
+            CommonFunctions.aspectRatioMultiplierX = borders.Right / 650f;
+            CommonFunctions.aspectRatioMultiplierY = borders.Bottom / 650f;
 
         }
 
@@ -76,13 +78,13 @@ namespace Space_is_a_dangerous_place
             Texture2D Background1 = Content.Load<Texture2D>("Hintergrund1");
 
             font = Content.Load<SpriteFont>("UIFont");
-
+            
 
             //load objects
             ShipController = new SpaceshipController(StandartSpaceshipSkin, StandartBulletSkin);
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
-            UIContr = new UIController(StandartUISkin, font, new Size(borders.Right * 17 / 130, borders.Bottom * 136 / 1300)); // 85% der Ursprungsgröße
+            UIContr = new UIController(StandartUISkin, font, new Size(borders.Right * 17 / 130, borders.Bottom * 136 / 1300)); //todo: aspectratio           // 85% der Ursprungsgröße 
             BgContr = new BackgroundController(Background1, Background1);
             GSContr = new GameStartController(ShipController, font);
 

@@ -56,23 +56,23 @@ namespace Space_is_a_dangerous_place
         public void Moving()
         {
 
-            direction.Y += 0.2f;
+            direction.Y += 0.2f * CommonFunctions.aspectRatioMultiplierY;
 
             if (movingRight)
-                direction.X += 0.6f;
+                direction.X += 0.6f * CommonFunctions.aspectRatioMultiplierX;
 
             if (!movingRight)
-                direction.X -= 0.6f;
+                direction.X -= 0.6f * CommonFunctions.aspectRatioMultiplierX;
 
             if (movingRight && position.X > randomXValue)
             {
-                randomXValue = rdm.Next(150, 300);
+                randomXValue = rdm.Next(Convert.ToInt32(180 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(300 * CommonFunctions.aspectRatioMultiplierX));
                 movingRight = false;
             }
 
             if (!movingRight && position.X < randomXValue)
             {
-                randomXValue = rdm.Next(350, 500);
+                randomXValue = rdm.Next(Convert.ToInt32(350 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(470 * CommonFunctions.aspectRatioMultiplierX));
                 movingRight = true;
             }
 
@@ -82,16 +82,28 @@ namespace Space_is_a_dangerous_place
         {
 
             int randomNumber = rdm.Next(1, 10);
-            //todo: kürzer
-            if (randomNumber == 1 || randomNumber == 2 || randomNumber == 3 || randomNumber == 4)
-                newUfoDrop = new UfoAmmoDrop(position, ObjectSize, ufoAmmoDropSkin, null);
 
-            if (randomNumber == 5 || randomNumber == 6 || randomNumber == 7 || randomNumber == 8)
-                newUfoDrop = new UfoScoreDrop(position, ObjectSize, ufoScoreDropSkin, null);
-
-            if (randomNumber == 9)
-                newUfoDrop = new UfoBombDrop(position, ObjectSize, ufoBombDropSkin, null);
-
+            switch (randomNumber)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    newUfoDrop = new UfoAmmoDrop(position, ObjectSize, ufoAmmoDropSkin, null);
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    newUfoDrop = new UfoScoreDrop(position, ObjectSize, ufoScoreDropSkin, null);
+                    break;
+                case 9:
+                    newUfoDrop = new UfoBombDrop(position, ObjectSize, ufoBombDropSkin, null);
+                    break;
+                default:
+                    break;
+            }
+            
             CommonFunctions.ICollidableList.Add(newUfoDrop);
 
             CommonFunctions.ICollidableList.Remove(this);

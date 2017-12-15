@@ -29,7 +29,7 @@ namespace Space_is_a_dangerous_place
             SpaceshipSkin = spaceshipSkin;
             BulletSkin = bulletSkin;
 
-            standartStartingSize = new Size(CommonFunctions.borders.Right * 07 / 130, CommonFunctions.borders.Bottom * 14 / 130); //  0.7 / 13 ,  1.4 / 13
+            standartStartingSize = new Size(Convert.ToInt32(35 * CommonFunctions.aspectRatioMultiplierX),Convert.ToInt32( 70 * CommonFunctions.aspectRatioMultiplierY));
 
             standartStartingPosition = new Vector2(CommonFunctions.borders.Right / 2 - standartStartingSize.Width / 2, CommonFunctions.borders.Bottom - standartStartingSize.Height);
 
