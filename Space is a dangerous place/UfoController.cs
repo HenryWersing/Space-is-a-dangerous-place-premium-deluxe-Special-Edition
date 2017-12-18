@@ -18,9 +18,7 @@ namespace Space_is_a_dangerous_place
         Texture2D ufoBombDropSkin;
 
         Ufo newUfo;
-
-        Random rdm;
-
+        
         int randomSpawnSeconds = 15;
 
 
@@ -31,16 +29,14 @@ namespace Space_is_a_dangerous_place
             this.ufoAmmoDropSkin = ufoAmmoDropSkin;
             this.ufoScoreDropSkin = ufoScoreDropSkin;
             this.ufoBombDropSkin = ufoBombDropSkin;
-
-            rdm = new Random();
-
+            
         }
 
         public void Update()
         {
             if (CommonFunctions.gameRunning)
             {
-                if (rdm.Next(1, randomSpawnSeconds * 60) == 1)
+                if (CommonFunctions.generalRandom.Next(1, randomSpawnSeconds * 60) == 1)
                 {
                     newUfo = new Ufo(new Vector2(-100 * CommonFunctions.aspectRatioMultiplierX, -100 * CommonFunctions.aspectRatioMultiplierY), new Size(Convert.ToInt32(60 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(48 * CommonFunctions.aspectRatioMultiplierY)), ufoSkin, ufoAmmoDropSkin, ufoScoreDropSkin, ufoBombDropSkin);
 

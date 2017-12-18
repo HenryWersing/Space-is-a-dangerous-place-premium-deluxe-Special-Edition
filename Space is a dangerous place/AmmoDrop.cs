@@ -14,9 +14,6 @@ namespace Space_is_a_dangerous_place
         
         public AmmoDrop(Vector2 position, Size size, Texture2D skin, Terrain parentTerrain) : base(position, size, skin, parentTerrain)
         {
-
-            rdm = new Random();
-
         }
 
         public override void Destroy(ICollidable collidingObject)
@@ -24,7 +21,7 @@ namespace Space_is_a_dangerous_place
 
             if (collidingObject is Spaceship)
             {
-                rdmInt = rdm.Next(0, 2);
+                rdmInt = CommonFunctions.generalRandom.Next(0, 2);
                 if (rdmInt == 0)
                     CommonFunctions.currentSpaceship.ammunition += 1 * CommonFunctions.currentSpaceship.ammunitionMultiplier;
                 if (rdmInt == 1)

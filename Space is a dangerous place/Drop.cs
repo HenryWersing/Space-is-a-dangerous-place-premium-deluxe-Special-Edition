@@ -23,8 +23,7 @@ namespace Space_is_a_dangerous_place
         public Terrain parentTerrain;
 
         public Microsoft.Xna.Framework.Rectangle destinationRectangle;
-
-        public Random rdm;
+        
         public int rdmInt;
 
         
@@ -65,7 +64,7 @@ namespace Space_is_a_dangerous_place
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(Skin, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+            spriteBatch.Draw(Skin, destinationRectangle, CommonFunctions.generalColour);
 
         }
 

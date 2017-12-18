@@ -30,8 +30,8 @@ namespace Space_is_a_dangerous_place
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            this.graphics.PreferredBackBufferHeight = 850;
-            this.graphics.PreferredBackBufferWidth = 850;
+            this.graphics.PreferredBackBufferHeight = 650;
+            this.graphics.PreferredBackBufferWidth = 650;
             borders = new System.Drawing.Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             CommonFunctions.borders = borders;
             CommonFunctions.aspectRatioMultiplierX = borders.Right / 650f;
@@ -76,6 +76,10 @@ namespace Space_is_a_dangerous_place
             Texture2D StandartEndSreen = Content.Load<Texture2D>("endebild");
             Texture2D StandartUISkin = Content.Load<Texture2D>("UIBild_t");
             Texture2D Background1 = Content.Load<Texture2D>("Hintergrund1");
+            Texture2D ActiveButtonContinue = Content.Load<Texture2D>("ActiveButtonContinue");
+            Texture2D ActiveButonBackToMenu = Content.Load<Texture2D>("ActiveButtonBackToMenu");
+            Texture2D PassiveButtonContinue = Content.Load<Texture2D>("PassiveButtonContinue");
+            Texture2D PassiveButtonBackToMenu = Content.Load<Texture2D>("PassiveButtonBackToMenu");
 
             font = Content.Load<SpriteFont>("UIFont");
             
@@ -84,9 +88,15 @@ namespace Space_is_a_dangerous_place
             ShipController = new SpaceshipController(StandartSpaceshipSkin, StandartBulletSkin);
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
-            UIContr = new UIController(StandartUISkin, font, new Size(borders.Right * 17 / 130, borders.Bottom * 136 / 1300)); //todo: aspectratio           // 85% der Ursprungsgröße 
+            UIContr = new UIController(StandartUISkin, font, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));
             BgContr = new BackgroundController(Background1, Background1);
             GSContr = new GameStartController(ShipController, font);
+
+
+            CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
+            CommonFunctions.ActiveButonBackToMenu = ActiveButonBackToMenu;
+            CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
+            CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
 
         }
 
@@ -107,7 +117,6 @@ namespace Space_is_a_dangerous_place
         protected override void Update(GameTime gameTime)
         {
             
-            //todo: ? alles zu drawen und zu updaten, wegen codemetrix
             GSContr.Update();
             if (GSContr.gameStarted)
             {
@@ -138,9 +147,9 @@ namespace Space_is_a_dangerous_place
             if (GSContr.gameStarted)
             {
                 BgContr.Draw(spriteBatch);
-                ShipController.Draw(spriteBatch);
                 TerraContr.Draw(spriteBatch);
                 UfoContr.Draw(spriteBatch);
+                ShipController.Draw(spriteBatch);
                 UIContr.Draw(spriteBatch);
             }
 

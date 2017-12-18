@@ -30,8 +30,6 @@ namespace Space_is_a_dangerous_place
         private Texture2D ufoBombDropSkin;
 
         private UfoDrop newUfoDrop;
-
-        private Random rdm;
         
 
         public Ufo(Vector2 position,Size size, Texture2D skin, Texture2D ufoAmmoDropSkin, Texture2D ufoScoreDropSkin, Texture2D ufoBombDropSkin)
@@ -43,11 +41,9 @@ namespace Space_is_a_dangerous_place
             this.ufoAmmoDropSkin = ufoAmmoDropSkin;
             this.ufoScoreDropSkin = ufoScoreDropSkin;
             this.ufoBombDropSkin = ufoBombDropSkin;
-
-            rdm = new Random();
-
+            
             movingRight = true;
-            randomXValue = rdm.Next(300, 500);
+            randomXValue = CommonFunctions.generalRandom.Next(300, 500);
 
             destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
 
@@ -66,13 +62,13 @@ namespace Space_is_a_dangerous_place
 
             if (movingRight && position.X > randomXValue)
             {
-                randomXValue = rdm.Next(Convert.ToInt32(180 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(300 * CommonFunctions.aspectRatioMultiplierX));
+                randomXValue = CommonFunctions.generalRandom.Next(Convert.ToInt32(180 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(300 * CommonFunctions.aspectRatioMultiplierX));
                 movingRight = false;
             }
 
             if (!movingRight && position.X < randomXValue)
             {
-                randomXValue = rdm.Next(Convert.ToInt32(350 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(470 * CommonFunctions.aspectRatioMultiplierX));
+                randomXValue = CommonFunctions.generalRandom.Next(Convert.ToInt32(350 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(470 * CommonFunctions.aspectRatioMultiplierX));
                 movingRight = true;
             }
 
@@ -81,7 +77,7 @@ namespace Space_is_a_dangerous_place
         public void Destroy(ICollidable collidingObject)
         {
 
-            int randomNumber = rdm.Next(1, 10);
+            int randomNumber = CommonFunctions.generalRandom.Next(1, 10);
 
             switch (randomNumber)
             {
@@ -119,7 +115,7 @@ namespace Space_is_a_dangerous_place
 
             Moving();
 
-            direction *= Speed;
+            direction *= Speed * CommonFunctions.generalGameSpeed;
             position += direction;
             PositionForRectangle = position;
             
@@ -128,7 +124,7 @@ namespace Space_is_a_dangerous_place
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(skin, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+            spriteBatch.Draw(skin, destinationRectangle, CommonFunctions.generalColour);
 
         }
         

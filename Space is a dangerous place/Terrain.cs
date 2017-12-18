@@ -48,9 +48,8 @@ namespace Space_is_a_dangerous_place
             PositionForRectangle = position;
 
             Speed = CommonFunctions.normalDownwardSpeed;
-
-            Random rdm = new Random();
-            SpawnDrops(rdm.Next(1, 29));
+            
+            SpawnDrops(CommonFunctions.generalRandom.Next(1, 29));
 
         }
 
@@ -116,7 +115,7 @@ namespace Space_is_a_dangerous_place
 
             MoveDownward();
 
-            direction *= Speed;
+            direction *= Speed * CommonFunctions.generalGameSpeed;
             position += direction;
             PositionForRectangle = position;
 
@@ -126,13 +125,13 @@ namespace Space_is_a_dangerous_place
         {
 
             if (broken == false)
-                spriteBatch.Draw(Skin, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+                spriteBatch.Draw(Skin, destinationRectangle, CommonFunctions.generalColour);
 
             if (broken == true && brokenLeft == true)
-                spriteBatch.Draw(SkinBrokenLeft, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+                spriteBatch.Draw(SkinBrokenLeft, destinationRectangle, CommonFunctions.generalColour);
 
             if (broken == true && brokenLeft == false)
-                spriteBatch.Draw(SkinBrokenRight, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+                spriteBatch.Draw(SkinBrokenRight, destinationRectangle, CommonFunctions.generalColour);
 
         }
 

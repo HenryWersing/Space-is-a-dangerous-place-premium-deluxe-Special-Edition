@@ -98,8 +98,7 @@ namespace Space_is_a_dangerous_place
             if (generalDirection == 2)
                 MoveRight();
 
-            direction *= Speed;
-
+            direction *= Speed* CommonFunctions.generalGameSpeed;
             position += direction;
             PositionForRectangle = position;
 
@@ -110,7 +109,7 @@ namespace Space_is_a_dangerous_place
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(Skin, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+            spriteBatch.Draw(Skin, destinationRectangle, CommonFunctions.generalColour);
 
         }
 

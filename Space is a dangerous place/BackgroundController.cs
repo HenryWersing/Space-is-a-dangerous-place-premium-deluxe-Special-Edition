@@ -39,7 +39,7 @@ namespace Space_is_a_dangerous_place
         {
 
             if (CommonFunctions.gameRunning)
-                direction.Y += 1f * CommonFunctions.aspectRatioMultiplierY;
+                direction.Y += 1f * CommonFunctions.aspectRatioMultiplierY * CommonFunctions.generalGameSpeed;
 
         }
 
@@ -68,8 +68,8 @@ namespace Space_is_a_dangerous_place
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(background1, destinationRectangle, Microsoft.Xna.Framework.Color.White);
-            spriteBatch.Draw(background2, destinationRectangle2, Microsoft.Xna.Framework.Color.White);
+            spriteBatch.Draw(background1, destinationRectangle, CommonFunctions.generalColour);
+            spriteBatch.Draw(background2, destinationRectangle2, CommonFunctions.generalColour);
 
         }
 

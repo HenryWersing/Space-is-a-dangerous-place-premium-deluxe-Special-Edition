@@ -42,10 +42,12 @@ namespace Space_is_a_dangerous_place
             {
                 case 0:
                     newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, 1, 1, 1, 1);
+                    CommonFunctions.generalGameSpeed = 1;
                     SpaceshipList.Add(newSpaceship);
                     break;
                 case 1:
-                    newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, 1, 2, 0.6f, 0.4f);
+                    newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, 1, 2, 1, 1);
+                    CommonFunctions.generalGameSpeed = 1.5f;
                     SpaceshipList.Add(newSpaceship);
                     break;
                 default:

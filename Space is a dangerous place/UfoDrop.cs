@@ -29,7 +29,7 @@ namespace Space_is_a_dangerous_place
 
             direction.Y += 1f * CommonFunctions.aspectRatioMultiplierY;
 
-            direction *= speed;
+            direction *= speed * CommonFunctions.generalGameSpeed;
             position += direction;
             PositionForRectangle = position;
 
