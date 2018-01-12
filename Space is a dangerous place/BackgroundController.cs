@@ -38,7 +38,7 @@ namespace Space_is_a_dangerous_place
         private void MoveBackground()
         {
 
-            if (CommonFunctions.gameRunning)
+            if (CommonFunctions.terrainSpawning)
                 direction.Y += 1f * CommonFunctions.aspectRatioMultiplierY * CommonFunctions.generalGameSpeed;
 
         }

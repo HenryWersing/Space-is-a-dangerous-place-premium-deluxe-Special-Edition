@@ -34,7 +34,7 @@ namespace Space_is_a_dangerous_place
 
         public void Update()
         {
-            if (CommonFunctions.gameRunning)
+            if (CommonFunctions.terrainSpawning)
             {
                 if (CommonFunctions.generalRandom.Next(1, randomSpawnSeconds * 60) == 1)
                 {

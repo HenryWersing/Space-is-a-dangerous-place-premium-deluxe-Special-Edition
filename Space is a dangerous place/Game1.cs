@@ -21,6 +21,7 @@ namespace Space_is_a_dangerous_place
         UIController UIContr;
         BackgroundController BgContr;
         GameStartController GSContr;
+        MenuController MeContr;
 
         SpriteFont font;
 
@@ -76,27 +77,44 @@ namespace Space_is_a_dangerous_place
             Texture2D StandartEndSreen = Content.Load<Texture2D>("endebild");
             Texture2D StandartUISkin = Content.Load<Texture2D>("UIBild_t");
             Texture2D Background1 = Content.Load<Texture2D>("Hintergrund1");
+            Texture2D PointerTexture = Content.Load<Texture2D>("siadpPointerTexture_t");
             Texture2D ActiveButtonContinue = Content.Load<Texture2D>("ActiveButtonContinue");
-            Texture2D ActiveButonBackToMenu = Content.Load<Texture2D>("ActiveButtonBackToMenu");
+            Texture2D ActiveButtonBackToMenu = Content.Load<Texture2D>("ActiveButtonBackToMenu");
+            Texture2D ActiveButtonTitan = Content.Load<Texture2D>("ActiveButtonTitan");
+            Texture2D ActiveButtonNormal = Content.Load<Texture2D>("ActiveButtonNormal");
+            Texture2D ActiveButtonRisky = Content.Load<Texture2D>("ActiveButtonRisky");
+            Texture2D ActiveButtonStart = Content.Load<Texture2D>("ActiveButtonStart");
             Texture2D PassiveButtonContinue = Content.Load<Texture2D>("PassiveButtonContinue");
             Texture2D PassiveButtonBackToMenu = Content.Load<Texture2D>("PassiveButtonBackToMenu");
+            Texture2D PassiveButtonTitan = Content.Load<Texture2D>("PassiveButtonTitan");
+            Texture2D PassiveButtonNormal = Content.Load<Texture2D>("PassiveButtonNormal");
+            Texture2D PassiveButtonRisky = Content.Load<Texture2D>("PassiveButtonRisky");
+            Texture2D PassiveButtonStart = Content.Load<Texture2D>("PassiveButtonStart");
 
             font = Content.Load<SpriteFont>("UIFont");
             
+            CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
+            CommonFunctions.ActiveButonBackToMenu = ActiveButtonBackToMenu;
+            CommonFunctions.ActiveButtonStart = ActiveButtonStart;
+            CommonFunctions.ActiveButtonTitan = ActiveButtonTitan;
+            CommonFunctions.ActiveButtonNormal = ActiveButtonNormal;
+            CommonFunctions.ActiveButtonRisky = ActiveButtonRisky;
+            CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
+            CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
+            CommonFunctions.PassiveButtonStart = PassiveButtonStart;
+            CommonFunctions.PassiveButtonTitan = PassiveButtonTitan;
+            CommonFunctions.PassiveButtonNormal = PassiveButtonNormal;
+            CommonFunctions.PassiveButtonRisky = PassiveButtonRisky;
+
 
             //load objects
-            ShipController = new SpaceshipController(StandartSpaceshipSkin, StandartBulletSkin);
+            MeContr = new MenuController(PointerTexture); //diesen zu statics, dann spaceship geben, in spacesh dann mit rrturn int
+            ShipController = new SpaceshipController(StandartSpaceshipSkin, StandartBulletSkin, MeContr);
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, font, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));
             BgContr = new BackgroundController(Background1, Background1);
-            GSContr = new GameStartController(ShipController, font);
-
-
-            CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
-            CommonFunctions.ActiveButonBackToMenu = ActiveButonBackToMenu;
-            CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
-            CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
+            GSContr = new GameStartController(ShipController, font, MeContr);
 
         }
 
@@ -116,8 +134,10 @@ namespace Space_is_a_dangerous_place
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
-            GSContr.Update();
+
+            if (!GSContr.gameStarted)
+                GSContr.Update();
+
             if (GSContr.gameStarted)
             {
                 BgContr.Update();
@@ -143,8 +163,10 @@ namespace Space_is_a_dangerous_place
 
             spriteBatch.Begin();
 
-            GSContr.Draw(spriteBatch);
-            if (GSContr.gameStarted)
+            if(!GSContr.gameStarted)
+                GSContr.Draw(spriteBatch);
+
+            else if (GSContr.gameStarted)
             {
                 BgContr.Draw(spriteBatch);
                 TerraContr.Draw(spriteBatch);

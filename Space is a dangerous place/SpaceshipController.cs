@@ -19,19 +19,26 @@ namespace Space_is_a_dangerous_place
 
         private List<Spaceship> SpaceshipList = new List<Spaceship>();
 
-        private Vector2 standartStartingPosition;
+        private MenuController meContr;
+
         private Size standartStartingSize;
+        private Size titanStartingSize;
+        private Vector2 standartStartingPosition;
+        private Vector2 titanStartingPosition;
 
 
-        public SpaceshipController(Texture2D spaceshipSkin,Texture2D bulletSkin)
+        public SpaceshipController(Texture2D spaceshipSkin,Texture2D bulletSkin, MenuController meContr)
         {
 
             SpaceshipSkin = spaceshipSkin;
             BulletSkin = bulletSkin;
+            this.meContr = meContr;
 
             standartStartingSize = new Size(Convert.ToInt32(35 * CommonFunctions.aspectRatioMultiplierX),Convert.ToInt32( 70 * CommonFunctions.aspectRatioMultiplierY));
+            titanStartingSize = new Size(Convert.ToInt32(60 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(70 * CommonFunctions.aspectRatioMultiplierY));
 
             standartStartingPosition = new Vector2(CommonFunctions.borders.Right / 2 - standartStartingSize.Width / 2, CommonFunctions.borders.Bottom - standartStartingSize.Height);
+            titanStartingPosition=new Vector2(CommonFunctions.borders.Right / 2 - titanStartingSize.Width / 2, CommonFunctions.borders.Bottom - titanStartingSize.Height);
 
         }
 
@@ -41,12 +48,22 @@ namespace Space_is_a_dangerous_place
             switch(spawnMode)
             {
                 case 0:
-                    newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, 1, 1, 1, 1);
+                    newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, meContr, 1, 1, 1, 1);
                     CommonFunctions.generalGameSpeed = 1;
                     SpaceshipList.Add(newSpaceship);
                     break;
                 case 1:
-                    newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, 1, 2, 1, 1);
+                    newSpaceship = new Spaceship(SpaceshipSkin, standartStartingSize, standartStartingPosition, BulletSkin, SpaceshipList, meContr, 1, 2, 1, 1);
+                    CommonFunctions.generalGameSpeed = 1.5f;
+                    SpaceshipList.Add(newSpaceship);
+                    break;
+                case 2://todo: skins ändern,
+                    newSpaceship = new Titan(SpaceshipSkin, titanStartingSize, titanStartingPosition, BulletSkin, SpaceshipList, meContr, 1.1f, 1, 0.4f, 2);
+                    CommonFunctions.generalGameSpeed = 1;
+                    SpaceshipList.Add(newSpaceship);
+                    break;
+                case 3:
+                    newSpaceship = new Titan(SpaceshipSkin, titanStartingSize, titanStartingPosition, BulletSkin, SpaceshipList, meContr, 1.1f, 2, 0.4f, 2);
                     CommonFunctions.generalGameSpeed = 1.5f;
                     SpaceshipList.Add(newSpaceship);
                     break;

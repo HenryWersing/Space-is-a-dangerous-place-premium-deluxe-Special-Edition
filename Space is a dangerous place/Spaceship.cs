@@ -9,21 +9,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
+//todo: shift fähigkeiten? spaceship wird schneller, titan...?
+//todo: jedes spaceship hat eine up fähigkeit mit cooldown, z.B. kurz in terrain crashen zu können, oder score gegen munition tauschen?dann aber nur 5 mal verfügbar oder so
+//todo: feedback holen, was am terrain verbessern
+//todo: animationen?
+//todo: in spaceship shift zum beschleunigen umschreiben-> moveleft wird moveleftfast und moveleftslow wird moveleft. shift soll ja die fähigkeit zum beschleunigen sein
 namespace Space_is_a_dangerous_place
 {
     class Spaceship : ICollidable //erinnerung: dieses spaceship ist die spitze der ship erbstrucktur, also wenn andere arten der schiffe, erben diese von hier
     {
 
-        private KeyboardState Input;
+        public KeyboardState Input;
 
-        private Vector2 position;
+        public Vector2 position;
         public Vector2 PositionForRectangle { get; set; }
         public Size ObjectSize { get; set; }
 
-        public float Speed { get; private set; }
-        private Vector2 direction;
+        public float Speed { get; set; }
+        public Vector2 direction;
 
         public Texture2D Skin { get; private set; }
         public Texture2D BulletSkin { get; private set; }
@@ -34,35 +37,35 @@ namespace Space_is_a_dangerous_place
         public float ammunition;
         public float score;
 
-        private bool paused = false;
-        private int pauseMenuNavigator;
-        private int pauseMenuNumberOfOptions = 2;
-        private DateTime nextButtonTime;
-        private float generalSpeedSaver;
+        public bool paused = false;
+        public static int pauseMenuNumberOfOptions = 2;
 
-        private Size standartBulletSize;
+        public float generalSpeedSaver;
+
+        public Size standartBulletSize;
 
         public List<Bullet> BulletList = new List<Bullet>();
-        private Bullet newBullet;
+        public Bullet newBullet;
 
-        private float attackSpeed;
-        private DateTime nextAttackTime;
+        public float attackSpeed;
+        public DateTime nextAttackTime;
 
         public float ammunitionMultiplier;
         public float scoreMultiplier;
         public float speedMultiplier;
         public float attackSpeedMultiplier;
 
-        private Microsoft.Xna.Framework.Rectangle destinationRectangle;
-        private Microsoft.Xna.Framework.Rectangle destinationRectangleButton0;
-        private Microsoft.Xna.Framework.Rectangle destinationRectangleButton1;
+        public Microsoft.Xna.Framework.Rectangle destinationRectangle;
 
-        private List<Spaceship> spaceshipList;
+        public List<Spaceship> spaceshipList;
+
+        public MenuController meContr;
 
 
-        public Spaceship(Texture2D skin, Size size, Vector2 position, Texture2D bulletSkin, List<Spaceship> spaceshipList, float ammMu, float scoMu, float speMu, float AtsMu)
+        public Spaceship(Texture2D skin, Size size, Vector2 position, Texture2D bulletSkin, List<Spaceship> spaceshipList, MenuController meContr, float ammMu, float scoMu, float speMu, float AtsMu)
         {
 
+            this.meContr = meContr;
             ammunitionMultiplier = ammMu;
             scoreMultiplier = scoMu;
             speedMultiplier = speMu;
@@ -90,7 +93,8 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        private void MoveLeft()
+        #region Moving
+        public void MoveLeft()
         {
 
             if (position.X > CommonFunctions.borders.Left + Speed)
@@ -98,7 +102,7 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        private void MoveRight()
+        public void MoveRight()
         {
 
             if (position.X < CommonFunctions.borders.Right - Speed - ObjectSize.Width)
@@ -106,7 +110,7 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        private void MoveLeftSlow()
+        public void MoveLeftSlow()
         {
 
             if (position.X > CommonFunctions.borders.Left + Speed)
@@ -114,15 +118,17 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        private void MoveRightSlow()
+        public void MoveRightSlow()
         {
 
             if (position.X < CommonFunctions.borders.Right - Speed - ObjectSize.Width)
                 direction.X += 0.4f * CommonFunctions.aspectRatioMultiplierX;
 
         }
+        #endregion
 
-        public void Shoot()
+        #region shooting etc
+        public virtual void Shoot()
         {
 
             if (DateTime.Now > nextAttackTime && ammunition > 0)
@@ -167,6 +173,7 @@ namespace Space_is_a_dangerous_place
             }
 
         }
+        #endregion
 
         public void CollisionsNConsequences()
         {
@@ -183,9 +190,8 @@ namespace Space_is_a_dangerous_place
 
         public void Destroy(ICollidable collidingObject)
         {
-
-            //spaceshipList.Remove(this);
-            CommonFunctions.gameRunning = false;
+            
+            CommonFunctions.terrainSpawning = false;
             CommonFunctions.ICollidableList.RemoveRange(0, CommonFunctions.ICollidableList.Count);
             BulletList.RemoveRange(0, BulletList.Count);
             ammunition = startingAmmunition;
@@ -198,23 +204,8 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        public void Update()
+        public virtual void InputChecking()
         {
-
-            #region destinationRectangles
-            destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
-
-            float buttonWidth = CommonFunctions.ActiveButtonContinue.Bounds.Right * 0.65f * CommonFunctions.aspectRatioMultiplierX;
-            float buttonHeight= CommonFunctions.ActiveButtonContinue.Bounds.Bottom * 0.65f * CommonFunctions.aspectRatioMultiplierY;
-            float distanceBetweenButtons = buttonHeight * 0.8f;
-            float distanceFromButtonsToTop = (CommonFunctions.borders.Bottom - pauseMenuNumberOfOptions * buttonHeight - (pauseMenuNumberOfOptions - 1) * distanceBetweenButtons) / 2; //(gesamthöhe - die höhen der buttons - die abstande zwischen buttons) / 2  =  abstand zu oben und unten
-            float distanceFromButtonsToLeft = (CommonFunctions.borders.Right - buttonWidth) / 2;
-            destinationRectangleButton0 = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(distanceFromButtonsToLeft), Convert.ToInt32(distanceFromButtonsToTop), Convert.ToInt32(buttonWidth), Convert.ToInt32(buttonHeight));
-            destinationRectangleButton1 = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(distanceFromButtonsToLeft), Convert.ToInt32(distanceFromButtonsToTop + buttonHeight + distanceBetweenButtons), Convert.ToInt32(buttonWidth), Convert.ToInt32(buttonHeight));
-
-            #endregion
-
-            direction = Vector2.Zero;
 
             Input = Keyboard.GetState();
 
@@ -235,13 +226,13 @@ namespace Space_is_a_dangerous_place
                 if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
                     Shoot();
 
-                if (Input.IsKeyDown(Keys.Enter) && !CommonFunctions.gameRunning)
+                if (Input.IsKeyDown(Keys.Enter) && !CommonFunctions.terrainSpawning)
                     CommonFunctions.currentTerrainController.StartRoutine();
 
                 if (Input.IsKeyDown(Keys.Escape))
                 {
                     paused = true;
-                    pauseMenuNavigator = 0;
+                    meContr.pauseMenuNavigator = 0;
                     generalSpeedSaver = CommonFunctions.generalGameSpeed;
                     CommonFunctions.generalGameSpeed = 0;
                     CommonFunctions.generalColour = Microsoft.Xna.Framework.Color.Gray;
@@ -250,37 +241,51 @@ namespace Space_is_a_dangerous_place
 
             if (paused)
             {
-                if (DateTime.Now > nextButtonTime)
-                {
-                    nextButtonTime = DateTime.Now.AddMilliseconds(100); //todo: smoother machen?
-
-                    if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
-                        pauseMenuNavigator++;
-                    if (Input.IsKeyDown(Keys.W) || Input.IsKeyDown(Keys.Up))
-                        pauseMenuNavigator--;
-
-                    if (pauseMenuNavigator > pauseMenuNumberOfOptions - 1)
-                        pauseMenuNavigator = 0;
-                    if (pauseMenuNavigator < 0)
-                        pauseMenuNavigator = pauseMenuNumberOfOptions - 1;
-
-                    if (Input.IsKeyDown(Keys.Enter) && pauseMenuNavigator == 0)
-                    {
-                        paused = false;
-                        CommonFunctions.generalGameSpeed = generalSpeedSaver;
-                        CommonFunctions.generalColour = Microsoft.Xna.Framework.Color.White;
-                    }
-
-                    if (Input.IsKeyDown(Keys.Enter) && pauseMenuNavigator == 1)
-                    {
-                        Destroy(this);
-                        spaceshipList.Remove(this);
-                        CommonFunctions.currentGameStartController.gameStarted = false;
-                        CommonFunctions.generalColour = Microsoft.Xna.Framework.Color.White;
-                    }
-                }
+                menuControlls();
             }
+
+        }
+
+        public void menuControlls()
+        {
+
+            #region Texture Lists
+            List<Texture2D> activeButtonsList = new List<Texture2D>();
+            List<Texture2D> passiveButtonsList = new List<Texture2D>();
+            activeButtonsList.Add(CommonFunctions.ActiveButtonContinue);
+            activeButtonsList.Add(CommonFunctions.ActiveButonBackToMenu);
+            passiveButtonsList.Add(CommonFunctions.PassiveButtonContinue);
+            passiveButtonsList.Add(CommonFunctions.PassiveButtonBackToMenu);
+            #endregion
             
+            switch (meContr.MenuControll(2, activeButtonsList, passiveButtonsList))
+            {
+                case 0:
+                    paused = false;
+                    CommonFunctions.generalGameSpeed = generalSpeedSaver;
+                    CommonFunctions.generalColour = Microsoft.Xna.Framework.Color.White;
+                    break;
+                case 1:
+                    Destroy(this);
+                    spaceshipList.Remove(this);
+                    CommonFunctions.currentGameStartController.gameStarted = false;
+                    CommonFunctions.currentGameStartController.menuPage = 0;
+                    CommonFunctions.generalColour = Microsoft.Xna.Framework.Color.White;
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        public void Update()
+        {
+            
+            destinationRectangle = new Microsoft.Xna.Framework.Rectangle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), ObjectSize.Width, ObjectSize.Height);
+            
+            direction = Vector2.Zero;
+
+            InputChecking();
 
             direction *= Speed* CommonFunctions.generalGameSpeed;
             position += direction;
@@ -305,16 +310,7 @@ namespace Space_is_a_dangerous_place
 
             if (paused)
             {
-                if (pauseMenuNavigator == 0)
-                {
-                    spriteBatch.Draw(CommonFunctions.ActiveButtonContinue, destinationRectangleButton0, Microsoft.Xna.Framework.Color.White);
-                    spriteBatch.Draw(CommonFunctions.PassiveButtonBackToMenu, destinationRectangleButton1, Microsoft.Xna.Framework.Color.White);
-                }
-                else if (pauseMenuNavigator == 1)
-                {
-                    spriteBatch.Draw(CommonFunctions.PassiveButtonContinue, destinationRectangleButton0, Microsoft.Xna.Framework.Color.White);
-                    spriteBatch.Draw(CommonFunctions.ActiveButonBackToMenu, destinationRectangleButton1, Microsoft.Xna.Framework.Color.White);
-                }
+                meContr.DrawMenu(spriteBatch);
             }
         }
 

@@ -47,7 +47,7 @@ namespace Space_is_a_dangerous_place
         public void StartRoutine()
         {
 
-            CommonFunctions.gameRunning = true;
+            CommonFunctions.terrainSpawning = true;
             newTerrain = new Terrain(TerrainSkin, new Vector2(CommonFunctions.borders.Left, CommonFunctions.borders.Top - 200 * CommonFunctions.aspectRatioMultiplierY), new Size(Convert.ToInt32(200 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(200 * CommonFunctions.aspectRatioMultiplierY)), AmmoDropSkin, ScoreDropSkin, TerrainBrokenLeftSkin, TerrainBrokenRightSkin);
             CommonFunctions.ICollidableList.Add(newTerrain);
             newTerrain = new Terrain(TerrainSkin, new Vector2(CommonFunctions.borders.Right - 200 * CommonFunctions.aspectRatioMultiplierX, CommonFunctions.borders.Top - 250 * CommonFunctions.aspectRatioMultiplierY), new Size(Convert.ToInt32(200 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(250 * CommonFunctions.aspectRatioMultiplierY)), AmmoDropSkin, ScoreDropSkin, TerrainBrokenLeftSkin, TerrainBrokenRightSkin);
@@ -148,7 +148,7 @@ namespace Space_is_a_dangerous_place
         public void Update()
         {
             
-            if (CommonFunctions.gameRunning)
+            if (CommonFunctions.terrainSpawning)
             {
                 if (CheckUntriggered(triggerRectangleLeft))
                     CreateTerrain(true);

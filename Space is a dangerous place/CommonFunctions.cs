@@ -14,7 +14,7 @@ namespace Space_is_a_dangerous_place
         
 
         public static List<ICollidable> ICollidableList = new List<ICollidable>();
-
+        
         public static float aspectRatioMultiplierX;
         public static float aspectRatioMultiplierY;
 
@@ -29,13 +29,21 @@ namespace Space_is_a_dangerous_place
         
         public static Random generalRandom = new Random();
 
-        public static bool gameRunning = false;
-
+        public static bool terrainSpawning = false;
+        
         //Hier werden die ButtonSkins zwischengelagert, da es keinen Sinn macht, sie über den Spaceship-Constructor zu schicken
         public static Texture2D ActiveButtonContinue;
         public static Texture2D ActiveButonBackToMenu;
+        public static Texture2D ActiveButtonStart;
+        public static Texture2D ActiveButtonTitan;
+        public static Texture2D ActiveButtonNormal;
+        public static Texture2D ActiveButtonRisky;
         public static Texture2D PassiveButtonContinue;
         public static Texture2D PassiveButtonBackToMenu;
+        public static Texture2D PassiveButtonStart;
+        public static Texture2D PassiveButtonTitan;
+        public static Texture2D PassiveButtonNormal;
+        public static Texture2D PassiveButtonRisky;
 
 
         public static ICollidable CheckCollision(ICollidable objectToCheck, List<ICollidable> objectsToCollide)
