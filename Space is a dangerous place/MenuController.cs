@@ -12,16 +12,13 @@ namespace Space_is_a_dangerous_place
     class MenuController
     {
         
-        KeyboardState Input;
-        MouseState mState;
-
         int numberOfButtons;
         List<Texture2D> activeButtonTextureList = new List<Texture2D>();
         List<Texture2D> passiveButtonTextureList = new List<Texture2D>();
 
         Keys lastClickedKey;
         int counter = 0;
-        DateTime nextButtonTime;
+        public DateTime nextButtonTime;
         DateTime nextClickTime;
         public int pauseMenuNavigator;
 
@@ -52,8 +49,6 @@ namespace Space_is_a_dangerous_place
             this.numberOfButtons = numberOfButtons;
             this.activeButtonTextureList = activeButtonTextureList;
             this.passiveButtonTextureList = passiveButtonTextureList;
-            //todo: ein globales input in commons, dann in der game update funktion input=keyboard.getstate
-            Input = Keyboard.GetState();
 
             buttonDestinationRectangles.Clear();
             distanceFromButtonsToTop = (CommonFunctions.borders.Bottom - numberOfButtons * buttonHeight - (numberOfButtons - 1) * distanceBetweenButtons) / 2; //(gesamthöhe - die höhen der buttons - die abstande zwischen buttons) / 2  =  abstand zu oben und unten
@@ -66,41 +61,41 @@ namespace Space_is_a_dangerous_place
 
 
             #region Keyboardinput
-            if (DateTime.Now > nextButtonTime)//todo: enter skipt durch menü
+            if (DateTime.Now > nextButtonTime)
             {
 
                 //Button wird gedrückt gehalten (oder sehr schnell nacheinander gedrückt)
-                if (Input.IsKeyDown(lastClickedKey) && lastClickedKey != Keys.None)
+                if (CommonFunctions.Input.IsKeyDown(lastClickedKey) && lastClickedKey != Keys.None)
                 {
-                    nextButtonTime = DateTime.Now.AddMilliseconds(100);
+                    nextButtonTime = DateTime.Now.AddMilliseconds(80);
                     counter++;
 
-                    if (counter % 8 == 0 && (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down)))
+                    if (counter > 6 && (CommonFunctions.Input.IsKeyDown(Keys.S) || CommonFunctions.Input.IsKeyDown(Keys.Down)))
                         pauseMenuNavigator++;
 
-                    else if (counter % 8 == 0 && (Input.IsKeyDown(Keys.W) || Input.IsKeyDown(Keys.Up)))
+                    else if (counter > 6 && (CommonFunctions.Input.IsKeyDown(Keys.W) || CommonFunctions.Input.IsKeyDown(Keys.Up)))
                         pauseMenuNavigator--;
                 }
                 else
                 {
                     counter = 0;
-                    if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
+                    if (CommonFunctions.Input.IsKeyDown(Keys.S) || CommonFunctions.Input.IsKeyDown(Keys.Down))
                     {
-                        if (Input.IsKeyDown(Keys.S))
+                        if (CommonFunctions.Input.IsKeyDown(Keys.S))
                             lastClickedKey = Keys.S;
 
-                        else if (Input.IsKeyDown(Keys.Down))
+                        else if (CommonFunctions.Input.IsKeyDown(Keys.Down))
                             lastClickedKey = Keys.Down;
 
                         pauseMenuNavigator++;
                     }
 
-                    else if (Input.IsKeyDown(Keys.W) || Input.IsKeyDown(Keys.Up))
+                    else if (CommonFunctions.Input.IsKeyDown(Keys.W) || CommonFunctions.Input.IsKeyDown(Keys.Up))
                     {
-                        if (Input.IsKeyDown(Keys.W))
+                        if (CommonFunctions.Input.IsKeyDown(Keys.W))
                             lastClickedKey = Keys.W;
 
-                        else if (Input.IsKeyDown(Keys.Up))
+                        else if (CommonFunctions.Input.IsKeyDown(Keys.Up))
                             lastClickedKey = Keys.Up;
 
                         pauseMenuNavigator--;
@@ -116,23 +111,24 @@ namespace Space_is_a_dangerous_place
                     pauseMenuNavigator = numberOfButtons - 1;
 
                 for (int i = 0; i < numberOfButtons; i++)
-                    if (Input.IsKeyDown(Keys.Enter) && pauseMenuNavigator == i)
+                    if (CommonFunctions.Input.IsKeyDown(Keys.Enter) && pauseMenuNavigator == i && DateTime.Now > nextButtonTime)
+                    {
+                        lastClickedKey = Keys.Enter;
                         return i;
+                    }
 
             }
 
             #endregion
 
             #region Mouseinput
-
-            mState = Mouse.GetState();
-
+            
             for (int i = 0; i < numberOfButtons; i++)
             {
-                if (buttonDestinationRectangles[i].Intersects(new Rectangle(mState.Position, new Point(1, 1))))
+                if (buttonDestinationRectangles[i].Intersects(new Rectangle(CommonFunctions.mState.Position, new Point(1, 1))))
                     pauseMenuNavigator = i;
 
-                if (buttonDestinationRectangles[i].Intersects(new Rectangle(mState.Position, new Point(1, 1))) && mState.LeftButton == ButtonState.Pressed && pauseMenuNavigator == i && DateTime.Now > nextClickTime)
+                if (buttonDestinationRectangles[i].Intersects(new Rectangle(CommonFunctions.mState.Position, new Point(1, 1))) && CommonFunctions.mState.LeftButton == ButtonState.Pressed && pauseMenuNavigator == i && DateTime.Now > nextClickTime)
                 {
                     nextClickTime = DateTime.Now.AddMilliseconds(200);
                     return i;
@@ -281,6 +277,7 @@ namespace Space_is_a_dangerous_place
             }
             */
             #endregion
+
         }
 
         public void DrawMenu(SpriteBatch spriteBatch)
@@ -293,7 +290,7 @@ namespace Space_is_a_dangerous_place
                     spriteBatch.Draw(passiveButtonTextureList[i], buttonDestinationRectangles[i], Color.White);
             }
 
-            spriteBatch.Draw(pointerTexture, new Rectangle(mState.Position, new Point(17, 24)), Color.White);
+            spriteBatch.Draw(pointerTexture, new Rectangle(CommonFunctions.mState.Position, new Point(17, 24)), Color.White);
 
         }
         

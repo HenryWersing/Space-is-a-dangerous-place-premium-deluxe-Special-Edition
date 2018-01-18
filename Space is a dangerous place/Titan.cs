@@ -45,23 +45,22 @@ namespace Space_is_a_dangerous_place
 
         public override void InputChecking()
         {
-            Input = Keyboard.GetState();
 
             if (!paused)
             {
-                if (Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left))
+                if (CommonFunctions.Input.IsKeyDown(Keys.A) || CommonFunctions.Input.IsKeyDown(Keys.Left))
                     MoveLeftSlow();
                 
-                if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
+                if (CommonFunctions.Input.IsKeyDown(Keys.D) || CommonFunctions.Input.IsKeyDown(Keys.Right))
                     MoveRightSlow();
 
-                if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
+                if (CommonFunctions.Input.IsKeyDown(Keys.S) || CommonFunctions.Input.IsKeyDown(Keys.Down))
                     Shoot();
 
-                if (Input.IsKeyDown(Keys.Enter) && !CommonFunctions.terrainSpawning)
+                if (CommonFunctions.Input.IsKeyDown(Keys.Enter) && !CommonFunctions.terrainSpawning)
                     CommonFunctions.currentTerrainController.StartRoutine();
 
-                if (Input.IsKeyDown(Keys.Escape))
+                if (CommonFunctions.Input.IsKeyDown(Keys.Escape))
                 {
                     paused = true;
                     meContr.pauseMenuNavigator = 0;

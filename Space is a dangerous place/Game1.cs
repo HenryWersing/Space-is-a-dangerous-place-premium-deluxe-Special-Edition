@@ -23,8 +23,6 @@ namespace Space_is_a_dangerous_place
         GameStartController GSContr;
         MenuController MeContr;
 
-        SpriteFont font;
-
         public Game1()
         {
 
@@ -48,9 +46,7 @@ namespace Space_is_a_dangerous_place
         /// </summary>
         protected override void Initialize()
         {
-
             base.Initialize();
-
         }
 
         /// <summary>
@@ -78,30 +74,40 @@ namespace Space_is_a_dangerous_place
             Texture2D StandartUISkin = Content.Load<Texture2D>("UIBild_t");
             Texture2D Background1 = Content.Load<Texture2D>("Hintergrund1");
             Texture2D PointerTexture = Content.Load<Texture2D>("siadpPointerTexture_t");
+
+
+            SpriteFont font = Content.Load<SpriteFont>("UIFont");
+            
             Texture2D ActiveButtonContinue = Content.Load<Texture2D>("ActiveButtonContinue");
             Texture2D ActiveButtonBackToMenu = Content.Load<Texture2D>("ActiveButtonBackToMenu");
             Texture2D ActiveButtonTitan = Content.Load<Texture2D>("ActiveButtonTitan");
             Texture2D ActiveButtonNormal = Content.Load<Texture2D>("ActiveButtonNormal");
             Texture2D ActiveButtonRisky = Content.Load<Texture2D>("ActiveButtonRisky");
             Texture2D ActiveButtonStart = Content.Load<Texture2D>("ActiveButtonStart");
+            Texture2D ActiveButtonBack = Content.Load<Texture2D>("ActiveButtonBack");
+            Texture2D ActiveButtonQuitGame = Content.Load<Texture2D>("ActiveButtonQuitGame");
             Texture2D PassiveButtonContinue = Content.Load<Texture2D>("PassiveButtonContinue");
             Texture2D PassiveButtonBackToMenu = Content.Load<Texture2D>("PassiveButtonBackToMenu");
             Texture2D PassiveButtonTitan = Content.Load<Texture2D>("PassiveButtonTitan");
             Texture2D PassiveButtonNormal = Content.Load<Texture2D>("PassiveButtonNormal");
             Texture2D PassiveButtonRisky = Content.Load<Texture2D>("PassiveButtonRisky");
             Texture2D PassiveButtonStart = Content.Load<Texture2D>("PassiveButtonStart");
+            Texture2D PassiveButtonBack = Content.Load<Texture2D>("PassiveButtonBack");
+            Texture2D PassiveButtonQuitGame = Content.Load<Texture2D>("PassiveButtonQuitGame");
 
-            font = Content.Load<SpriteFont>("UIFont");
-            
             CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
             CommonFunctions.ActiveButonBackToMenu = ActiveButtonBackToMenu;
             CommonFunctions.ActiveButtonStart = ActiveButtonStart;
+            CommonFunctions.ActiveButtonBack = ActiveButtonBack;
+            CommonFunctions.ActiveButtonQuitGame = ActiveButtonQuitGame;
             CommonFunctions.ActiveButtonTitan = ActiveButtonTitan;
             CommonFunctions.ActiveButtonNormal = ActiveButtonNormal;
             CommonFunctions.ActiveButtonRisky = ActiveButtonRisky;
             CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
             CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
             CommonFunctions.PassiveButtonStart = PassiveButtonStart;
+            CommonFunctions.PassiveButtonBack = PassiveButtonBack;
+            CommonFunctions.PassiveButtonQuitGame = PassiveButtonQuitGame;
             CommonFunctions.PassiveButtonTitan = PassiveButtonTitan;
             CommonFunctions.PassiveButtonNormal = PassiveButtonNormal;
             CommonFunctions.PassiveButtonRisky = PassiveButtonRisky;
@@ -114,7 +120,7 @@ namespace Space_is_a_dangerous_place
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, font, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));
             BgContr = new BackgroundController(Background1, Background1);
-            GSContr = new GameStartController(ShipController, font, MeContr);
+            GSContr = new GameStartController(ShipController, font, MeContr, this);
 
         }
 
@@ -124,7 +130,11 @@ namespace Space_is_a_dangerous_place
         /// </summary>
         protected override void UnloadContent()
         {
-            
+        }
+
+        public void Quit()
+        {
+            Exit();
         }
 
         /// <summary>
@@ -134,6 +144,9 @@ namespace Space_is_a_dangerous_place
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+            CommonFunctions.Input = Keyboard.GetState();
+            CommonFunctions.mState = Mouse.GetState();
 
             if (!GSContr.gameStarted)
                 GSContr.Update();

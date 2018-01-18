@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,6 +13,8 @@ namespace Space_is_a_dangerous_place
     static class CommonFunctions
     {
         
+        public static KeyboardState Input;
+        public static MouseState mState;
 
         public static List<ICollidable> ICollidableList = new List<ICollidable>();
         
@@ -35,12 +38,16 @@ namespace Space_is_a_dangerous_place
         public static Texture2D ActiveButtonContinue;
         public static Texture2D ActiveButonBackToMenu;
         public static Texture2D ActiveButtonStart;
+        public static Texture2D ActiveButtonBack;
+        public static Texture2D ActiveButtonQuitGame;
         public static Texture2D ActiveButtonTitan;
         public static Texture2D ActiveButtonNormal;
         public static Texture2D ActiveButtonRisky;
         public static Texture2D PassiveButtonContinue;
         public static Texture2D PassiveButtonBackToMenu;
         public static Texture2D PassiveButtonStart;
+        public static Texture2D PassiveButtonBack;
+        public static Texture2D PassiveButtonQuitGame;
         public static Texture2D PassiveButtonTitan;
         public static Texture2D PassiveButtonNormal;
         public static Texture2D PassiveButtonRisky;

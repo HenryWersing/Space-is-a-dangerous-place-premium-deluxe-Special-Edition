@@ -13,10 +13,10 @@ namespace Space_is_a_dangerous_place
     {
         //todo: optionen mit aspectratio und so, bei nicht quadratischer schwarze ränder links und rechts?
         private SpriteFont font;
-
-        private KeyboardState Input;
+        
         private SpaceshipController SpaceshipController;
         private MenuController meContr;
+        private Game1 game;
 
         public bool gameStarted = false;
 
@@ -24,7 +24,7 @@ namespace Space_is_a_dangerous_place
         private int shipChoiceSaver; //0->Spaceship, 1->Titan
 
 
-        public GameStartController(SpaceshipController spShipContr, SpriteFont font, MenuController meContr)
+        public GameStartController(SpaceshipController spShipContr, SpriteFont font, MenuController meContr, Game1 game)
         {
 
             this.font = font;
@@ -33,13 +33,11 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.currentGameStartController = this;
 
             this.meContr = meContr;
-
+            this.game = game;
         }
 
         public void Update()
         {
-
-            Input = Keyboard.GetState();
             
             List<Texture2D> textureListActive = new List<Texture2D>();
             List<Texture2D> textureListPassive = new List<Texture2D>();
@@ -51,19 +49,30 @@ namespace Space_is_a_dangerous_place
                 case 0:
                     textureListActive.Add(CommonFunctions.ActiveButtonStart);
                     textureListPassive.Add(CommonFunctions.PassiveButtonStart);
+                    textureListActive.Add(CommonFunctions.ActiveButtonQuitGame);
+                    textureListPassive.Add(CommonFunctions.PassiveButtonQuitGame);
 
-                    if (meContr.MenuControll(1, textureListActive, textureListPassive) == 0)
+                    switch (meContr.MenuControll(2, textureListActive, textureListPassive))
                     {
-                        menuPage = 1;
+                        case 0:
+                            menuPage = 1;
+                            break;
+                        case 1:
+                            game.Quit();
+                            break;
+                        default:
+                            break;
                     }
                     break;
                 case 1:
                     textureListActive.Add(CommonFunctions.ActiveButtonNormal);
                     textureListActive.Add(CommonFunctions.ActiveButtonTitan);
+                    textureListActive.Add(CommonFunctions.ActiveButtonBack);
                     textureListPassive.Add(CommonFunctions.PassiveButtonNormal);
                     textureListPassive.Add(CommonFunctions.PassiveButtonTitan);
+                    textureListPassive.Add(CommonFunctions.PassiveButtonBack);
 
-                    switch (meContr.MenuControll(2, textureListActive, textureListPassive))
+                    switch (meContr.MenuControll(3, textureListActive, textureListPassive))
                     {
                         case 0:
                             shipChoiceSaver = 0;
@@ -73,6 +82,9 @@ namespace Space_is_a_dangerous_place
                             shipChoiceSaver = 1;
                             menuPage = 2;
                             break;
+                        case 2:
+                            menuPage = 0;
+                            break;
                         default:
                             break;
                     }
@@ -81,10 +93,12 @@ namespace Space_is_a_dangerous_place
                 case 2:
                     textureListActive.Add(CommonFunctions.ActiveButtonNormal);
                     textureListActive.Add(CommonFunctions.ActiveButtonRisky);
+                    textureListActive.Add(CommonFunctions.ActiveButtonBack);
                     textureListPassive.Add(CommonFunctions.PassiveButtonNormal);
                     textureListPassive.Add(CommonFunctions.PassiveButtonRisky);
+                    textureListPassive.Add(CommonFunctions.PassiveButtonBack);
 
-                    switch (meContr.MenuControll(2, textureListActive, textureListPassive))
+                    switch (meContr.MenuControll(3, textureListActive, textureListPassive))
                     {
                         case 0:
                             if (shipChoiceSaver == 0)
@@ -104,6 +118,9 @@ namespace Space_is_a_dangerous_place
                             gameStarted = true;
 
                             break;
+                        case 2:
+                            menuPage = 1;
+                            break;
                         default:
                             break;
                     }
@@ -117,22 +134,22 @@ namespace Space_is_a_dangerous_place
             {
                 //spawnMode: 0=normal, 1=risky, 2=Titan, 3=risky Titan
                 //diese shortcuts bleiben
-                if (Input.IsKeyDown(Keys.N))
+                if (CommonFunctions.Input.IsKeyDown(Keys.N))
                 {
                     SpaceshipController.SpawnShip(0);
                     gameStarted = true;
                 }
-                if (Input.IsKeyDown(Keys.R))
+                if (CommonFunctions.Input.IsKeyDown(Keys.R))
                 {
                     SpaceshipController.SpawnShip(1); 
                     gameStarted = true;
                 }
-                if (Input.IsKeyDown(Keys.T))
+                if (CommonFunctions.Input.IsKeyDown(Keys.T))
                 {
                     SpaceshipController.SpawnShip(2);
                     gameStarted = true;
                 }
-                if (Input.IsKeyDown(Keys.I))
+                if (CommonFunctions.Input.IsKeyDown(Keys.I))
                 {
                     SpaceshipController.SpawnShip(3);
                     gameStarted = true;

@@ -18,9 +18,7 @@ namespace Space_is_a_dangerous_place
 {
     class Spaceship : ICollidable //erinnerung: dieses spaceship ist die spitze der ship erbstrucktur, also wenn andere arten der schiffe, erben diese von hier
     {
-
-        public KeyboardState Input;
-
+        
         public Vector2 position;
         public Vector2 PositionForRectangle { get; set; }
         public Size ObjectSize { get; set; }
@@ -206,30 +204,28 @@ namespace Space_is_a_dangerous_place
 
         public virtual void InputChecking()
         {
-
-            Input = Keyboard.GetState();
-
+            
             if (!paused)
             {
-                if ((Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left)) && Input.IsKeyDown(Keys.LeftShift))
+                if ((CommonFunctions.Input.IsKeyDown(Keys.A) || CommonFunctions.Input.IsKeyDown(Keys.Left)) && CommonFunctions.Input.IsKeyDown(Keys.LeftShift))
                     MoveLeft();
 
-                else if (Input.IsKeyDown(Keys.A) || Input.IsKeyDown(Keys.Left))
+                else if (CommonFunctions.Input.IsKeyDown(Keys.A) || CommonFunctions.Input.IsKeyDown(Keys.Left))
                     MoveLeftSlow();
 
-                if ((Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right)) && Input.IsKeyDown(Keys.LeftShift))
+                if ((CommonFunctions.Input.IsKeyDown(Keys.D) || CommonFunctions.Input.IsKeyDown(Keys.Right)) && CommonFunctions.Input.IsKeyDown(Keys.LeftShift))
                     MoveRight();
 
-                else if (Input.IsKeyDown(Keys.D) || Input.IsKeyDown(Keys.Right))
+                else if (CommonFunctions.Input.IsKeyDown(Keys.D) || CommonFunctions.Input.IsKeyDown(Keys.Right))
                     MoveRightSlow();
 
-                if (Input.IsKeyDown(Keys.S) || Input.IsKeyDown(Keys.Down))
+                if (CommonFunctions.Input.IsKeyDown(Keys.S) || CommonFunctions.Input.IsKeyDown(Keys.Down))
                     Shoot();
 
-                if (Input.IsKeyDown(Keys.Enter) && !CommonFunctions.terrainSpawning)
+                if (CommonFunctions.Input.IsKeyDown(Keys.Space) && !CommonFunctions.terrainSpawning)
                     CommonFunctions.currentTerrainController.StartRoutine();
 
-                if (Input.IsKeyDown(Keys.Escape))
+                if (CommonFunctions.Input.IsKeyDown(Keys.Escape))
                 {
                     paused = true;
                     meContr.pauseMenuNavigator = 0;
