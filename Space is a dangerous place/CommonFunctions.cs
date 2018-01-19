@@ -34,7 +34,6 @@ namespace Space_is_a_dangerous_place
 
         public static bool terrainSpawning = false;
         
-        //Hier werden die ButtonSkins zwischengelagert, da es keinen Sinn macht, sie über den Spaceship-Constructor zu schicken
         public static Texture2D ActiveButtonContinue;
         public static Texture2D ActiveButonBackToMenu;
         public static Texture2D ActiveButtonStart;
@@ -43,6 +42,7 @@ namespace Space_is_a_dangerous_place
         public static Texture2D ActiveButtonTitan;
         public static Texture2D ActiveButtonNormal;
         public static Texture2D ActiveButtonRisky;
+        public static Texture2D ActiveButtonResetScore;
         public static Texture2D PassiveButtonContinue;
         public static Texture2D PassiveButtonBackToMenu;
         public static Texture2D PassiveButtonStart;
@@ -51,6 +51,7 @@ namespace Space_is_a_dangerous_place
         public static Texture2D PassiveButtonTitan;
         public static Texture2D PassiveButtonNormal;
         public static Texture2D PassiveButtonRisky;
+        public static Texture2D PassiveButtonResetScore;
 
 
         public static ICollidable CheckCollision(ICollidable objectToCheck, List<ICollidable> objectsToCollide)

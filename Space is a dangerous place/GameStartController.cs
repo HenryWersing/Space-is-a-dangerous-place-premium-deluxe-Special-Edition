@@ -11,7 +11,6 @@ namespace Space_is_a_dangerous_place
 {
     class GameStartController
     {
-        //todo: optionen mit aspectratio und so, bei nicht quadratischer schwarze ränder links und rechts?
         private SpriteFont font;
         
         private SpaceshipController SpaceshipController;
@@ -48,16 +47,22 @@ namespace Space_is_a_dangerous_place
             {
                 case 0:
                     textureListActive.Add(CommonFunctions.ActiveButtonStart);
-                    textureListPassive.Add(CommonFunctions.PassiveButtonStart);
+                    textureListActive.Add(CommonFunctions.ActiveButtonResetScore);
                     textureListActive.Add(CommonFunctions.ActiveButtonQuitGame);
-                    textureListPassive.Add(CommonFunctions.PassiveButtonQuitGame);
+                    textureListPassive.Add(CommonFunctions.PassiveButtonStart);
+                    textureListPassive.Add(CommonFunctions.PassiveButtonResetScore);
+                    textureListPassive.Add(CommonFunctions.PassiveButtonQuitGame); ;
 
-                    switch (meContr.MenuControll(2, textureListActive, textureListPassive))
+                    switch (meContr.MenuControll(3, textureListActive, textureListPassive))
                     {
                         case 0:
                             menuPage = 1;
                             break;
                         case 1:
+                            Properties.Settings.Default.Highscore = 0;
+                            Properties.Settings.Default.Save();
+                            break;
+                        case 2:
                             game.Quit();
                             break;
                         default:
@@ -161,7 +166,8 @@ namespace Space_is_a_dangerous_place
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.DrawString(font, "[N]ormal mode: everything is normal\n[R]isky mode: score *2, general speed *1.5\n[T]itan Saceship\nT[i]tan - risky mode\n\nHighscore: " + Properties.Settings.Default.Highscore, new Vector2(3, 3), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+            //spriteBatch.DrawString(font, "[N]ormal mode: everything is normal\n[R]isky mode: score *2, general speed *1.5\n[T]itan Saceship\nT[i]tan - risky modeHighscore: " + Properties.Settings.Default.Highscore, new Vector2(3, 3), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+            spriteBatch.DrawString(font, "Highscore: " + Properties.Settings.Default.Highscore, new Vector2(3, 3), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
 
             meContr.DrawMenu(spriteBatch);
 

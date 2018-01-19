@@ -60,6 +60,7 @@ namespace Space_is_a_dangerous_place
 
             //load textures
             Texture2D StandartSpaceshipSkin = Content.Load<Texture2D>("raumschiffblid_t");
+            Texture2D StandartTitanSkin = Content.Load<Texture2D>("TitanImage_t");
             Texture2D StandartBulletSkin = Content.Load<Texture2D>("BulletBild");
             Texture2D StandartTerrainSkin = Content.Load<Texture2D>("geländebild3");
             Texture2D StandartTerrainBrokenLeftSkin = Content.Load<Texture2D>("geländzerstörtbildlinks_t");
@@ -74,8 +75,7 @@ namespace Space_is_a_dangerous_place
             Texture2D StandartUISkin = Content.Load<Texture2D>("UIBild_t");
             Texture2D Background1 = Content.Load<Texture2D>("Hintergrund1");
             Texture2D PointerTexture = Content.Load<Texture2D>("siadpPointerTexture_t");
-
-
+            
             SpriteFont font = Content.Load<SpriteFont>("UIFont");
             
             Texture2D ActiveButtonContinue = Content.Load<Texture2D>("ActiveButtonContinue");
@@ -86,6 +86,7 @@ namespace Space_is_a_dangerous_place
             Texture2D ActiveButtonStart = Content.Load<Texture2D>("ActiveButtonStart");
             Texture2D ActiveButtonBack = Content.Load<Texture2D>("ActiveButtonBack");
             Texture2D ActiveButtonQuitGame = Content.Load<Texture2D>("ActiveButtonQuitGame");
+            Texture2D ActiveButtonResetScore = Content.Load<Texture2D>("ActiveButtonResetScore");
             Texture2D PassiveButtonContinue = Content.Load<Texture2D>("PassiveButtonContinue");
             Texture2D PassiveButtonBackToMenu = Content.Load<Texture2D>("PassiveButtonBackToMenu");
             Texture2D PassiveButtonTitan = Content.Load<Texture2D>("PassiveButtonTitan");
@@ -94,6 +95,7 @@ namespace Space_is_a_dangerous_place
             Texture2D PassiveButtonStart = Content.Load<Texture2D>("PassiveButtonStart");
             Texture2D PassiveButtonBack = Content.Load<Texture2D>("PassiveButtonBack");
             Texture2D PassiveButtonQuitGame = Content.Load<Texture2D>("PassiveButtonQuitGame");
+            Texture2D PassiveButtonResetScore = Content.Load<Texture2D>("PassiveButtonResetScore");
 
             CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
             CommonFunctions.ActiveButonBackToMenu = ActiveButtonBackToMenu;
@@ -103,6 +105,7 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.ActiveButtonTitan = ActiveButtonTitan;
             CommonFunctions.ActiveButtonNormal = ActiveButtonNormal;
             CommonFunctions.ActiveButtonRisky = ActiveButtonRisky;
+            CommonFunctions.ActiveButtonResetScore = ActiveButtonResetScore;
             CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
             CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
             CommonFunctions.PassiveButtonStart = PassiveButtonStart;
@@ -111,11 +114,12 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.PassiveButtonTitan = PassiveButtonTitan;
             CommonFunctions.PassiveButtonNormal = PassiveButtonNormal;
             CommonFunctions.PassiveButtonRisky = PassiveButtonRisky;
+            CommonFunctions.PassiveButtonResetScore = PassiveButtonResetScore;
 
 
             //load objects
-            MeContr = new MenuController(PointerTexture); //diesen zu statics, dann spaceship geben, in spacesh dann mit rrturn int
-            ShipController = new SpaceshipController(StandartSpaceshipSkin, StandartBulletSkin, MeContr);
+            MeContr = new MenuController(PointerTexture);
+            ShipController = new SpaceshipController(StandartSpaceshipSkin,StandartTitanSkin, StandartBulletSkin, MeContr);
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, font, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));

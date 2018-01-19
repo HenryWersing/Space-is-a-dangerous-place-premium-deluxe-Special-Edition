@@ -9,14 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//todo: shift fähigkeiten? spaceship wird schneller, titan...?
-//todo: jedes spaceship hat eine up fähigkeit mit cooldown, z.B. kurz in terrain crashen zu können, oder score gegen munition tauschen?dann aber nur 5 mal verfügbar oder so
-//todo: feedback holen, was am terrain verbessern
-//todo: animationen?
-//todo: in spaceship shift zum beschleunigen umschreiben-> moveleft wird moveleftfast und moveleftslow wird moveleft. shift soll ja die fähigkeit zum beschleunigen sein
+
 namespace Space_is_a_dangerous_place
 {
-    class Spaceship : ICollidable //erinnerung: dieses spaceship ist die spitze der ship erbstrucktur, also wenn andere arten der schiffe, erben diese von hier
+    class Spaceship : ICollidable
     {
         
         public Vector2 position;
@@ -92,7 +88,7 @@ namespace Space_is_a_dangerous_place
         }
 
         #region Moving
-        public void MoveLeft()
+        public void MoveLeftFast()
         {
 
             if (position.X > CommonFunctions.borders.Left + Speed)
@@ -100,7 +96,7 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        public void MoveRight()
+        public void MoveRightFast()
         {
 
             if (position.X < CommonFunctions.borders.Right - Speed - ObjectSize.Width)
@@ -108,7 +104,7 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        public void MoveLeftSlow()
+        public void MoveLeft()
         {
 
             if (position.X > CommonFunctions.borders.Left + Speed)
@@ -116,7 +112,7 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        public void MoveRightSlow()
+        public void MoveRight()
         {
 
             if (position.X < CommonFunctions.borders.Right - Speed - ObjectSize.Width)
@@ -208,16 +204,16 @@ namespace Space_is_a_dangerous_place
             if (!paused)
             {
                 if ((CommonFunctions.Input.IsKeyDown(Keys.A) || CommonFunctions.Input.IsKeyDown(Keys.Left)) && CommonFunctions.Input.IsKeyDown(Keys.LeftShift))
-                    MoveLeft();
+                    MoveLeftFast();
 
                 else if (CommonFunctions.Input.IsKeyDown(Keys.A) || CommonFunctions.Input.IsKeyDown(Keys.Left))
-                    MoveLeftSlow();
+                    MoveLeft();
 
                 if ((CommonFunctions.Input.IsKeyDown(Keys.D) || CommonFunctions.Input.IsKeyDown(Keys.Right)) && CommonFunctions.Input.IsKeyDown(Keys.LeftShift))
-                    MoveRight();
+                    MoveRightFast();
 
                 else if (CommonFunctions.Input.IsKeyDown(Keys.D) || CommonFunctions.Input.IsKeyDown(Keys.Right))
-                    MoveRightSlow();
+                    MoveRight();
 
                 if (CommonFunctions.Input.IsKeyDown(Keys.S) || CommonFunctions.Input.IsKeyDown(Keys.Down))
                     Shoot();
@@ -266,6 +262,7 @@ namespace Space_is_a_dangerous_place
                     spaceshipList.Remove(this);
                     CommonFunctions.currentGameStartController.gameStarted = false;
                     CommonFunctions.currentGameStartController.menuPage = 0;
+                    meContr.pauseMenuNavigator = 0;
                     CommonFunctions.generalColour = Microsoft.Xna.Framework.Color.White;
                     break;
                 default:

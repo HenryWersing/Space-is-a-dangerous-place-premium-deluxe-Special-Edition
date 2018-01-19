@@ -45,19 +45,19 @@ namespace Space_is_a_dangerous_place
 
         public override void InputChecking()
         {
-
+            
             if (!paused)
             {
                 if (CommonFunctions.Input.IsKeyDown(Keys.A) || CommonFunctions.Input.IsKeyDown(Keys.Left))
-                    MoveLeftSlow();
+                    MoveLeft();
                 
                 if (CommonFunctions.Input.IsKeyDown(Keys.D) || CommonFunctions.Input.IsKeyDown(Keys.Right))
-                    MoveRightSlow();
+                    MoveRight();
 
                 if (CommonFunctions.Input.IsKeyDown(Keys.S) || CommonFunctions.Input.IsKeyDown(Keys.Down))
                     Shoot();
 
-                if (CommonFunctions.Input.IsKeyDown(Keys.Enter) && !CommonFunctions.terrainSpawning)
+                if (CommonFunctions.Input.IsKeyDown(Keys.Space) && !CommonFunctions.terrainSpawning)
                     CommonFunctions.currentTerrainController.StartRoutine();
 
                 if (CommonFunctions.Input.IsKeyDown(Keys.Escape))
@@ -75,7 +75,6 @@ namespace Space_is_a_dangerous_place
                 menuControlls();
             }
         }
-
-        //ramm fähigkeit oder zwei Leben
+        
     }
 }
