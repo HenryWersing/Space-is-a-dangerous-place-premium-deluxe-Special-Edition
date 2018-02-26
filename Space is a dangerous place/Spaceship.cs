@@ -125,7 +125,7 @@ namespace Space_is_a_dangerous_place
         public virtual void Shoot()
         {
 
-            if (DateTime.Now > nextAttackTime && ammunition > 0)
+            if (DateTime.Now > nextAttackTime && ammunition >= 1)
             {
                 ammunition--;
 

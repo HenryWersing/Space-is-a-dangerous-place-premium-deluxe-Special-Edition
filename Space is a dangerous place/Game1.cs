@@ -71,7 +71,6 @@ namespace Space_is_a_dangerous_place
             Texture2D StandartUfoLootBombSkin = Content.Load<Texture2D>("alienlootbombe_t");
             Texture2D StandartScoreDropSkin = Content.Load<Texture2D>("scorebild_t");
             Texture2D StandartAmmoDropSkin = Content.Load<Texture2D>("munitionsbild_t");
-            Texture2D StandartEndSreen = Content.Load<Texture2D>("endebild");
             Texture2D StandartUISkin = Content.Load<Texture2D>("UIBild_t");
             Texture2D Background1 = Content.Load<Texture2D>("Hintergrund1");
             Texture2D PointerTexture = Content.Load<Texture2D>("siadpPointerTexture_t");
@@ -87,6 +86,7 @@ namespace Space_is_a_dangerous_place
             Texture2D ActiveButtonBack = Content.Load<Texture2D>("ActiveButtonBack");
             Texture2D ActiveButtonQuitGame = Content.Load<Texture2D>("ActiveButtonQuitGame");
             Texture2D ActiveButtonResetScore = Content.Load<Texture2D>("ActiveButtonResetScore");
+            Texture2D ActiveButtonTutorial = Content.Load<Texture2D>("ActiveButtonTutorial");
             Texture2D PassiveButtonContinue = Content.Load<Texture2D>("PassiveButtonContinue");
             Texture2D PassiveButtonBackToMenu = Content.Load<Texture2D>("PassiveButtonBackToMenu");
             Texture2D PassiveButtonTitan = Content.Load<Texture2D>("PassiveButtonTitan");
@@ -96,6 +96,7 @@ namespace Space_is_a_dangerous_place
             Texture2D PassiveButtonBack = Content.Load<Texture2D>("PassiveButtonBack");
             Texture2D PassiveButtonQuitGame = Content.Load<Texture2D>("PassiveButtonQuitGame");
             Texture2D PassiveButtonResetScore = Content.Load<Texture2D>("PassiveButtonResetScore");
+            Texture2D PassiveButtonTutorial = Content.Load<Texture2D>("PassiveButtonTutorial");
 
             CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
             CommonFunctions.ActiveButonBackToMenu = ActiveButtonBackToMenu;
@@ -106,6 +107,7 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.ActiveButtonNormal = ActiveButtonNormal;
             CommonFunctions.ActiveButtonRisky = ActiveButtonRisky;
             CommonFunctions.ActiveButtonResetScore = ActiveButtonResetScore;
+            CommonFunctions.ActiveButtonTutorial = ActiveButtonTutorial;
             CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
             CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
             CommonFunctions.PassiveButtonStart = PassiveButtonStart;
@@ -115,6 +117,7 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.PassiveButtonNormal = PassiveButtonNormal;
             CommonFunctions.PassiveButtonRisky = PassiveButtonRisky;
             CommonFunctions.PassiveButtonResetScore = PassiveButtonResetScore;
+            CommonFunctions.PassiveButtonTutorial = PassiveButtonTutorial;
 
 
             //load objects
@@ -124,7 +127,7 @@ namespace Space_is_a_dangerous_place
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, font, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));
             BgContr = new BackgroundController(Background1, Background1);
-            GSContr = new GameStartController(ShipController, font, MeContr, this);
+            GSContr = new GameStartController(ShipController, font, MeContr, Background1, this);
 
         }
 
