@@ -33,6 +33,8 @@ namespace Space_is_a_dangerous_place
         public static Random generalRandom = new Random();
 
         public static bool terrainSpawning = false;
+
+        public static SpriteFont font;
         
         public static Texture2D ActiveButtonContinue;
         public static Texture2D ActiveButonBackToMenu;

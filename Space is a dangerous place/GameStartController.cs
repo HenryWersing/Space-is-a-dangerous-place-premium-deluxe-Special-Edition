@@ -20,20 +20,20 @@ namespace Space_is_a_dangerous_place
 
         public bool gameStarted = false;
 
-        public int menuPage = 0; //0->Startseite, 1->Schiff, 2->Difficulty
+        public int menuPage = 0; //0->Startseite, 1->Schiff, 2->Difficulty, 3->Tutorialscreen
         private int shipChoiceSaver; //0->Spaceship, 1->Titan
 
-        private string tutorialText = "Controls in Menu:\nW + S / Up + Down to navigate, Enter to select\n\nControls in Game:\nA + D / Left + Right to move, Down to shoot, Escape to open menu\n\nTips:\nYou can either collect or shoot the drops. The green drops give you\nammounition, the purple ones rise your score. Shooting them generally\ngives you more, but while shooting ammo-drops is almost always a good\nidea, you might run out of ammo when you shoot the score-drops as well.\nThe UFOs leave stronger drops when destroyed, but be warned:\nsometimes they leave bombs, which act like terrain.\n\nIn this game you choose between Normal Mode and Riscy Mode. In\nRiscy Mode everything is much faster but you also gain double the score.\n\nWhen using the smaller spaceship you can use shift to accelerate.\n\nThere are shortcuts in the menu: [n]ormal mode with normal spaceship,\n[r]iscy mode with normal spaceship, [t]itan in normal mode and\nt[i]tan in riscy mode.\n\n\nPress Enter to leave.";
+        private string tutorialText = "Controls in Menu:\nW + S / Up + Down to navigate, Enter to select  /  Mouse\n\nControls in Game:\nA + D / Left + Right to move, S / Down to shoot, Escape to open menu\n\nTips:\nYou can either collect or shoot the drops. The green drops give you\nammounition, the purple ones rise your score. Shooting them generally\ngives you more, but while shooting ammo-drops is almost always a good\nidea, you might run out of ammo when you shoot the score-drops as well.\nThe UFOs leave stronger drops when destroyed, but be warned:\nsometimes they leave bombs, which act like terrain.\n\nIn this game you choose between Normal Mode and Riscy Mode. In\nRiscy Mode everything is much faster but you also gain double the score.\n\nWhen using the smaller spaceship you can use shift to accelerate.\n\nThere are shortcuts in the menu: [n]ormal mode with normal spaceship,\n[r]iscy mode with normal spaceship, [t]itan in normal mode and\nt[i]tan in riscy mode.\n\n\nPress Enter to leave.";
         private bool showTutorial = false;
 
         private Rectangle borders;
         private Rectangle backgroundRectangle;
 
 
-        public GameStartController(SpaceshipController spShipContr, SpriteFont font, MenuController meContr, Texture2D background, Game1 game)
+        public GameStartController(SpaceshipController spShipContr, MenuController meContr, Texture2D background, Game1 game)
         {
 
-            this.font = font;
+            this.font = CommonFunctions.font;
 
             SpaceshipController = spShipContr;
             CommonFunctions.currentGameStartController = this;

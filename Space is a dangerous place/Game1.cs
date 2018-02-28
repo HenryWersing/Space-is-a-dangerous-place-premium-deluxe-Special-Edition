@@ -119,6 +119,8 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.PassiveButtonResetScore = PassiveButtonResetScore;
             CommonFunctions.PassiveButtonTutorial = PassiveButtonTutorial;
 
+            CommonFunctions.font = font;
+
 
             //load objects
             MeContr = new MenuController(PointerTexture);
@@ -127,7 +129,7 @@ namespace Space_is_a_dangerous_place
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, font, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));
             BgContr = new BackgroundController(Background1, Background1);
-            GSContr = new GameStartController(ShipController, font, MeContr, Background1, this);
+            GSContr = new GameStartController(ShipController, MeContr, Background1, this);
 
         }
 

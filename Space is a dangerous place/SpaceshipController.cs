@@ -19,7 +19,7 @@ namespace Space_is_a_dangerous_place
         private Spaceship newSpaceship;
 
         private List<Spaceship> SpaceshipList = new List<Spaceship>();
-
+        
         private MenuController meContr;
 
         private Size standartStartingSize;

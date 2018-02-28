@@ -30,6 +30,9 @@ namespace Space_is_a_dangerous_place
 
         public float ammunition;
         public float score;
+        public float previousScore;
+
+        public bool diedBefore = false;
 
         public bool paused = false;
         public static int pauseMenuNumberOfOptions = 2;
@@ -50,6 +53,8 @@ namespace Space_is_a_dangerous_place
         public float attackSpeedMultiplier;
 
         public Microsoft.Xna.Framework.Rectangle destinationRectangle;
+
+        public SpriteFont font;
 
         public List<Spaceship> spaceshipList;
 
@@ -80,6 +85,7 @@ namespace Space_is_a_dangerous_place
 
             standartBulletSize = new Size(Convert.ToInt32(3 * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(3 * CommonFunctions.aspectRatioMultiplierY));
 
+            this.font = CommonFunctions.font;
 
             this.spaceshipList = spaceshipList;
 
@@ -189,15 +195,17 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.ICollidableList.RemoveRange(0, CommonFunctions.ICollidableList.Count);
             BulletList.RemoveRange(0, BulletList.Count);
             ammunition = startingAmmunition;
+            previousScore = score;
             if (score > Properties.Settings.Default.Highscore)
             {
                 Properties.Settings.Default.Highscore = Convert.ToInt32(score);
                 Properties.Settings.Default.Save();
             }
             score = startingScore;
+            diedBefore = true;
 
         }
-
+        //todo: !!!Balancing!!!
         public virtual void InputChecking()
         {
             
@@ -295,6 +303,14 @@ namespace Space_is_a_dangerous_place
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
+            if (!CommonFunctions.terrainSpawning)
+            {
+                if(!diedBefore)
+                    spriteBatch.DrawString(font, "Raise your score as much as possible!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                else
+                    spriteBatch.DrawString(font, "You died! Previous score: " + previousScore, new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+            }
 
             spriteBatch.Draw(Skin, destinationRectangle, CommonFunctions.generalColour);
 
