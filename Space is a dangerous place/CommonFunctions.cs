@@ -24,6 +24,7 @@ namespace Space_is_a_dangerous_place
         public static Spaceship currentSpaceship;
         public static TerrainController currentTerrainController;
         public static GameStartController currentGameStartController;
+        public static TextInputController currentTextInputController;
 
         public static System.Drawing.Rectangle borders;
         public static int normalDownwardSpeed = 2;

@@ -16,11 +16,14 @@ namespace Space_is_a_dangerous_place
         List<Texture2D> activeButtonTextureList = new List<Texture2D>();
         List<Texture2D> passiveButtonTextureList = new List<Texture2D>();
 
-        Keys lastClickedKey;
+        public Keys lastClickedKey;
         int counter = 0;
         public DateTime nextButtonTime;
         DateTime nextClickTime;
         public int pauseMenuNavigator;
+
+        public int msToAddButton = 80;
+        public int msToAddClick = 200;
 
         float buttonWidth;
         float buttonHeight;
@@ -67,7 +70,7 @@ namespace Space_is_a_dangerous_place
                 //Button wird gedrückt gehalten (oder sehr schnell nacheinander gedrückt)
                 if (CommonFunctions.Input.IsKeyDown(lastClickedKey) && lastClickedKey != Keys.None)
                 {
-                    nextButtonTime = DateTime.Now.AddMilliseconds(80);
+                    nextButtonTime = DateTime.Now.AddMilliseconds(msToAddButton);
                     counter++;
 
                     if (counter > 6 && (CommonFunctions.Input.IsKeyDown(Keys.S) || CommonFunctions.Input.IsKeyDown(Keys.Down)))
@@ -130,7 +133,7 @@ namespace Space_is_a_dangerous_place
 
                 if (buttonDestinationRectangles[i].Intersects(new Rectangle(CommonFunctions.mState.Position, new Point(1, 1))) && CommonFunctions.mState.LeftButton == ButtonState.Pressed && pauseMenuNavigator == i && DateTime.Now > nextClickTime)
                 {
-                    nextClickTime = DateTime.Now.AddMilliseconds(200);
+                    nextClickTime = DateTime.Now.AddMilliseconds(msToAddClick);
                     return i;
                 }
             }

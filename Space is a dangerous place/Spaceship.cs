@@ -205,7 +205,7 @@ namespace Space_is_a_dangerous_place
             diedBefore = true;
 
         }
-        //todo: !!!Balancing!!!
+        //TODO: !!!Balancing!!!
         public virtual void InputChecking()
         {
             
@@ -307,9 +307,14 @@ namespace Space_is_a_dangerous_place
             if (!CommonFunctions.terrainSpawning)
             {
                 if(!diedBefore)
-                    spriteBatch.DrawString(font, "Raise your score as much as possible!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                    spriteBatch.DrawString(font, "Raise your score as high as possible!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                 else
-                    spriteBatch.DrawString(font, "You died! Previous score: " + previousScore, new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                {
+                    if (previousScore>Properties.Settings.Default.Highscore)
+                        spriteBatch.DrawString(font, "You died! Reached score: " + previousScore + "\nNew Highscore!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                    else
+                        spriteBatch.DrawString(font, "You died! Reached score: " + previousScore, new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                }
             }
 
             spriteBatch.Draw(Skin, destinationRectangle, CommonFunctions.generalColour);

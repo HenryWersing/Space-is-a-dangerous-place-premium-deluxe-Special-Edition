@@ -22,13 +22,14 @@ namespace Space_is_a_dangerous_place
         BackgroundController BgContr;
         GameStartController GSContr;
         MenuController MeContr;
+        TextInputController teInContr;
 
         public Game1()
         {
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+            
             this.graphics.PreferredBackBufferHeight = 650;
             this.graphics.PreferredBackBufferWidth = 650;
             borders = new System.Drawing.Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -127,9 +128,10 @@ namespace Space_is_a_dangerous_place
             ShipController = new SpaceshipController(StandartSpaceshipSkin,StandartTitanSkin, StandartBulletSkin, MeContr);
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
-            UIContr = new UIController(StandartUISkin, font, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));
+            UIContr = new UIController(StandartUISkin, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));
             BgContr = new BackgroundController(Background1, Background1);
             GSContr = new GameStartController(ShipController, MeContr, Background1, this);
+            teInContr = new TextInputController(MeContr);
 
         }
 

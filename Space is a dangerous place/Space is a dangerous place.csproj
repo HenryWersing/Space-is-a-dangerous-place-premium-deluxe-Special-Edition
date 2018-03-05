@@ -67,6 +67,7 @@
     <Compile Include="SpaceshipController.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="TerrainController.cs" />
+    <Compile Include="TextInputController.cs" />
     <Compile Include="Titan.cs" />
     <Compile Include="Ufo.cs" />
     <Compile Include="UfoAmmoDrop.cs" />

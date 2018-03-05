@@ -21,11 +21,11 @@ namespace Space_is_a_dangerous_place
         private SpriteFont font;
 
 
-        public UIController(Texture2D skin, SpriteFont font, Size size)
+        public UIController(Texture2D skin, Size size)
         {
 
             this.skin = skin;
-            this.font = font;
+            font = CommonFunctions.font;
             destinationRectangle = new Microsoft.Xna.Framework.Rectangle(CommonFunctions.borders.Left, CommonFunctions.borders.Bottom - size.Height, size.Width, size.Height);
 
         }
