@@ -53,7 +53,7 @@ namespace Space_is_a_dangerous_place
 
             if (Properties.Settings.Default.Name=="")
             {
-                CommonFunctions.currentTextInputController.Update();
+                CommonFunctions.currentTextInputController.Update("Please enter your name:");
             }
             else
             { 

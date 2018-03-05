@@ -16,6 +16,8 @@ namespace Space_is_a_dangerous_place
         Keys lastClickedKey;
         DateTime nextButtonTime;
 
+        string inputPromt;
+
         string inputString = "";
         int msToAdd = 140;
 
@@ -33,8 +35,10 @@ namespace Space_is_a_dangerous_place
 
         }
 
-        public void Update()
+        public void Update(string inputPromt)
         {
+
+            this.inputPromt = inputPromt;
 
             Input = CommonFunctions.Input;
 
@@ -247,7 +251,9 @@ namespace Space_is_a_dangerous_place
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, inputString, new Vector2(3, 3), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+            spriteBatch.DrawString(font, inputPromt, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+            spriteBatch.DrawString(font, inputString, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 26 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+            spriteBatch.DrawString(font, "Press Enter to continue.", new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 49 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
         }
 
     }
