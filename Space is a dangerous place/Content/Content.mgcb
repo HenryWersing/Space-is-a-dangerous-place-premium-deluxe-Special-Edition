@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:ActiveButtonBackToMenu.png
 
+#begin ActiveButtonChangeName.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ActiveButtonChangeName.png
+
 #begin ActiveButtonContinue.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -61,6 +73,18 @@
 /processorParam:TextureFormat=Color
 /build:ActiveButtonNormal.png
 
+#begin ActiveButtonOptions.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ActiveButtonOptions.png
+
 #begin ActiveButtonQuitGame.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,6 +108,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ActiveButtonResetScore.png
+
+#begin ActiveButtonResolution.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ActiveButtonResolution.png
 
 #begin ActiveButtonRisky.png
 /importer:TextureImporter
@@ -289,6 +325,18 @@
 /processorParam:TextureFormat=Color
 /build:PassiveButtonBackToMenu.png
 
+#begin PassiveButtonChangeName.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PassiveButtonChangeName.png
+
 #begin PassiveButtonContinue.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -313,6 +361,18 @@
 /processorParam:TextureFormat=Color
 /build:PassiveButtonNormal.png
 
+#begin PassiveButtonOptions.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PassiveButtonOptions.png
+
 #begin PassiveButtonQuitGame.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -336,6 +396,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:PassiveButtonResetScore.png
+
+#begin PassiveButtonResolution.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PassiveButtonResolution.png
 
 #begin PassiveButtonRisky.png
 /importer:TextureImporter

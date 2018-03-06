@@ -36,7 +36,8 @@ namespace Space_is_a_dangerous_place
         public static bool terrainSpawning = false;
 
         public static SpriteFont font;
-        
+
+        #region buttonskins
         public static Texture2D ActiveButtonContinue;
         public static Texture2D ActiveButonBackToMenu;
         public static Texture2D ActiveButtonStart;
@@ -47,6 +48,9 @@ namespace Space_is_a_dangerous_place
         public static Texture2D ActiveButtonRisky;
         public static Texture2D ActiveButtonResetScore;
         public static Texture2D ActiveButtonTutorial;
+        public static Texture2D ActiveButtonChangeName;
+        public static Texture2D ActiveButtonOptions;
+        public static Texture2D ActiveButtonResolution;
         public static Texture2D PassiveButtonContinue;
         public static Texture2D PassiveButtonBackToMenu;
         public static Texture2D PassiveButtonStart;
@@ -57,6 +61,10 @@ namespace Space_is_a_dangerous_place
         public static Texture2D PassiveButtonRisky;
         public static Texture2D PassiveButtonResetScore;
         public static Texture2D PassiveButtonTutorial;
+        public static Texture2D PassiveButtonChangeName;
+        public static Texture2D PassiveButtonOptions;
+        public static Texture2D PassiveButtonResolution;
+        #endregion
 
 
         public static ICollidable CheckCollision(ICollidable objectToCheck, List<ICollidable> objectsToCollide)

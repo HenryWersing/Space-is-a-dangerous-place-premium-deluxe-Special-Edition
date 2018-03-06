@@ -19,9 +19,8 @@ namespace Space_is_a_dangerous_place
         private Game1 game;
 
         public bool gameStarted = false;
-        //TODO: options -> reset score, change resolution, change name. im main menu die highscoreliste
-        //TODO: beim ersten starten namen eingeben, wie den highscore speichern
-        public int menuPage = 0; //0->Startseite, 1->Schiff, 2->Difficulty, 3->Tutorialscreen
+        //TODO: im main menu highscoreliste
+        public int menuPage = 0; //0->Startseite, 1->Schiff, 2->Difficulty, 3->Tutorialscreen, 4->Options
         private int shipChoiceSaver; //0->Spaceship, 1->Titan
 
         private string tutorialText = "Controls in Menu:\nW + S / Up + Down to navigate, Enter to select  /  Mouse\n\nControls in Game:\nA + D / Left + Right to move, S / Down to shoot, Escape to open menu\n\nTips:\nYou can either collect or shoot the drops. The green drops give you\nammounition, the purple ones rise your score. Shooting them generally\ngives you more, but while shooting ammo-drops is almost always a good\nidea, you might run out of ammo when you shoot the score-drops as well.\nThe UFOs leave stronger drops when destroyed, but be warned:\nsometimes they leave bombs, which act like terrain.\n\nIn this game you choose between Normal Mode and Riscy Mode. In\nRiscy Mode everything is much faster but you also gain double the score.\n\nWhen using the smaller spaceship you can use shift to accelerate.\n\nThere are shortcuts in the menu: [n]ormal mode with normal spaceship,\n[r]iscy mode with normal spaceship, [t]itan in normal mode and\nt[i]tan in riscy mode.\n\n\nPress Enter to leave.";
@@ -30,12 +29,12 @@ namespace Space_is_a_dangerous_place
         private Rectangle borders;
         private Rectangle backgroundRectangle;
 
-
+        
         public GameStartController(SpaceshipController spShipContr, MenuController meContr, Texture2D background, Game1 game)
         {
 
             font = CommonFunctions.font;
-
+            
             SpaceshipController = spShipContr;
             CommonFunctions.currentGameStartController = this;
 
@@ -67,11 +66,11 @@ namespace Space_is_a_dangerous_place
                 {
                     case 0:
                         textureListActive.Add(CommonFunctions.ActiveButtonStart);
-                        textureListActive.Add(CommonFunctions.ActiveButtonResetScore);
+                        textureListActive.Add(CommonFunctions.ActiveButtonOptions);
                         textureListActive.Add(CommonFunctions.ActiveButtonTutorial);
                         textureListActive.Add(CommonFunctions.ActiveButtonQuitGame);
                         textureListPassive.Add(CommonFunctions.PassiveButtonStart);
-                        textureListPassive.Add(CommonFunctions.PassiveButtonResetScore);
+                        textureListPassive.Add(CommonFunctions.PassiveButtonOptions);
                         textureListPassive.Add(CommonFunctions.PassiveButtonTutorial);
                         textureListPassive.Add(CommonFunctions.PassiveButtonQuitGame);
 
@@ -81,8 +80,7 @@ namespace Space_is_a_dangerous_place
                                 menuPage = 1;
                                 break;
                             case 1:
-                                Properties.Settings.Default.Highscore = 0;
-                                Properties.Settings.Default.Save();
+                                menuPage = 4;
                                 break;
                             case 2:
                                 menuPage = 3;
@@ -169,6 +167,39 @@ namespace Space_is_a_dangerous_place
                         }
 
                         break;
+                    case 4:
+                        textureListActive.Add(CommonFunctions.ActiveButtonResetScore);
+                        textureListActive.Add(CommonFunctions.ActiveButtonChangeName);
+                        textureListActive.Add(CommonFunctions.ActiveButtonResolution);
+                        textureListActive.Add(CommonFunctions.ActiveButtonBack);
+                        textureListPassive.Add(CommonFunctions.PassiveButtonResetScore);
+                        textureListPassive.Add(CommonFunctions.PassiveButtonChangeName);
+                        textureListPassive.Add(CommonFunctions.PassiveButtonResolution);
+                        textureListPassive.Add(CommonFunctions.PassiveButtonBack);
+
+                        switch (meContr.MenuControll(4, textureListActive, textureListPassive))
+                        {
+                            case 0:
+                                Properties.Settings.Default.Highscore = 0;
+                                Properties.Settings.Default.Save();
+                                break;
+                            case 1:
+                                Properties.Settings.Default.Name = "";
+                                Properties.Settings.Default.Save();
+                                break;
+                            case 2:
+                                //TODO: resolution (500,650,800,950)
+                                //nicht nur resoulution, sondern auch aspectratio
+                                
+                                break;
+                            case 3:
+                                menuPage = 0;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
                     default:
                         break;
                 }
@@ -196,13 +227,6 @@ namespace Space_is_a_dangerous_place
                         SpaceshipController.SpawnShip(3);
                         gameStarted = true;
                     }
-                    /*
-                    if (CommonFunctions.Input.IsKeyDown(Keys.A))
-                    {
-                        Properties.Settings.Default.Name = "";
-                        Properties.Settings.Default.Save();
-                    }
-                    */
                 }
 
             }

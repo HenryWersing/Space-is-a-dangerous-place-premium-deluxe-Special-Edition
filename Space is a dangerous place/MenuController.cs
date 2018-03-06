@@ -15,7 +15,7 @@ namespace Space_is_a_dangerous_place
         int numberOfButtons;
         List<Texture2D> activeButtonTextureList = new List<Texture2D>();
         List<Texture2D> passiveButtonTextureList = new List<Texture2D>();
-
+        
         public Keys lastClickedKey;
         int counter = 0;
         public DateTime nextButtonTime;
@@ -39,7 +39,7 @@ namespace Space_is_a_dangerous_place
         public MenuController(Texture2D pointerTexture)
         {
             this.pointerTexture = pointerTexture;
-
+            
             buttonWidth = CommonFunctions.ActiveButtonContinue.Bounds.Right * 0.65f * CommonFunctions.aspectRatioMultiplierX;
             buttonHeight = CommonFunctions.ActiveButtonContinue.Bounds.Bottom * 0.65f * CommonFunctions.aspectRatioMultiplierY;
             distanceBetweenButtons = buttonHeight * 0.8f;

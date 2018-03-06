@@ -16,8 +16,8 @@ namespace Space_is_a_dangerous_place
         Keys lastClickedKey;
         DateTime nextButtonTime;
 
-        string inputPromt;
-
+        string inputPromt = "";
+        
         string inputString = "";
         int msToAdd = 140;
 
@@ -231,8 +231,14 @@ namespace Space_is_a_dangerous_place
 
                 else if (Input.IsKeyDown(Keys.Back))
                 {
-                    //TODO: out of length exeption
-                    inputString = inputString.Remove(inputString.Length - 1);
+                    try
+                    {
+                        inputString = inputString.Remove(inputString.Length - 1);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+
+                    }
                     lastClickedKey = Keys.Back;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }

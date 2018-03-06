@@ -29,14 +29,9 @@ namespace Space_is_a_dangerous_place
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
-            this.graphics.PreferredBackBufferHeight = 650;
-            this.graphics.PreferredBackBufferWidth = 650;
-            borders = new System.Drawing.Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            CommonFunctions.borders = borders;
-            CommonFunctions.aspectRatioMultiplierX = borders.Right / 650f;
-            CommonFunctions.aspectRatioMultiplierY = borders.Bottom / 650f;
 
+            setResolution(650, 650);
+            
         }
 
         /// <summary>
@@ -77,7 +72,8 @@ namespace Space_is_a_dangerous_place
             Texture2D PointerTexture = Content.Load<Texture2D>("siadpPointerTexture_t");
             
             SpriteFont font = Content.Load<SpriteFont>("UIFont");
-            
+
+            #region buttonskins
             Texture2D ActiveButtonContinue = Content.Load<Texture2D>("ActiveButtonContinue");
             Texture2D ActiveButtonBackToMenu = Content.Load<Texture2D>("ActiveButtonBackToMenu");
             Texture2D ActiveButtonTitan = Content.Load<Texture2D>("ActiveButtonTitan");
@@ -88,6 +84,9 @@ namespace Space_is_a_dangerous_place
             Texture2D ActiveButtonQuitGame = Content.Load<Texture2D>("ActiveButtonQuitGame");
             Texture2D ActiveButtonResetScore = Content.Load<Texture2D>("ActiveButtonResetScore");
             Texture2D ActiveButtonTutorial = Content.Load<Texture2D>("ActiveButtonTutorial");
+            Texture2D ActiveButtonChangeName = Content.Load<Texture2D>("ActiveButtonChangeName");
+            Texture2D ActiveButtonOptions = Content.Load<Texture2D>("ActiveButtonOptions");
+            Texture2D ActiveButtonResolution = Content.Load<Texture2D>("ActiveButtonResolution");
             Texture2D PassiveButtonContinue = Content.Load<Texture2D>("PassiveButtonContinue");
             Texture2D PassiveButtonBackToMenu = Content.Load<Texture2D>("PassiveButtonBackToMenu");
             Texture2D PassiveButtonTitan = Content.Load<Texture2D>("PassiveButtonTitan");
@@ -98,6 +97,9 @@ namespace Space_is_a_dangerous_place
             Texture2D PassiveButtonQuitGame = Content.Load<Texture2D>("PassiveButtonQuitGame");
             Texture2D PassiveButtonResetScore = Content.Load<Texture2D>("PassiveButtonResetScore");
             Texture2D PassiveButtonTutorial = Content.Load<Texture2D>("PassiveButtonTutorial");
+            Texture2D PassiveButtonChangeName = Content.Load<Texture2D>("PassiveButtonChangeName");
+            Texture2D PassiveButtonOptions = Content.Load<Texture2D>("PassiveButtonOptions");
+            Texture2D PassiveButtonResolution = Content.Load<Texture2D>("PassiveButtonResolution");
 
             CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
             CommonFunctions.ActiveButonBackToMenu = ActiveButtonBackToMenu;
@@ -109,6 +111,9 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.ActiveButtonRisky = ActiveButtonRisky;
             CommonFunctions.ActiveButtonResetScore = ActiveButtonResetScore;
             CommonFunctions.ActiveButtonTutorial = ActiveButtonTutorial;
+            CommonFunctions.ActiveButtonChangeName = ActiveButtonChangeName;
+            CommonFunctions.ActiveButtonOptions = ActiveButtonOptions;
+            CommonFunctions.ActiveButtonResolution = ActiveButtonResolution;
             CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
             CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
             CommonFunctions.PassiveButtonStart = PassiveButtonStart;
@@ -119,6 +124,10 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.PassiveButtonRisky = PassiveButtonRisky;
             CommonFunctions.PassiveButtonResetScore = PassiveButtonResetScore;
             CommonFunctions.PassiveButtonTutorial = PassiveButtonTutorial;
+            CommonFunctions.PassiveButtonChangeName = PassiveButtonChangeName;
+            CommonFunctions.PassiveButtonOptions = PassiveButtonOptions;
+            CommonFunctions.PassiveButtonResolution = PassiveButtonResolution;
+            #endregion
 
             CommonFunctions.font = font;
 
@@ -203,6 +212,18 @@ namespace Space_is_a_dangerous_place
 
 
             base.Draw(gameTime);
+
+        }
+
+        public void setResolution(int xValue, int yValue)
+        {
+
+            this.graphics.PreferredBackBufferHeight = xValue;
+            this.graphics.PreferredBackBufferWidth = yValue;
+            borders = new System.Drawing.Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            CommonFunctions.borders = borders;
+            CommonFunctions.aspectRatioMultiplierX = borders.Right / 650f;
+            CommonFunctions.aspectRatioMultiplierY = borders.Bottom / 650f;
 
         }
 

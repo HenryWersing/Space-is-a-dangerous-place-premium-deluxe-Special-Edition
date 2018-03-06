@@ -310,8 +310,8 @@ namespace Space_is_a_dangerous_place
                     spriteBatch.DrawString(font, "Raise your score as high as possible!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                 else
                 {
-                    if (previousScore>Properties.Settings.Default.Highscore)
-                        spriteBatch.DrawString(font, "You died! Reached score: " + previousScore + "\nNew Highscore!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                    if (Convert.ToInt16(previousScore) - 1 >= Properties.Settings.Default.Highscore)
+                        spriteBatch.DrawString(font, "You died! Reached score: " + previousScore + ". New Highscore!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                     else
                         spriteBatch.DrawString(font, "You died! Reached score: " + previousScore, new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                 }
