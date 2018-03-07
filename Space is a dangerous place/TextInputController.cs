@@ -17,8 +17,8 @@ namespace Space_is_a_dangerous_place
         DateTime nextButtonTime;
 
         string inputPromt = "";
-        
-        string inputString = "";
+
+        string InputString { get; set; }//TODO: nur 10 zeichen lang
         int msToAdd = 140;
 
         MenuController menuController;
@@ -48,182 +48,182 @@ namespace Space_is_a_dangerous_place
                 #region abomination
                 if (Input.IsKeyDown(Keys.A))
                 {
-                    inputString += 'A';
+                    InputString += 'A';
                     lastClickedKey = Keys.A;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.B))
                 {
-                    inputString += 'B';
+                    InputString += 'B';
                     lastClickedKey = Keys.B;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.C))
                 {
-                    inputString += 'C';
+                    InputString += 'C';
                     lastClickedKey = Keys.C;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.D))
                 {
-                    inputString += 'D';
+                    InputString += 'D';
                     lastClickedKey = Keys.D;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.E))
                 {
-                    inputString += 'E';
+                    InputString += 'E';
                     lastClickedKey = Keys.E;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.F))
                 {
-                    inputString += 'F';
+                    InputString += 'F';
                     lastClickedKey = Keys.F;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.G))
                 {
-                    inputString += 'G';
+                    InputString += 'G';
                     lastClickedKey = Keys.G;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.H))
                 {
-                    inputString += 'H';
+                    InputString += 'H';
                     lastClickedKey = Keys.H;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.I))
                 {
-                    inputString += 'I';
+                    InputString += 'I';
                     lastClickedKey = Keys.I;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.J))
                 {
-                    inputString += 'J';
+                    InputString += 'J';
                     lastClickedKey = Keys.J;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.K))
                 {
-                    inputString += 'K';
+                    InputString += 'K';
                     lastClickedKey = Keys.K;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.L))
                 {
-                    inputString += 'L';
+                    InputString += 'L';
                     lastClickedKey = Keys.L;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.M))
                 {
-                    inputString += 'M';
+                    InputString += 'M';
                     lastClickedKey = Keys.M;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.N))
                 {
-                    inputString += 'N';
+                    InputString += 'N';
                     lastClickedKey = Keys.N;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.O))
                 {
-                    inputString += 'O';
+                    InputString += 'O';
                     lastClickedKey = Keys.O;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.P))
                 {
-                    inputString += 'P';
+                    InputString += 'P';
                     lastClickedKey = Keys.P;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.Q))
                 {
-                    inputString += 'Q';
+                    InputString += 'Q';
                     lastClickedKey = Keys.Q;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.R))
                 {
-                    inputString += 'R';
+                    InputString += 'R';
                     lastClickedKey = Keys.R;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.S))
                 {
-                    inputString += 'S';
+                    InputString += 'S';
                     lastClickedKey = Keys.S;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.T))
                 {
-                    inputString += 'T';
+                    InputString += 'T';
                     lastClickedKey = Keys.T;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.U))
                 {
-                    inputString += 'U';
+                    InputString += 'U';
                     lastClickedKey = Keys.U;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.V))
                 {
-                    inputString += 'V';
+                    InputString += 'V';
                     lastClickedKey = Keys.V;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.W))
                 {
-                    inputString += 'W';
+                    InputString += 'W';
                     lastClickedKey = Keys.W;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.X))
                 {
-                    inputString += 'X';
+                    InputString += 'X';
                     lastClickedKey = Keys.X;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.Y))
                 {
-                    inputString += 'Y';
+                    InputString += 'Y';
                     lastClickedKey = Keys.Y;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
 
                 else if (Input.IsKeyDown(Keys.Z))
                 {
-                    inputString += 'Z';
+                    InputString += 'Z';
                     lastClickedKey = Keys.Z;
                     nextButtonTime = DateTime.Now.AddMilliseconds(msToAdd);
                 }
@@ -233,7 +233,7 @@ namespace Space_is_a_dangerous_place
                 {
                     try
                     {
-                        inputString = inputString.Remove(inputString.Length - 1);
+                        InputString = InputString.Remove(InputString.Length - 1);
                     }
                     catch (ArgumentOutOfRangeException)
                     {
@@ -245,7 +245,7 @@ namespace Space_is_a_dangerous_place
 
                 else if (Input.IsKeyDown(Keys.Enter))
                 {
-                    Properties.Settings.Default.Name = inputString;
+                    Properties.Settings.Default.Name = InputString;
                     Properties.Settings.Default.Save();
                     menuController.lastClickedKey = Keys.Enter;
                     menuController.nextButtonTime = DateTime.Now.AddMilliseconds(menuController.msToAddButton);
@@ -258,7 +258,7 @@ namespace Space_is_a_dangerous_place
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, inputPromt, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
-            spriteBatch.DrawString(font, inputString, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 26 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+            spriteBatch.DrawString(font, InputString, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 26 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
             spriteBatch.DrawString(font, "Press Enter to continue.", new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 49 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
         }
 

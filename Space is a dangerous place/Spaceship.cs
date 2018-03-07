@@ -63,7 +63,7 @@ namespace Space_is_a_dangerous_place
 
         public Spaceship(Texture2D skin, Size size, Vector2 position, Texture2D bulletSkin, List<Spaceship> spaceshipList, MenuController meContr, float ammMu, float scoMu, float speMu, float AtsMu)
         {
-
+            
             this.meContr = meContr;
             ammunitionMultiplier = ammMu;
             scoreMultiplier = scoMu;
@@ -200,6 +200,7 @@ namespace Space_is_a_dangerous_place
             {
                 Properties.Settings.Default.Highscore = Convert.ToInt32(score);
                 Properties.Settings.Default.Save();
+                CommonFunctions.currentGameStartController.scoreSubmitted = false;
             }
             score = startingScore;
             diedBefore = true;
@@ -307,13 +308,13 @@ namespace Space_is_a_dangerous_place
             if (!CommonFunctions.terrainSpawning)
             {
                 if(!diedBefore)
-                    spriteBatch.DrawString(font, "Raise your score as high as possible!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                    spriteBatch.DrawString(font, "Raise your score as high as possible!", new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                 else
                 {
                     if (Convert.ToInt16(previousScore) - 1 >= Properties.Settings.Default.Highscore)
-                        spriteBatch.DrawString(font, "You died! Reached score: " + previousScore + ". New Highscore!", new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                        spriteBatch.DrawString(font, "You died! Reached score: " + previousScore + ". New Highscore!", new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                     else
-                        spriteBatch.DrawString(font, "You died! Reached score: " + previousScore, new Vector2(3, 3), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                        spriteBatch.DrawString(font, "You died! Reached score: " + previousScore, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                 }
             }
 

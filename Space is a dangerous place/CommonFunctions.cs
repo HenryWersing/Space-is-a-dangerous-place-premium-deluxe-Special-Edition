@@ -51,6 +51,11 @@ namespace Space_is_a_dangerous_place
         public static Texture2D ActiveButtonChangeName;
         public static Texture2D ActiveButtonOptions;
         public static Texture2D ActiveButtonResolution;
+        public static Texture2D ActiveButton500x500;
+        public static Texture2D ActiveButton650x650;
+        public static Texture2D ActiveButton800x800;
+        public static Texture2D ActiveButton950x950;
+        public static Texture2D ActiveButtonSubmitScore;
         public static Texture2D PassiveButtonContinue;
         public static Texture2D PassiveButtonBackToMenu;
         public static Texture2D PassiveButtonStart;
@@ -64,6 +69,11 @@ namespace Space_is_a_dangerous_place
         public static Texture2D PassiveButtonChangeName;
         public static Texture2D PassiveButtonOptions;
         public static Texture2D PassiveButtonResolution;
+        public static Texture2D PassiveButton500x500;
+        public static Texture2D PassiveButton650x650;
+        public static Texture2D PassiveButton800x800;
+        public static Texture2D PassiveButton950x950;
+        public static Texture2D PassiveButtonSubmitScore;
         #endregion
 
 

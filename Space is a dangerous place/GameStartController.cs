@@ -15,22 +15,24 @@ namespace Space_is_a_dangerous_place
         
         private SpaceshipController SpaceshipController;
         private MenuController meContr;
+        private MySQLController mySQLContr;
         private Texture2D background;
         private Game1 game;
 
         public bool gameStarted = false;
         //TODO: im main menu highscoreliste
-        public int menuPage = 0; //0->Startseite, 1->Schiff, 2->Difficulty, 3->Tutorialscreen, 4->Options
+        public int menuPage = 0; //0->Startseite, 1->Schiff, 2->Difficulty, 3->Tutorialscreen, 4->Options, 5->resolution
         private int shipChoiceSaver; //0->Spaceship, 1->Titan
 
         private string tutorialText = "Controls in Menu:\nW + S / Up + Down to navigate, Enter to select  /  Mouse\n\nControls in Game:\nA + D / Left + Right to move, S / Down to shoot, Escape to open menu\n\nTips:\nYou can either collect or shoot the drops. The green drops give you\nammounition, the purple ones rise your score. Shooting them generally\ngives you more, but while shooting ammo-drops is almost always a good\nidea, you might run out of ammo when you shoot the score-drops as well.\nThe UFOs leave stronger drops when destroyed, but be warned:\nsometimes they leave bombs, which act like terrain.\n\nIn this game you choose between Normal Mode and Riscy Mode. In\nRiscy Mode everything is much faster but you also gain double the score.\n\nWhen using the smaller spaceship you can use shift to accelerate.\n\nThere are shortcuts in the menu: [n]ormal mode with normal spaceship,\n[r]iscy mode with normal spaceship, [t]itan in normal mode and\nt[i]tan in riscy mode.\n\n\nPress Enter to leave.";
         private bool showTutorial = false;
+        public bool scoreSubmitted = true;
 
         private Rectangle borders;
         private Rectangle backgroundRectangle;
-
         
-        public GameStartController(SpaceshipController spShipContr, MenuController meContr, Texture2D background, Game1 game)
+        
+        public GameStartController(SpaceshipController spShipContr, MenuController meContr, MySQLController mySQLContr, Texture2D background, Game1 game)
         {
 
             font = CommonFunctions.font;
@@ -39,6 +41,7 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.currentGameStartController = this;
 
             this.meContr = meContr;
+            this.mySQLContr = mySQLContr;
             this.background = background;
             this.game = game;
 
@@ -169,12 +172,14 @@ namespace Space_is_a_dangerous_place
                         break;
                     case 4:
                         textureListActive.Add(CommonFunctions.ActiveButtonResetScore);
+                        textureListActive.Add(CommonFunctions.ActiveButtonSubmitScore);
                         textureListActive.Add(CommonFunctions.ActiveButtonChangeName);
-                        textureListActive.Add(CommonFunctions.ActiveButtonResolution);
+                        //textureListActive.Add(CommonFunctions.ActiveButtonResolution);
                         textureListActive.Add(CommonFunctions.ActiveButtonBack);
                         textureListPassive.Add(CommonFunctions.PassiveButtonResetScore);
+                        textureListPassive.Add(CommonFunctions.PassiveButtonSubmitScore);
                         textureListPassive.Add(CommonFunctions.PassiveButtonChangeName);
-                        textureListPassive.Add(CommonFunctions.PassiveButtonResolution);
+                        //textureListPassive.Add(CommonFunctions.PassiveButtonResolution);
                         textureListPassive.Add(CommonFunctions.PassiveButtonBack);
 
                         switch (meContr.MenuControll(4, textureListActive, textureListPassive))
@@ -184,21 +189,62 @@ namespace Space_is_a_dangerous_place
                                 Properties.Settings.Default.Save();
                                 break;
                             case 1:
+                                if (!scoreSubmitted)
+                                {
+                                    mySQLContr.insertHighscore(Properties.Settings.Default.Name, Properties.Settings.Default.Highscore);
+                                    scoreSubmitted = true;
+                                }
+                                break;
+                            case 2:
                                 Properties.Settings.Default.Name = "";
                                 Properties.Settings.Default.Save();
                                 break;
+                            case 3:
+                                menuPage = 0;
+                                break;
+                                /*
                             case 2:
-                                //TODO: resolution (500,650,800,950)
-                                //nicht nur resoulution, sondern auch aspectratio
-                                
+                                menuPage = 5;
+                                break;
+                                */
+                            default:
+                                break;
+                        }
+
+                        break;
+                    case 5:
+                        
+                        textureListActive.Add(CommonFunctions.ActiveButton500x500);
+                        textureListActive.Add(CommonFunctions.ActiveButton650x650);
+                        textureListActive.Add(CommonFunctions.ActiveButton800x800);
+                        textureListActive.Add(CommonFunctions.ActiveButton950x950);
+                        textureListActive.Add(CommonFunctions.ActiveButtonBack);
+                        textureListPassive.Add(CommonFunctions.PassiveButton500x500);
+                        textureListPassive.Add(CommonFunctions.PassiveButton650x650);
+                        textureListPassive.Add(CommonFunctions.PassiveButton800x800);
+                        textureListPassive.Add(CommonFunctions.PassiveButton950x950);
+                        textureListPassive.Add(CommonFunctions.PassiveButtonBack);
+
+                        switch (meContr.MenuControll(5, textureListActive, textureListPassive))
+                        {
+                            case 0:
+                                game.setResolution(500, 500); //TODO: reload window
+                                break;                          //dann wieder in optionen einbauen
+                            case 1:
+                                game.setResolution(650, 650);
+                                break;
+                            case 2:
+                                game.setResolution(800, 800);
                                 break;
                             case 3:
+                                game.setResolution(950, 950);
+                                break;
+                            case 4:
                                 menuPage = 0;
                                 break;
                             default:
                                 break;
                         }
-
                         break;
                     default:
                         break;
@@ -235,7 +281,7 @@ namespace Space_is_a_dangerous_place
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            
             if (Properties.Settings.Default.Name == "")
             {
                 CommonFunctions.currentTextInputController.Draw(spriteBatch);
@@ -245,14 +291,17 @@ namespace Space_is_a_dangerous_place
 
                 spriteBatch.Draw(background, backgroundRectangle, Color.White);
 
-                spriteBatch.DrawString(font, "Highscore: " + Properties.Settings.Default.Highscore, new Vector2(3, 3), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                spriteBatch.DrawString(font, "Highscore: " + Properties.Settings.Default.Highscore, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+
+                if(!scoreSubmitted)
+                    spriteBatch.DrawString(font, "Highscore submitted! View GLOBAL highscores in the main menu.", new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 26 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
 
                 meContr.DrawMenu(spriteBatch);
 
                 if (showTutorial)
                 {
                     spriteBatch.Draw(background, borders, Color.Black);
-                    spriteBatch.DrawString(font, tutorialText, new Vector2(3, 3), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
+                    spriteBatch.DrawString(font, tutorialText, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                 }
 
             }

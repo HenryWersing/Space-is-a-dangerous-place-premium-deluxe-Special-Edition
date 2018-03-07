@@ -23,6 +23,7 @@ namespace Space_is_a_dangerous_place
         GameStartController GSContr;
         MenuController MeContr;
         TextInputController teInContr;
+        MySQLController mySQLContr;
 
         public Game1()
         {
@@ -87,6 +88,11 @@ namespace Space_is_a_dangerous_place
             Texture2D ActiveButtonChangeName = Content.Load<Texture2D>("ActiveButtonChangeName");
             Texture2D ActiveButtonOptions = Content.Load<Texture2D>("ActiveButtonOptions");
             Texture2D ActiveButtonResolution = Content.Load<Texture2D>("ActiveButtonResolution");
+            Texture2D ActiveButton500x500 = Content.Load<Texture2D>("ActiveButton500x500");
+            Texture2D ActiveButton650x650 = Content.Load<Texture2D>("ActiveButton650x650");
+            Texture2D ActiveButton800x800 = Content.Load<Texture2D>("ActiveButton800x800");
+            Texture2D ActiveButton950x950 = Content.Load<Texture2D>("ActiveButton950x950");
+            Texture2D ActiveButtonSubmitScore = Content.Load<Texture2D>("ActiveButtonSubmitScore");
             Texture2D PassiveButtonContinue = Content.Load<Texture2D>("PassiveButtonContinue");
             Texture2D PassiveButtonBackToMenu = Content.Load<Texture2D>("PassiveButtonBackToMenu");
             Texture2D PassiveButtonTitan = Content.Load<Texture2D>("PassiveButtonTitan");
@@ -100,6 +106,11 @@ namespace Space_is_a_dangerous_place
             Texture2D PassiveButtonChangeName = Content.Load<Texture2D>("PassiveButtonChangeName");
             Texture2D PassiveButtonOptions = Content.Load<Texture2D>("PassiveButtonOptions");
             Texture2D PassiveButtonResolution = Content.Load<Texture2D>("PassiveButtonResolution");
+            Texture2D PassiveButton500x500 = Content.Load<Texture2D>("PassiveButton500x500");
+            Texture2D PassiveButton650x650 = Content.Load<Texture2D>("PassiveButton650x650");
+            Texture2D PassiveButton800x800 = Content.Load<Texture2D>("PassiveButton800x800");
+            Texture2D PassiveButton950x950 = Content.Load<Texture2D>("PassiveButton950x950");
+            Texture2D PassiveButtonSubmitScore = Content.Load<Texture2D>("PassiveButtonSubmitScore");
 
             CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
             CommonFunctions.ActiveButonBackToMenu = ActiveButtonBackToMenu;
@@ -114,6 +125,11 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.ActiveButtonChangeName = ActiveButtonChangeName;
             CommonFunctions.ActiveButtonOptions = ActiveButtonOptions;
             CommonFunctions.ActiveButtonResolution = ActiveButtonResolution;
+            CommonFunctions.ActiveButton500x500 = ActiveButton500x500;
+            CommonFunctions.ActiveButton650x650 = ActiveButton650x650;
+            CommonFunctions.ActiveButton800x800 = ActiveButton800x800;
+            CommonFunctions.ActiveButton950x950 = ActiveButton950x950;
+            CommonFunctions.ActiveButtonSubmitScore = ActiveButtonSubmitScore;
             CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
             CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
             CommonFunctions.PassiveButtonStart = PassiveButtonStart;
@@ -127,6 +143,11 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.PassiveButtonChangeName = PassiveButtonChangeName;
             CommonFunctions.PassiveButtonOptions = PassiveButtonOptions;
             CommonFunctions.PassiveButtonResolution = PassiveButtonResolution;
+            CommonFunctions.PassiveButton500x500 = PassiveButton500x500;
+            CommonFunctions.PassiveButton650x650 = PassiveButton650x650;
+            CommonFunctions.PassiveButton800x800 = PassiveButton800x800;
+            CommonFunctions.PassiveButton950x950 = PassiveButton950x950;
+            CommonFunctions.PassiveButtonSubmitScore = PassiveButtonSubmitScore;
             #endregion
 
             CommonFunctions.font = font;
@@ -138,8 +159,9 @@ namespace Space_is_a_dangerous_place
             TerraContr = new TerrainController(StandartTerrainSkin, StandartAmmoDropSkin, StandartScoreDropSkin, StandartTerrainBrokenLeftSkin, StandartTerrainBrokenRightSkin);
             UfoContr = new UfoController(StandartUfoSkin, StandartUfoLootAmmoSkin, StandartUfoLootScoreSkin, StandartUfoLootBombSkin);
             UIContr = new UIController(StandartUISkin, new Size(Convert.ToInt32(85f * CommonFunctions.aspectRatioMultiplierX), Convert.ToInt32(68f * CommonFunctions.aspectRatioMultiplierY)));
+            mySQLContr = new MySQLController();
             BgContr = new BackgroundController(Background1, Background1);
-            GSContr = new GameStartController(ShipController, MeContr, Background1, this);
+            GSContr = new GameStartController(ShipController, MeContr, mySQLContr, Background1, this);
             teInContr = new TextInputController(MeContr);
 
         }
@@ -150,11 +172,6 @@ namespace Space_is_a_dangerous_place
         /// </summary>
         protected override void UnloadContent()
         {
-        }
-
-        public void Quit()
-        {
-            Exit();
         }
 
         /// <summary>
@@ -215,6 +232,11 @@ namespace Space_is_a_dangerous_place
 
         }
 
+        public void Quit()
+        {
+            Exit();
+        }
+
         public void setResolution(int xValue, int yValue)
         {
 
@@ -224,6 +246,7 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.borders = borders;
             CommonFunctions.aspectRatioMultiplierX = borders.Right / 650f;
             CommonFunctions.aspectRatioMultiplierY = borders.Bottom / 650f;
+            graphics.ApplyChanges();
 
         }
 
