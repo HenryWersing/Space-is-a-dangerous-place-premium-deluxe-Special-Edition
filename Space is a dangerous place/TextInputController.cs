@@ -18,7 +18,20 @@ namespace Space_is_a_dangerous_place
 
         string inputPromt = "";
 
-        string InputString { get; set; }//TODO: nur 10 zeichen lang
+        string inputString = "";
+        string InputString
+        {
+            get
+            {
+                return inputString;
+            }
+            set
+            {
+                if (value.Length <= 10)
+                    inputString = value;
+            }
+        }
+
         int msToAdd = 140;
 
         MenuController menuController;
@@ -44,7 +57,7 @@ namespace Space_is_a_dangerous_place
 
             if (!Input.IsKeyDown(lastClickedKey) || DateTime.Now > nextButtonTime)
             {
-
+                //TODO: verschönern?
                 #region abomination
                 if (Input.IsKeyDown(Keys.A))
                 {

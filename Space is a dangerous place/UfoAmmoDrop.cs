@@ -21,8 +21,13 @@ namespace Space_is_a_dangerous_place
         {
 
             if (collidingObject is Spaceship)
-                CommonFunctions.currentSpaceship.ammunition += 3 * CommonFunctions.currentSpaceship.ammunitionMultiplier;
-
+            {
+                if(collidingObject is Titan)
+                    CommonFunctions.currentSpaceship.ammunition += 2 * CommonFunctions.currentSpaceship.ammunitionMultiplier;
+                else
+                    CommonFunctions.currentSpaceship.ammunition += 3 * CommonFunctions.currentSpaceship.ammunitionMultiplier;
+            }
+                
             if (collidingObject is Bullet)
             {
                 CommonFunctions.currentSpaceship.ammunition += 2 * CommonFunctions.currentSpaceship.ammunitionMultiplier;

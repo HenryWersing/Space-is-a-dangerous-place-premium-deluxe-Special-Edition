@@ -21,10 +21,10 @@ namespace Space_is_a_dangerous_place
         {
 
             if (collidingObject is Spaceship)
-                CommonFunctions.currentSpaceship.score += 4 * CommonFunctions.currentSpaceship.scoreMultiplier;
+                CommonFunctions.currentSpaceship.score += 2 * CommonFunctions.currentSpaceship.scoreMultiplier;
 
             if (collidingObject is Bullet)
-                CommonFunctions.currentSpaceship.score += 3 * CommonFunctions.currentSpaceship.scoreMultiplier;
+                CommonFunctions.currentSpaceship.score += 4 * CommonFunctions.currentSpaceship.scoreMultiplier;
 
             base.Destroy(collidingObject);
 

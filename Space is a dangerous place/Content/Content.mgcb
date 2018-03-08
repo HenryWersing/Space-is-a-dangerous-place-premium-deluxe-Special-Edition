@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:ActiveButtonContinue.png
 
+#begin ActiveButtonHighscores.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ActiveButtonHighscores.png
+
 #begin ActiveButtonNormal.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -456,6 +468,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:PassiveButtonContinue.png
+
+#begin PassiveButtonHighscores.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PassiveButtonHighscores.png
 
 #begin PassiveButtonNormal.png
 /importer:TextureImporter

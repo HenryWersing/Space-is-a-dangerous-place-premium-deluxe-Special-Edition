@@ -29,7 +29,7 @@ namespace Space_is_a_dangerous_place
             }
             if (collidingObject is Bullet)
             {
-                CommonFunctions.currentSpaceship.ammunition += 1 * CommonFunctions.currentSpaceship.ammunitionMultiplier;
+                CommonFunctions.currentSpaceship.ammunition += 2 * CommonFunctions.currentSpaceship.ammunitionMultiplier;
                 CommonFunctions.currentSpaceship.ShootTripleShot(this);
             }
 

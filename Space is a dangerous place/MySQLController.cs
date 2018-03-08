@@ -19,6 +19,7 @@ namespace Space_is_a_dangerous_place
 
         string row;
         public List<string> tableContent = new List<string>();
+        public Dictionary<string, int> highscores = new Dictionary<string, int>();
 
 
         public MySQLController()
@@ -28,11 +29,13 @@ namespace Space_is_a_dangerous_place
             
         }
 
-        public void ReadTable(string tableName)
+        public void ReadTable(string tableName, string order)
         {
 
+            tableContent.Clear();
+
             command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM " + tableName;
+            command.CommandText = "SELECT * FROM " + tableName + " ORDER BY score " + order;
             connection.Open();
             reader = command.ExecuteReader();
 
@@ -61,6 +64,39 @@ namespace Space_is_a_dangerous_place
             command.ExecuteNonQuery();
             connection.Close();
 
+        }
+
+        public void formatHighscores()
+        {
+            highscores.Clear();
+            char divider = ' ';
+            string[] helperArray;
+            List<string> dividedStrings = new List<string>();
+            List<string> stringHelperList = new List<string>();
+            List<int> intHelperList = new List<int>();
+
+            ReadTable("highscores", "DESC");
+
+            for (int i = 0; i < tableContent.Count; i++)
+            {
+                helperArray = tableContent[i].Split(divider);
+                for (int ii = 0; ii < helperArray.Length - 1; ii++)
+                {
+                    helperArray[ii] = helperArray[ii].Remove(helperArray[ii].Length - 1);
+                    dividedStrings.Add(helperArray[ii]);
+                }
+            }
+
+            for (int i = 0; i < dividedStrings.Count; i++)
+            {
+                if (i % 2 == 0)
+                    stringHelperList.Add(dividedStrings[i]);
+                else
+                    intHelperList.Add(Convert.ToInt32(dividedStrings[i]));
+            }
+
+            for (int i = 0; i < stringHelperList.Count; i++)
+                highscores.Add(stringHelperList[i], intHelperList[i]);
         }
     }
 }

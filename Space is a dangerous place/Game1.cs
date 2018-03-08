@@ -93,6 +93,7 @@ namespace Space_is_a_dangerous_place
             Texture2D ActiveButton800x800 = Content.Load<Texture2D>("ActiveButton800x800");
             Texture2D ActiveButton950x950 = Content.Load<Texture2D>("ActiveButton950x950");
             Texture2D ActiveButtonSubmitScore = Content.Load<Texture2D>("ActiveButtonSubmitScore");
+            Texture2D ActiveButtonHighscores = Content.Load<Texture2D>("ActiveButtonHighscores");
             Texture2D PassiveButtonContinue = Content.Load<Texture2D>("PassiveButtonContinue");
             Texture2D PassiveButtonBackToMenu = Content.Load<Texture2D>("PassiveButtonBackToMenu");
             Texture2D PassiveButtonTitan = Content.Load<Texture2D>("PassiveButtonTitan");
@@ -111,6 +112,7 @@ namespace Space_is_a_dangerous_place
             Texture2D PassiveButton800x800 = Content.Load<Texture2D>("PassiveButton800x800");
             Texture2D PassiveButton950x950 = Content.Load<Texture2D>("PassiveButton950x950");
             Texture2D PassiveButtonSubmitScore = Content.Load<Texture2D>("PassiveButtonSubmitScore");
+            Texture2D PassiveButtonHighscores = Content.Load<Texture2D>("PassiveButtonHighscores");
 
             CommonFunctions.ActiveButtonContinue = ActiveButtonContinue;
             CommonFunctions.ActiveButonBackToMenu = ActiveButtonBackToMenu;
@@ -130,6 +132,7 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.ActiveButton800x800 = ActiveButton800x800;
             CommonFunctions.ActiveButton950x950 = ActiveButton950x950;
             CommonFunctions.ActiveButtonSubmitScore = ActiveButtonSubmitScore;
+            CommonFunctions.ActiveButtonHighscores = ActiveButtonHighscores;
             CommonFunctions.PassiveButtonContinue = PassiveButtonContinue;
             CommonFunctions.PassiveButtonBackToMenu = PassiveButtonBackToMenu;
             CommonFunctions.PassiveButtonStart = PassiveButtonStart;
@@ -148,6 +151,7 @@ namespace Space_is_a_dangerous_place
             CommonFunctions.PassiveButton800x800 = PassiveButton800x800;
             CommonFunctions.PassiveButton950x950 = PassiveButton950x950;
             CommonFunctions.PassiveButtonSubmitScore = PassiveButtonSubmitScore;
+            CommonFunctions.PassiveButtonHighscores = PassiveButtonHighscores;
             #endregion
 
             CommonFunctions.font = font;
