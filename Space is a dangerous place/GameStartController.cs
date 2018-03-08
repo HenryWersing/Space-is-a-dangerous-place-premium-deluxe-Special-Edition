@@ -20,7 +20,8 @@ namespace Space_is_a_dangerous_place
         private Game1 game;
 
         public bool gameStarted = false;
-        public bool scoreSubmitted = true;
+        public bool scoreSubmitted = false;
+        public bool scoreSubmittingAllowed = false;
         
         public int menuPage = 0; //0->Startseite, 1->Schiff, 2->Difficulty, 3->Tutorialscreen, 4->Options, 5->resolution, 6->highscoreliste
         private int shipChoiceSaver; //0->Spaceship, 1->Titan
@@ -207,9 +208,11 @@ namespace Space_is_a_dangerous_place
                                 Properties.Settings.Default.Save();
                                 break;
                             case 1:
-                                if (!scoreSubmitted)
+                                if (scoreSubmittingAllowed)
                                 {
                                     mySQLContr.insertHighscore(Properties.Settings.Default.Name, Properties.Settings.Default.Highscore);
+                                    //TODO: wenn schon in highscoreliste, vorherigen eintrag löschen. nur erlauben, wenn größer als gesamtscore?
+                                    scoreSubmittingAllowed = false;
                                     scoreSubmitted = true;
                                 }
                                 break;
@@ -219,6 +222,7 @@ namespace Space_is_a_dangerous_place
                                 break;
                             case 3:
                                 menuPage = 0;
+                                scoreSubmitted = false;
                                 break;
                             /*
                         case 2:
@@ -321,7 +325,7 @@ namespace Space_is_a_dangerous_place
 
                 spriteBatch.DrawString(font, "Highscore: " + Properties.Settings.Default.Highscore, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
 
-                if (!scoreSubmitted)
+                if (scoreSubmitted)
                     spriteBatch.DrawString(font, "Highscore submitted! View GLOBAL highscores in the main menu.", new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 26 * CommonFunctions.aspectRatioMultiplierY), Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
 
                 meContr.DrawMenu(spriteBatch);

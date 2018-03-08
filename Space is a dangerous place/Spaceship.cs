@@ -200,7 +200,7 @@ namespace Space_is_a_dangerous_place
             {
                 Properties.Settings.Default.Highscore = Convert.ToInt32(score);
                 Properties.Settings.Default.Save();
-                CommonFunctions.currentGameStartController.scoreSubmitted = false;
+                CommonFunctions.currentGameStartController.scoreSubmittingAllowed = true;
             }
             score = startingScore;
             diedBefore = true;
