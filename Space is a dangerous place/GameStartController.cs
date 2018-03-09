@@ -210,10 +210,13 @@ namespace Space_is_a_dangerous_place
                             case 1:
                                 if (scoreSubmittingAllowed)
                                 {
-                                    mySQLContr.insertHighscore(Properties.Settings.Default.Name, Properties.Settings.Default.Highscore);
-                                    //TODO: wenn schon in highscoreliste, vorherigen eintrag löschen. nur erlauben, wenn größer als gesamtscore?
+                                    if (mySQLContr.isScoreHigher(Properties.Settings.Default.Name))
+                                    {
+                                        mySQLContr.deleteHighscore(Properties.Settings.Default.Name);
+                                        mySQLContr.insertHighscore(Properties.Settings.Default.Name, Properties.Settings.Default.Highscore);
+                                        scoreSubmitted = true;
+                                    }
                                     scoreSubmittingAllowed = false;
-                                    scoreSubmitted = true;
                                 }
                                 break;
                             case 2:

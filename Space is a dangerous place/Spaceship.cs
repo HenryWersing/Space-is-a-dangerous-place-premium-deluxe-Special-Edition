@@ -30,7 +30,8 @@ namespace Space_is_a_dangerous_place
 
         public float ammunition;
         public float score;
-        public float previousScore;
+        private float previousScore;
+        private float previousHighscore;
 
         public bool diedBefore = false;
 
@@ -198,6 +199,7 @@ namespace Space_is_a_dangerous_place
             previousScore = score;
             if (score > Properties.Settings.Default.Highscore)
             {
+                previousHighscore = Properties.Settings.Default.Highscore;
                 Properties.Settings.Default.Highscore = Convert.ToInt32(score);
                 Properties.Settings.Default.Save();
                 CommonFunctions.currentGameStartController.scoreSubmittingAllowed = true;
@@ -206,7 +208,7 @@ namespace Space_is_a_dangerous_place
             diedBefore = true;
 
         }
-        //TODO: !!!Balancing!!!
+
         public virtual void InputChecking()
         {
             
@@ -311,7 +313,7 @@ namespace Space_is_a_dangerous_place
                     spriteBatch.DrawString(font, "Raise your score as high as possible!", new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                 else
                 {
-                    if (Convert.ToInt16(previousScore) - 1 >= Properties.Settings.Default.Highscore)
+                    if (Convert.ToInt16(previousScore) - 1 >= previousHighscore)
                         spriteBatch.DrawString(font, "You died! Reached score: " + previousScore + ". New Highscore!", new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);
                     else
                         spriteBatch.DrawString(font, "You died! Reached score: " + previousScore, new Vector2(3 * CommonFunctions.aspectRatioMultiplierX, 3 * CommonFunctions.aspectRatioMultiplierY), Microsoft.Xna.Framework.Color.White, 0, new Vector2(0, 0), 0.7f * CommonFunctions.aspectRatioMultiplierY, 0, 0);

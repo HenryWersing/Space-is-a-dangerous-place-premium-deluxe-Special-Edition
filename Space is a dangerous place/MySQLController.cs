@@ -15,7 +15,7 @@ namespace Space_is_a_dangerous_place
         MySqlConnection connection;
         MySqlCommand command;
         MySqlDataReader reader;
-        string insertQuery;
+        string query;
 
         string row;
         public List<string> tableContent = new List<string>();
@@ -56,14 +56,44 @@ namespace Space_is_a_dangerous_place
         public void insertHighscore(string name, int score)
         {
 
-            insertQuery = "INSERT INTO highscores (name, score) Values('" + name + "', " + score + ")";
-            command = new MySqlCommand(insertQuery);
+            query = "INSERT INTO highscores (name, score) Values('" + name + "', " + score + ")";
+            command = new MySqlCommand(query);
             command.Connection = connection;
 
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
 
+        }
+
+        public void deleteHighscore(string name)
+        {
+            query = "DELETE FROM highscores WHERE name = '" + name + "';";
+            command = new MySqlCommand(query);
+            command.Connection = connection;
+
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public bool isScoreHigher(string name)
+        {
+            int score;
+
+            query = "SELECT `score` FROM highscores WHERE name = '" + name + "';";
+            command = new MySqlCommand(query);
+            command.Connection = connection;
+            
+            connection.Open();
+            reader = command.ExecuteReader();
+
+            reader.Read();
+            score = Convert.ToInt16(reader.GetValue(0));
+                
+            connection.Close();
+
+            return Properties.Settings.Default.Highscore > score;
         }
 
         public void formatHighscores()
