@@ -98,7 +98,7 @@ namespace Space_is_a_dangerous_place
             if (generalDirection == 2)
                 MoveRight();
 
-            direction *= Speed* CommonFunctions.generalGameSpeed;
+            direction *= Speed * CommonFunctions.generalGameSpeed;
             position += direction;
             PositionForRectangle = position;
 
