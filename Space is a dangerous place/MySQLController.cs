@@ -79,7 +79,7 @@ namespace Space_is_a_dangerous_place
 
         public bool isScoreHigher(string name)
         {
-            int score;
+            int score = 0;
 
             query = "SELECT `score` FROM highscores WHERE name = '" + name + "';";
             command = new MySqlCommand(query);
@@ -89,7 +89,8 @@ namespace Space_is_a_dangerous_place
             reader = command.ExecuteReader();
 
             reader.Read();
-            score = Convert.ToInt16(reader.GetValue(0));
+            if(reader.HasRows)
+                score = Convert.ToInt16(reader.GetValue(0));
                 
             connection.Close();
 
